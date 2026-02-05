@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'splash_screen/splash_screen.dart';
-import 'screens/start_screen.dart';
+import 'screens/sign_in.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const SplashScreen(),
-        '/start': (context) => const StartScreen(),
+        '/signIn': (context) => const SignInPage(),
       },
     );
   }

@@ -59,17 +59,17 @@ class _SplashScreenState extends State<SplashScreen>
     await _fadeController.forward();
 
     // Tunggu sebentar
-    await Future.delayed(const Duration(milliseconds: 300));
+    await Future.delayed(const Duration(milliseconds: 800));
 
     // Mulai slide up dan text fade in
     await _slideController.forward();
 
     // Tunggu sebentar sebelum navigasi
-    await Future.delayed(const Duration(milliseconds: 800));
+    await Future.delayed(const Duration(milliseconds: 2800));
 
     // Navigasi ke start screen
     if (mounted) {
-      Navigator.pushReplacementNamed(context, '/start');
+      Navigator.pushReplacementNamed(context, '/signIn');
     }
   }
 
@@ -106,8 +106,8 @@ class _SplashScreenState extends State<SplashScreen>
                   position: _slideAnimation,
                   child: Image.asset(
                     'assets/images/logo_mascot.png',
-                    width: 120,
-                    height: 120,
+                    width: 150,
+                    height: 150,
                   ),
                 ),
               ),
@@ -115,11 +115,11 @@ class _SplashScreenState extends State<SplashScreen>
               // Text logo dengan animasi fade in
               FadeTransition(
                 opacity: _textFadeAnimation,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 16),
+                child: Transform.translate(
+                  offset: const Offset(0, -50), // agar logo lebih berdekatan
                   child: Image.asset(
                     'assets/images/logo_name.png',
-                    width: 200,
+                    width: 320,
                   ),
                 ),
               ),
