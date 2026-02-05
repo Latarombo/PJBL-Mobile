@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'screens/start_screen.dart'; // import start_screen dari folder screens
+import 'splash_screen/splash_screen.dart';
+import 'screens/start_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +14,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'SantaraNa',
-      home: const StartScreen(), // halaman pertama
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const SplashScreen(),
+        '/start': (context) => const StartScreen(),
+      },
     );
   }
 }
