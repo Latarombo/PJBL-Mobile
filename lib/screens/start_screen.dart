@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../menu_screen.dart';
+import 'login.dart';
 
 class StartScreen extends StatelessWidget {
   const StartScreen({super.key});
@@ -66,7 +66,7 @@ class StartScreen extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const MenuScreen(),
+                              builder: (context) => const SignInPage(),
                             ),
                           );
                         },

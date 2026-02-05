@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screens/start_screen.dart'; // import menu_screen dari folder screens
+import 'screens/start_screen.dart'; // import start_screen dari folder screens
 
 void main() {
   runApp(const MyApp());
