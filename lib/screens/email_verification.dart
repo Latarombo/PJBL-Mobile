@@ -3,11 +3,8 @@ import 'package:flutter/services.dart';
 
 class EmailVerificationPage extends StatefulWidget {
   final String email;
-  
-  const EmailVerificationPage({
-    super.key,
-    this.email = 'Lylya8@gmail.com',
-  });
+
+  const EmailVerificationPage({super.key, this.email = 'Lylya8@gmail.com'});
 
   @override
   State<EmailVerificationPage> createState() => _EmailVerificationPageState();
@@ -19,12 +16,9 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
     4,
     (index) => TextEditingController(),
   );
-  
+
   // Focus nodes untuk pindah antar input
-  final List<FocusNode> _focusNodes = List.generate(
-    4,
-    (index) => FocusNode(),
-  );
+  final List<FocusNode> _focusNodes = List.generate(4, (index) => FocusNode());
 
   @override
   void dispose() {
@@ -171,7 +165,9 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
                                   height: 1.5,
                                 ),
                                 children: [
-                                  TextSpan(text: 'verifikasi kode terkirim ke: '),
+                                  TextSpan(
+                                    text: 'verifikasi kode terkirim ke: ',
+                                  ),
                                   TextSpan(
                                     text: widget.email,
                                     style: TextStyle(
@@ -205,16 +201,18 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
                                   String otpCode = _controllers
                                       .map((controller) => controller.text)
                                       .join();
-                                  
+
                                   if (otpCode.length == 4) {
                                     // Handle verification
-                                    print('OTP Code: $otpCode');
+                                    debugPrint('OTP Code: $otpCode');
                                     // Navigator.push(context, MaterialPageRoute(builder: (context) => ResetPasswordPage()));
                                   } else {
                                     // Show error
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
-                                        content: Text('Masukkan kode verifikasi lengkap'),
+                                        content: Text(
+                                          'Masukkan kode verifikasi lengkap',
+                                        ),
                                         backgroundColor: Colors.red,
                                       ),
                                     );
@@ -261,10 +259,7 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: Colors.grey[300]!,
-          width: 1.5,
-        ),
+        border: Border.all(color: Colors.grey[300]!, width: 1.5),
       ),
       child: TextField(
         controller: _controllers[index],
