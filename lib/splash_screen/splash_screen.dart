@@ -116,10 +116,10 @@ class _SplashScreenState extends State<SplashScreen>
               FadeTransition(
                 opacity: _textFadeAnimation,
                 child: Transform.translate(
-                  offset: const Offset(0, -50), // agar logo lebih berdekatan
+                  offset: const Offset(0, -60), // agar logo lebih berdekatan
                   child: Image.asset(
                     'assets/images/logo_name.png',
-                    width: 320,
+                    width: 280,
                   ),
                 ),
               ),

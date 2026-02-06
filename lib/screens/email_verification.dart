@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'password_recovery_success.dart';
 
 class EmailVerificationPage extends StatefulWidget {
   final String email;
@@ -203,9 +204,17 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
                                       .join();
 
                                   if (otpCode.length == 4) {
-                                    // Handle verification
+                                    // Handle verification - Navigate to success page
                                     debugPrint('OTP Code: $otpCode');
-                                    // Navigator.push(context, MaterialPageRoute(builder: (context) => ResetPasswordPage()));
+
+                                    // Navigate ke halaman sukses
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const PasswordRecoverySuccessPage(),
+                                      ),
+                                    );
                                   } else {
                                     // Show error
                                     ScaffoldMessenger.of(context).showSnackBar(
