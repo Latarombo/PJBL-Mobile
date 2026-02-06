@@ -49,12 +49,12 @@ class SignInPage extends StatelessWidget {
                           IconButton(
                             icon: Icon(Icons.arrow_back, color: Colors.white),
                             onPressed: () {
-                              Navigator.pop(context);
+                              Navigator.pop(context); //kembali ke halaman sebelumnya
                             },
                           ),
                           TextButton(
                             onPressed: () {
-                              // Navigate to register page
+                              Navigator.pushNamed(context, '/register');
                             },
                             child: Text(
                               'Register',
@@ -69,7 +69,7 @@ class SignInPage extends StatelessWidget {
                       ),
                     ),
                     // Flexible space - adjusts based on available height
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.12),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.06),
                     // Sign In Form - This will overlap the background
                     Container(
                       decoration: BoxDecoration(
@@ -179,11 +179,11 @@ class SignInPage extends StatelessWidget {
                               child: ElevatedButton(
                                 onPressed: () {
                                   Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const ProfilePage(),
-                            ),
-                          );
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const ProfilePage(),
+                                    ),
+                                  );
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Color(0xFF1A2332),
