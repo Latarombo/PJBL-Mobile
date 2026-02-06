@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'profile_screen.dart';
+import 'forgot_password.dart';
 
 class SignInPage extends StatelessWidget {
   const SignInPage({super.key});
@@ -154,7 +155,12 @@ class SignInPage extends StatelessWidget {
                               alignment: Alignment.centerRight,
                               child: TextButton(
                                 onPressed: () {
-                                  // Handle forgot password
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const ForgotPasswordPage(),
+                                    ),
+                                  );
                                 },
                                 child: Text(
                                   'lupa password?*',
