@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'profile_screen.dart';
 
 class SignInPage extends StatelessWidget {
   const SignInPage({super.key});
@@ -171,7 +172,12 @@ class SignInPage extends StatelessWidget {
                               height: 56,
                               child: ElevatedButton(
                                 onPressed: () {
-                                  // Handle sign in
+                                  Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ProfilePage(),
+                            ),
+                          );
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Color(0xFF1A2332),
