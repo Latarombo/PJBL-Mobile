@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+// import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -9,8 +9,8 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  int _page = 3; // Default ke halaman profile (index 3)
-  final GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
+  // int _page = 3; // Default ke halaman profile (index 3)
+  // final GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -352,44 +352,9 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ],
       ),
-
-      // Bottom Navigation Bar dengan Curved Navigation
-      bottomNavigationBar: CurvedNavigationBar(
-        key: _bottomNavigationKey,
-        index: _page,
-        height: 60.0,
-        items: <Widget>[
-          Icon(Icons.home_rounded, size: 28, color: Color(0xFF8B5A3C)),
-          Icon(Icons.gamepad_rounded, size: 28, color: Color(0xFF8B5A3C)),
-          Icon(Icons.settings_rounded, size: 28, color: Color(0xFF8B5A3C)),
-          Icon(Icons.person_rounded, size: 28, color: Color(0xFF8B5A3C)),
-        ],
-        color: Color(0xFFFFDDB3),
-        buttonBackgroundColor: Color(0xFFE8B88A),
-        backgroundColor: Colors.transparent,
-        animationCurve: Curves.easeInOut,
-        animationDuration: Duration(milliseconds: 400),
-        onTap: (index) {
-          setState(() {
-            _page = index;
-            print('Page: $_page'); // ini tidak berfungsi
-          });
-
-          // Navigate berdasarkan index
-          // if (index == 0) {
-          //   Navigator.pushNamed(context, '/home');
-          // } else if (index == 1) {
-          //   Navigator.pushNamed(context, '/rewards');
-          // } else if (index == 2) {
-          //   Navigator.pushNamed(context, '/settings');
-          // }
-          // index 3 adalah halaman profile (current page)
-        },
-        letIndexChange: (index) => true,
-      ),
     );
   }
-
+//batas
   Widget _buildStatItem({
     required IconData icon,
     required String label,

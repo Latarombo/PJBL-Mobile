@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'profile_screen.dart';
+import '../../app/app_routes.dart';
 import 'forgot_password.dart';
 
 class SignInPage extends StatefulWidget {
@@ -82,13 +82,11 @@ class _SignInPageState extends State<SignInPage> {
     // Navigate ke profile page setelah delay singkat
     // Future.delayed(Duration(milliseconds: 500), () {
       if (mounted) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const ProfilePage(),
-          ),
-        );
-      }
+  Navigator.pushReplacementNamed(
+    context,
+    AppRoutes.app,
+  );
+}
     // });
   }
 

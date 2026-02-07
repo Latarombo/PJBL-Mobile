@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import '../../app/app_routes.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -10,67 +11,56 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
-  late AnimationController _fadeController;
-  late AnimationController _slideController;
-  late Animation<double> _fadeAnimation;
-  late Animation<Offset> _slideAnimation;
-  late Animation<double> _textFadeAnimation;
+  late final AnimationController _fadeController;
+  late final AnimationController _slideController;
+
+  late final Animation<double> _fadeAnimation;
+  late final Animation<Offset> _slideAnimation;
+  late final Animation<double> _textFadeAnimation;
 
   @override
   void initState() {
     super.initState();
+    _initAnimations();
+    _startFlow();
+  }
 
-    // Controller untuk fade in logo
+  void _initAnimations() {
     _fadeController = AnimationController(
       duration: const Duration(milliseconds: 800),
       vsync: this,
     );
 
-    // Controller untuk slide up dan text fade in
     _slideController = AnimationController(
       duration: const Duration(milliseconds: 600),
       vsync: this,
     );
 
-    // Animasi fade in untuk logo
-    _fadeAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(parent: _fadeController, curve: Curves.easeIn));
+    _fadeAnimation = CurvedAnimation(
+      parent: _fadeController,
+      curve: Curves.easeIn,
+    );
 
-    // Animasi slide up untuk logo
     _slideAnimation = Tween<Offset>(
       begin: Offset.zero,
-      end: const Offset(0, -0.15), // Geser ke atas sedikit
+      end: const Offset(0, -0.15),
     ).animate(CurvedAnimation(parent: _slideController, curve: Curves.easeOut));
 
-    // Animasi fade in untuk text
-    _textFadeAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(parent: _slideController, curve: Curves.easeIn));
-
-    // Jalankan animasi
-    _startAnimations();
+    _textFadeAnimation = CurvedAnimation(
+      parent: _slideController,
+      curve: Curves.easeIn,
+    );
   }
 
-  void _startAnimations() async {
-    // Mulai fade in logo
+  Future<void> _startFlow() async {
     await _fadeController.forward();
-
-    // Tunggu sebentar
     await Future.delayed(const Duration(milliseconds: 800));
-
-    // Mulai slide up dan text fade in
     await _slideController.forward();
-
-    // Tunggu sebentar sebelum navigasi
     await Future.delayed(const Duration(milliseconds: 2800));
 
-    // Navigasi ke start screen
-    if (mounted) {
-      Navigator.pushReplacementNamed(context, '/signIn');
-    }
+    if (!mounted) return;
+
+    Navigator.pushReplacementNamed(context, AppRoutes.signIn);
   }
 
   @override
@@ -83,23 +73,18 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
+      body: DecoratedBox(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [
-              const Color(0xFFB85C52), // Warna merah dari gambar
-              const Color(0xFFD4896B), // Warna transisi
-              const Color(0xFFE4A67C), // Warna cream/orange
-            ],
+            colors: [Color(0xFFB85C52), Color(0xFFD4896B), Color(0xFFE4A67C)],
           ),
         ),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Logo dengan animasi fade in dan slide up
               FadeTransition(
                 opacity: _fadeAnimation,
                 child: SlideTransition(
@@ -111,16 +96,11 @@ class _SplashScreenState extends State<SplashScreen>
                   ),
                 ),
               ),
-
-              // Text logo dengan animasi fade in
               FadeTransition(
                 opacity: _textFadeAnimation,
                 child: Transform.translate(
-                  offset: const Offset(0, -60), // agar logo lebih berdekatan
-                  child: Image.asset(
-                    'assets/images/logo_name.png',
-                    width: 280,
-                  ),
+                  offset: const Offset(0, -60),
+                  child: Image.asset('assets/images/logo_name.png', width: 280),
                 ),
               ),
             ],

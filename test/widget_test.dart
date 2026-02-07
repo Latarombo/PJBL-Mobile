@@ -8,7 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:santarana/main.dart';
+import 'package:santarana/app/app.dart'; //ini telah di edit dari main.dart ke app/app.dart
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {

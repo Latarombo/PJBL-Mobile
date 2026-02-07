@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'profile_screen.dart';
+import '../profile/profile_page.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
