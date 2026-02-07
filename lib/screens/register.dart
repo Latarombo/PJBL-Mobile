@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'profile_screen.dart';
-import 'forgot_password.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
