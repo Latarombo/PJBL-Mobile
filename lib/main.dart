@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'splash_screen/splash_screen.dart';
-import 'screens/sign_in.dart';
-import 'screens/register.dart';
+import 'theme/app_theme.dart';
+import 'router/app_router.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,13 +14,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'SantaraNa',
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const SplashScreen(),
-        '/signIn': (context) => const SignInPage(),
-        '/register': (context) => const RegisterPage(),
-
-      },
+      theme: AppTheme.lightTheme, // <-- pakai theme global
+      initialRoute: AppRouter.initialRoute,
+      routes: AppRouter.routes,
     );
   }
 }

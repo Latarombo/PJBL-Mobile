@@ -2,8 +2,141 @@ import 'package:flutter/material.dart';
 import 'profile_screen.dart';
 import 'forgot_password.dart';
 
-class SignInPage extends StatelessWidget {
+class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
+
+  @override
+  State<SignInPage> createState() => _SignInPageState();
+}
+
+class _SignInPageState extends State<SignInPage> {
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  bool _obscurePassword = true;
+
+  @override
+  void dispose() {
+    usernameController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  void _handleSignIn() {
+    // Validasi input kosong
+    if (usernameController.text.isEmpty || passwordController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Username dan password tidak boleh kosong'),
+          backgroundColor: Colors.red,
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+      );
+      return;
+    }
+
+    // Validasi panjang username
+    if (usernameController.text.length < 3) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Username minimal 3 karakter'),
+          backgroundColor: Colors.orange,
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+      );
+      return;
+    }
+
+    // Validasi panjang password
+    if (passwordController.text.length < 6) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Password minimal 6 karakter'),
+          backgroundColor: Colors.orange,
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+      );
+      return;
+    }
+
+    // Jika validasi berhasil
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Login berhasil! Selamat datang ${usernameController.text}'),
+        backgroundColor: Colors.green,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+    );
+
+    // Navigate ke profile page setelah delay singkat
+    // Future.delayed(Duration(milliseconds: 500), () {
+      if (mounted) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const ProfilePage(),
+          ),
+        );
+      }
+    // });
+  }
+
+  void _handleGoogleSignIn() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            Image.asset(
+              'assets/images/icon_google.png',
+              height: 20,
+              width: 20,
+            ),
+            SizedBox(width: 12),
+            Text('Login dengan Google sedang diproses...'),
+          ],
+        ),
+        backgroundColor: Color(0xFF4285F4),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+    );
+  }
+
+  void _handleFacebookSignIn() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            Image.asset(
+              'assets/images/icon_facebook.png',
+              height: 20,
+              width: 20,
+            ),
+            SizedBox(width: 12),
+            Text('Login dengan Facebook sedang diproses...'),
+          ],
+        ),
+        backgroundColor: Color(0xFF1877F2),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +182,7 @@ class SignInPage extends StatelessWidget {
                           IconButton(
                             icon: Icon(Icons.arrow_back, color: Colors.white),
                             onPressed: () {
-                              Navigator.pop(context); //kembali ke halaman sebelumnya
+                              Navigator.pop(context);
                             },
                           ),
                           TextButton(
@@ -112,6 +245,7 @@ class SignInPage extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(30),
                               ),
                               child: TextField(
+                                controller: usernameController,
                                 decoration: InputDecoration(
                                   hintText: 'Username',
                                   hintStyle: TextStyle(
@@ -124,6 +258,7 @@ class SignInPage extends StatelessWidget {
                                     vertical: 18,
                                   ),
                                 ),
+                                onSubmitted: (_) => _handleSignIn(),
                               ),
                             ),
                             SizedBox(height: 16),
@@ -134,7 +269,8 @@ class SignInPage extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(30),
                               ),
                               child: TextField(
-                                obscureText: true,
+                                controller: passwordController,
+                                obscureText: _obscurePassword,
                                 decoration: InputDecoration(
                                   hintText: 'Password',
                                   hintStyle: TextStyle(
@@ -146,7 +282,21 @@ class SignInPage extends StatelessWidget {
                                     horizontal: 24,
                                     vertical: 18,
                                   ),
+                                  suffixIcon: IconButton(
+                                    icon: Icon(
+                                      _obscurePassword
+                                          ? Icons.visibility_off
+                                          : Icons.visibility,
+                                      color: Colors.grey[600],
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        _obscurePassword = !_obscurePassword;
+                                      });
+                                    },
+                                  ),
                                 ),
+                                onSubmitted: (_) => _handleSignIn(),
                               ),
                             ),
                             SizedBox(height: 8),
@@ -158,7 +308,8 @@ class SignInPage extends StatelessWidget {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => const ForgotPasswordPage(),
+                                      builder: (context) =>
+                                          const ForgotPasswordPage(),
                                     ),
                                   );
                                 },
@@ -177,14 +328,7 @@ class SignInPage extends StatelessWidget {
                               width: double.infinity,
                               height: 56,
                               child: ElevatedButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const ProfilePage(),
-                                    ),
-                                  );
-                                },
+                                onPressed: _handleSignIn,
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Color(0xFF1A2332),
                                   shape: RoundedRectangleBorder(
@@ -208,9 +352,7 @@ class SignInPage extends StatelessWidget {
                               width: double.infinity,
                               height: 56,
                               child: OutlinedButton(
-                                onPressed: () {
-                                  // Handle Google sign in
-                                },
+                                onPressed: _handleGoogleSignIn,
                                 style: OutlinedButton.styleFrom(
                                   side: BorderSide(color: Colors.grey[300]!),
                                   shape: RoundedRectangleBorder(
@@ -249,9 +391,7 @@ class SignInPage extends StatelessWidget {
                               width: double.infinity,
                               height: 56,
                               child: OutlinedButton(
-                                onPressed: () {
-                                  // Handle Facebook sign in
-                                },
+                                onPressed: _handleFacebookSignIn,
                                 style: OutlinedButton.styleFrom(
                                   side: BorderSide(color: Colors.grey[300]!),
                                   shape: RoundedRectangleBorder(
@@ -284,7 +424,7 @@ class SignInPage extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            SizedBox(height: 32),
+                            SizedBox(height: 45), // Bottom Spacing
                           ],
                         ),
                       ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'profile_screen.dart';
+import 'forgot_password.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -11,7 +13,11 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
+
+  bool _obscurePassword = true;
+  bool _obscureConfirmPassword = true;
 
   @override
   void dispose() {
@@ -20,6 +26,151 @@ class _RegisterPageState extends State<RegisterPage> {
     passwordController.dispose();
     confirmPasswordController.dispose();
     super.dispose();
+  }
+
+  bool _isValidEmail(String email) {
+    // Regex untuk validasi email
+    return RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email);
+  }
+
+  void _handleRegister() {
+    // Validasi semua field kosong
+    if (emailController.text.isEmpty ||
+        usernameController.text.isEmpty ||
+        passwordController.text.isEmpty ||
+        confirmPasswordController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Lengkapi semua field'),
+          backgroundColor: Colors.red,
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+      );
+      return;
+    }
+
+    // Validasi format email
+    if (!_isValidEmail(emailController.text)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Format email tidak valid'),
+          backgroundColor: Colors.orange,
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+      );
+      return;
+    }
+
+    // Validasi panjang username
+    if (usernameController.text.length < 3) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Username minimal 3 karakter'),
+          backgroundColor: Colors.orange,
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+      );
+      return;
+    }
+
+    // Validasi panjang password
+    if (passwordController.text.length < 6) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Password minimal 6 karakter'),
+          backgroundColor: Colors.orange,
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+      );
+      return;
+    }
+
+    // Validasi password sama
+    if (passwordController.text != confirmPasswordController.text) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Password tidak sama'),
+          backgroundColor: Colors.red,
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+      );
+      return;
+    }
+
+    // Jika semua validasi berhasil
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          'Registrasi berhasil! Selamat datang ${usernameController.text}',
+        ),
+        backgroundColor: Colors.green,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      ),
+    );
+
+    // Navigate ke sign in page setelah delay
+    // Future.delayed(Duration(milliseconds: 1500), () {
+    if (mounted) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const ProfilePage()),
+      );
+    }
+    // });
+  }
+
+  void _handleGoogleSignIn() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            Image.asset('assets/images/icon_google.png', height: 20, width: 20),
+            SizedBox(width: 12),
+            Text('Daftar dengan Google sedang diproses...'),
+          ],
+        ),
+        backgroundColor: Color(0xFF4285F4),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      ),
+    );
+  }
+
+  void _handleFacebookSignIn() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            Image.asset(
+              'assets/images/icon_facebook.png',
+              height: 20,
+              width: 20,
+            ),
+            SizedBox(width: 12),
+            Text('Daftar dengan Facebook sedang diproses...'),
+          ],
+        ),
+        backgroundColor: Color(0xFF1877F2),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      ),
+    );
   }
 
   @override
@@ -50,7 +201,8 @@ class _RegisterPageState extends State<RegisterPage> {
             child: SingleChildScrollView(
               child: ConstrainedBox(
                 constraints: BoxConstraints(
-                  minHeight: MediaQuery.of(context).size.height -
+                  minHeight:
+                      MediaQuery.of(context).size.height -
                       MediaQuery.of(context).padding.top -
                       MediaQuery.of(context).padding.bottom,
                 ),
@@ -140,6 +292,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     vertical: 18,
                                   ),
                                 ),
+                                onSubmitted: (_) => _handleRegister(),
                               ),
                             ),
                             SizedBox(height: 16),
@@ -164,6 +317,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     vertical: 18,
                                   ),
                                 ),
+                                onSubmitted: (_) => _handleRegister(),
                               ),
                             ),
                             SizedBox(height: 16),
@@ -176,7 +330,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               ),
                               child: TextField(
                                 controller: passwordController,
-                                obscureText: true,
+                                obscureText: _obscurePassword,
                                 decoration: InputDecoration(
                                   hintText: 'Password',
                                   hintStyle: TextStyle(
@@ -188,25 +342,21 @@ class _RegisterPageState extends State<RegisterPage> {
                                     horizontal: 24,
                                     vertical: 18,
                                   ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 8),
-
-                            // Forgot Password link
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: TextButton(
-                                onPressed: () {
-                                  // Navigate to forgot password
-                                },
-                                child: Text(
-                                  'lupa password?*',
-                                  style: TextStyle(
-                                    color: Colors.grey[700],
-                                    fontSize: 12,
+                                  suffixIcon: IconButton(
+                                    icon: Icon(
+                                      _obscurePassword
+                                          ? Icons.visibility_off
+                                          : Icons.visibility,
+                                      color: Colors.grey[600],
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        _obscurePassword = !_obscurePassword;
+                                      });
+                                    },
                                   ),
                                 ),
+                                onSubmitted: (_) => _handleRegister(),
                               ),
                             ),
                             SizedBox(height: 8),
@@ -219,7 +369,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               ),
                               child: TextField(
                                 controller: confirmPasswordController,
-                                obscureText: true,
+                                obscureText: _obscureConfirmPassword,
                                 decoration: InputDecoration(
                                   hintText: 'Confirm password',
                                   hintStyle: TextStyle(
@@ -231,50 +381,32 @@ class _RegisterPageState extends State<RegisterPage> {
                                     horizontal: 24,
                                     vertical: 18,
                                   ),
+                                  suffixIcon: IconButton(
+                                    icon: Icon(
+                                      _obscureConfirmPassword
+                                          ? Icons.visibility_off
+                                          : Icons.visibility,
+                                      color: Colors.grey[600],
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        _obscureConfirmPassword =
+                                            !_obscureConfirmPassword;
+                                      });
+                                    },
+                                  ),
                                 ),
+                                onSubmitted: (_) => _handleRegister(),
                               ),
                             ),
                             SizedBox(height: 24),
 
-                            // Login Button
+                            // Register Button
                             SizedBox(
                               width: double.infinity,
                               height: 56,
                               child: ElevatedButton(
-                                onPressed: () {
-                                  // Handle registration
-                                  if (emailController.text.isEmpty ||
-                                      usernameController.text.isEmpty ||
-                                      passwordController.text.isEmpty ||
-                                      confirmPasswordController.text.isEmpty) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text('Lengkapi semua field'),
-                                        backgroundColor: Colors.red,
-                                      ),
-                                    );
-                                    return;
-                                  }
-
-                                  if (passwordController.text !=
-                                      confirmPasswordController.text) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text('Password tidak sama'),
-                                        backgroundColor: Colors.red,
-                                      ),
-                                    );
-                                    return;
-                                  }
-
-                                  // Handle successful registration
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text('Registrasi berhasil!'),
-                                      backgroundColor: Colors.green,
-                                    ),
-                                  );
-                                },
+                                onPressed: _handleRegister,
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Color(0xFF1A2332),
                                   shape: RoundedRectangleBorder(
@@ -283,7 +415,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   elevation: 0,
                                 ),
                                 child: Text(
-                                  'Login',
+                                  'Daftar',
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 16,
@@ -299,9 +431,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               width: double.infinity,
                               height: 56,
                               child: OutlinedButton(
-                                onPressed: () {
-                                  // Handle Google sign in
-                                },
+                                onPressed: _handleGoogleSignIn,
                                 style: OutlinedButton.styleFrom(
                                   side: BorderSide(color: Colors.grey[300]!),
                                   shape: RoundedRectangleBorder(
@@ -318,7 +448,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     ),
                                     SizedBox(width: 12),
                                     Text(
-                                      'Lanjut dengan Google',
+                                      'Daftar dengan Google',
                                       style: TextStyle(
                                         color: Colors.black87,
                                         fontSize: 16,
@@ -341,9 +471,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               width: double.infinity,
                               height: 56,
                               child: OutlinedButton(
-                                onPressed: () {
-                                  // Handle Facebook sign in
-                                },
+                                onPressed: _handleFacebookSignIn,
                                 style: OutlinedButton.styleFrom(
                                   side: BorderSide(color: Colors.grey[300]!),
                                   shape: RoundedRectangleBorder(
@@ -360,7 +488,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     ),
                                     SizedBox(width: 12),
                                     Text(
-                                      'Lanjut dengan Facebook',
+                                      'Daftar dengan Facebook',
                                       style: TextStyle(
                                         color: Colors.black87,
                                         fontSize: 16,

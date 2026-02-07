@@ -216,15 +216,21 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
                                       ),
                                     );
                                   } else {
-                                    // Show error
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text(
-                                          'Masukkan kode verifikasi lengkap',
+                                          'Masukkan kode verifikasi lengkap.',
                                         ),
                                         backgroundColor: Colors.red,
+                                        behavior: SnackBarBehavior.floating,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                            10,
+                                          ),
+                                        ),
                                       ),
                                     );
+                                    return;
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(

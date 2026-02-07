@@ -17,6 +17,55 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     super.dispose();
   }
 
+  bool _isValidEmail(String email) {
+    // Regex untuk validasi email
+    return RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email);
+  }
+
+  void _validEmailSubmit() {
+// Validasi input kosong
+    if (emailController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Masukkan email Anda'),
+          backgroundColor: Colors.red,
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+      );
+      return;
+    }
+
+    // Validasi format email
+    if (!_isValidEmail(emailController.text)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Format email tidak valid'),
+          backgroundColor: Colors.orange,
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+      );
+      return;
+    }
+
+    // Navigate ke sign in page setelah delay
+    // Future.delayed(Duration(milliseconds: 1500), () {
+    if (mounted) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => EmailVerificationPage(email: emailController.text),
+        ),
+      );
+    }
+    // });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -135,7 +184,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
                           SizedBox(height: 32),
 
-                          // ✅ FIXED TEXTFIELD
+                          // Email Input Field
                           Container(
                             decoration: BoxDecoration(
                               color: Colors.white,
@@ -144,18 +193,20 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                             ),
                             child: TextField(
                               controller: emailController,
-                              onTapOutside: (_) {
-                                FocusScope.of(context).unfocus();
-                              },
                               keyboardType: TextInputType.emailAddress,
                               decoration: InputDecoration(
-                                hintText: 'Alamat email',
+                                hintText: 'Email',
+                                hintStyle: TextStyle(
+                                  color: Colors.grey[600],
+                                  fontSize: 16,
+                                ),
                                 border: InputBorder.none,
                                 contentPadding: EdgeInsets.symmetric(
                                   horizontal: 24,
                                   vertical: 18,
                                 ),
                               ),
+                              onSubmitted: (_) => _validEmailSubmit(),
                             ),
                           ),
 
@@ -165,25 +216,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                             width: double.infinity,
                             height: 56,
                             child: ElevatedButton(
-                              onPressed: () {
-                                if (emailController.text.isNotEmpty) {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (_) => EmailVerificationPage(
-                                        email: emailController.text,
-                                      ),
-                                    ),
-                                  );
-                                } else {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text('Masukkan alamat email'),
-                                      backgroundColor: Colors.red,
-                                    ),
-                                  );
-                                }
-                              },
+                              onPressed: _validEmailSubmit,
+
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Color(0xFF2C2C2C),
                                 shape: RoundedRectangleBorder(
