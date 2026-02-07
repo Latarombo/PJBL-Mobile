@@ -10,14 +10,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-
-      // App identity
       title: 'SantaraNa',
-
-      // Global theme
       theme: AppTheme.lightTheme,
 
-      // Centralized routing
+      // pusat routing
       initialRoute: AppRouter.initialRoute,
       onGenerateRoute: AppRouter.onGenerateRoute,
     );

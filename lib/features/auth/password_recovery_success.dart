@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import '../../app/app_routes.dart';
 
 class PasswordRecoverySuccessPage extends StatefulWidget {
   const PasswordRecoverySuccessPage({super.key});
@@ -33,9 +34,11 @@ class _PasswordRecoverySuccessPageState extends State<PasswordRecoverySuccessPag
 
   void _navigateToHome() {
     if (mounted) {
-      // Ganti '/' dengan route home page Anda
-      // Contoh: Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
-      Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        AppRoutes.app,
+        (route) => false,
+      );
     }
   }
 

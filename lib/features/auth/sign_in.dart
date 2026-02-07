@@ -70,23 +70,19 @@ class _SignInPageState extends State<SignInPage> {
     // Jika validasi berhasil
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('Login berhasil! Selamat datang ${usernameController.text}'),
+        content: Text(
+          'Login berhasil! Selamat datang ${usernameController.text}',
+        ),
         backgroundColor: Colors.green,
         behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),
     );
 
     // Navigate ke profile page setelah delay singkat
     // Future.delayed(Duration(milliseconds: 500), () {
-      if (mounted) {
-  Navigator.pushReplacementNamed(
-    context,
-    AppRoutes.app,
-  );
-}
+    Navigator.pushNamedAndRemoveUntil(context, AppRoutes.app, (route) => false);
+
     // });
   }
 
@@ -95,20 +91,14 @@ class _SignInPageState extends State<SignInPage> {
       SnackBar(
         content: Row(
           children: [
-            Image.asset(
-              'assets/images/icon_google.png',
-              height: 20,
-              width: 20,
-            ),
+            Image.asset('assets/images/icon_google.png', height: 20, width: 20),
             SizedBox(width: 12),
             Text('Login dengan Google sedang diproses...'),
           ],
         ),
         backgroundColor: Color(0xFF4285F4),
         behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),
     );
   }
@@ -129,9 +119,7 @@ class _SignInPageState extends State<SignInPage> {
         ),
         backgroundColor: Color(0xFF1877F2),
         behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),
     );
   }
@@ -185,7 +173,7 @@ class _SignInPageState extends State<SignInPage> {
                           ),
                           TextButton(
                             onPressed: () {
-                              Navigator.pushNamed(context, '/register');
+                              Navigator.pushNamed(context, AppRoutes.register);
                             },
                             child: Text(
                               'Register',

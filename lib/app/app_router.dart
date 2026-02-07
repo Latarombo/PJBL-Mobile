@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:santarana/features/auth/register.dart';
 
 // Pages
 import '../features/splash_screen/splash_screen.dart';
 import '../features/auth/sign_in.dart';
+import '../features/auth/password_recovery_success.dart';
 import 'app_shell.dart';
 import 'app_routes.dart';
 
@@ -19,6 +21,12 @@ class AppRouter {
 
       case AppRoutes.signIn:
         return MaterialPageRoute(builder: (_) => const SignInPage());
+
+      case AppRoutes.register:
+        return MaterialPageRoute(builder: (_) => const RegisterPage());
+
+        case AppRoutes.passRecov:
+        return MaterialPageRoute(builder: (_) => const PasswordRecoverySuccessPage());
 
       case AppRoutes.app:
         return MaterialPageRoute(builder: (_) => const AppShell());

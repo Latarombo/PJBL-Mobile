@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../profile/profile_page.dart';
+import '../../app/app_routes.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -123,14 +123,10 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
     );
 
-    // Navigate ke sign in page setelah delay
+    // Navigate ke home
     // Future.delayed(Duration(milliseconds: 1500), () {
-    if (mounted) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const ProfilePage()),
-      );
-    }
+    Navigator.pushNamedAndRemoveUntil(context, AppRoutes.app, (route) => false);
+
     // });
   }
 
