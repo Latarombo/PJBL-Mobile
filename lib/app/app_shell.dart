@@ -24,6 +24,7 @@ class _AppShellState extends State<AppShell> {
     SettingsPage(),
   ];
 
+// navigation bar
   @override
   Widget build(BuildContext context) {
     return Scaffold(

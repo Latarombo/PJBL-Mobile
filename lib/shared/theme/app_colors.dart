@@ -2,17 +2,20 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   // Brand
-  static const primary = Color(0xFFFFE6BE);
-  static const onPrimary = Color(0xFF1A2332);
+  static const primary = Color(	0xfff9f4e4);
+  static const onPrimary = Color(0xffffffff);
   static const background = Color(0xFFF9F4E4);
-  static const surface = Colors.white;
+  static final surface = Colors.grey[300]!;
 
   // Text
-  static const textPrimary = Color(0xFF111111);
-  static const textSecondary = Color(0xFF6B6B6B);
+  static const textPrimary = Color(0xff270f0f);
+  static const textSecondary = Color(0xffffffff);
+  static const textDisabled = Color(0xFF9E9E9E);
+  
 
   // Neutral / Dark
-  static const dark = Color(0xFF1A2332);
+  static const dark = Color(0xFF1A2332); //untuk warna tombol utama
+  static const onDark = Colors.white; // untuk warna teks pada tombol utama
 
   // Accent
   static const danger = Color(0xFFD32F2F);

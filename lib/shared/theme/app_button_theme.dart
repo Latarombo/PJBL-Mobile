@@ -25,7 +25,7 @@ class AppButtonTheme {
         if (states.contains(WidgetState.disabled)) {
           return AppColors.onDisabled;
         }
-        return AppColors.onPrimary;
+        return AppColors.onDark;
       }),
       minimumSize:
           WidgetStateProperty.all(const Size(double.infinity, 52)),
