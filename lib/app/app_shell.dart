@@ -40,7 +40,7 @@ class _AppShellState extends State<AppShell> {
         height: 60,
         items: const [
           Icon(Icons.home_rounded, size: 28, color: Color(0xFF8B5A3C)),
-          Icon(Icons.gamepad_rounded, size: 28, color: Color(0xFF8B5A3C)),
+          Icon(Icons.leaderboard, size: 28, color: Color(0xFF8B5A3C)),
           Icon(Icons.person_rounded, size: 28, color: Color(0xFF8B5A3C)),
           Icon(Icons.settings_rounded, size: 28, color: Color(0xFF8B5A3C)),
         ],

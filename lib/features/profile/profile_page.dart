@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:santarana/features/home/home_page.dart';
 // import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -60,18 +61,21 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   child: Row(
                     children: [
-                      IconButton(
-                        icon: Icon(
-                          Icons.arrow_back,
-                          color: Colors.white,
-                          size: 24,
-                        ),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        padding: EdgeInsets.zero,
-                        constraints: BoxConstraints(),
-                      ),
+                      // IconButton(
+                      //   icon: Icon(
+                      //     Icons.arrow_back,
+                      //     color: Colors.white,
+                      //     size: 24,
+                      //   ),
+                      //   onPressed: () {
+                      //     Navigator.pushReplacement(
+                      //       context,
+                      //       MaterialPageRoute(builder: (_) => const HomePage()),
+                      //     );
+                      //   },
+                      //   padding: EdgeInsets.zero,
+                      //   constraints: BoxConstraints(),
+                      // ),
                       Expanded(
                         child: Text(
                           'Profile',
@@ -107,7 +111,9 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           child: Column(
                             children: [
-                              SizedBox(height: 60), //seberapa tinggi di sebelah lingkaran
+                              SizedBox(
+                                height: 60,
+                              ), //seberapa tinggi di sebelah lingkaran
                               // Username
                               Text(
                                 'John Doe', // Ganti Posisi Username supaya center dengan avatar profile
@@ -354,7 +360,8 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     );
   }
-//batas
+
+  //batas
   Widget _buildStatItem({
     required IconData icon,
     required String label,

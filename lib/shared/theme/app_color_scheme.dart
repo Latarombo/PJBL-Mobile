@@ -12,8 +12,8 @@ class AppColorScheme {
     primary: AppColors.primary,
     onPrimary: AppColors.dark,
 
-    background: AppColors.background,
-    onBackground: AppColors.textPrimary,
+    // background: AppColors.background,
+    // onBackground: AppColors.textPrimary,
 
     surface: AppColors.surface,
     onSurface: AppColors.textPrimary,

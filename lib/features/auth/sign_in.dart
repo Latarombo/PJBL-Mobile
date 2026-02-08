@@ -59,9 +59,8 @@ class _SignInPageState extends State<SignInPage> {
     // Jika validasi berhasil
     AppSnackBar.show(
       context,
-      message: 'Login berhasil! Mengalihkan...',
+      message: 'Login berhasil!...',
       type: SnackType.success,
-      iconPath: 'assets/images/icon_success.png',
     );
 
     // Navigate ke profile page setelah delay singkat
