@@ -1,30 +1,58 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
+import 'app_input_theme.dart';
+import 'app_button_theme.dart';
+import 'app_text_theme.dart';
+import 'app_card_theme.dart';
+import 'app_bottom_nav_theme.dart';
+import 'app_color_scheme.dart';
+import 'app_icon_theme.dart';
+
+/// AppTheme
+/// ----------------------------
+/// Theme utama aplikasi
+///
+/// Menggabungkan seluruh design system:
+/// - ColorScheme
+/// - Typography
+/// - Input
+/// - Button
+/// - Card
+/// - Navigation
+/// - Icon
 class AppTheme {
   static ThemeData lightTheme = ThemeData(
-    primaryColor: Color(0xffffe6be),
-    scaffoldBackgroundColor: Color(0xfff9f4e4),
     useMaterial3: true,
-    textTheme: TextTheme(
-      headlineLarge: GoogleFonts.poppins(
-        color: Color(0xff000000),
-        fontSize: 22,
-        fontWeight: FontWeight.w500,
-      ),
-      bodyMedium: GoogleFonts.poppins(
-        color: Color(0xff000000),
-        fontSize: 16,
-      ),
-    ),
-    elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Color(0xFF101820),
-        foregroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30),
-        ),
-      ),
-    ),
+
+    // color system (Material 3)
+    colorScheme: AppColorScheme.light,
+
+    // background
+    scaffoldBackgroundColor: AppColorScheme.light.surface,
+
+    // text
+    textTheme: AppTextTheme.light,
+
+    // icon
+    iconTheme: AppIconTheme.defaultIcon,
+
+    // input
+    inputDecorationTheme: AppInputTheme.light,
+
+    // button
+    elevatedButtonTheme: AppButtonTheme.elevated,
+    outlinedButtonTheme: AppButtonTheme.outlined,
+
+    // card
+    cardTheme: AppCardTheme.light,
+
+    // bottom navigation
+    bottomNavigationBarTheme: AppBottomNavTheme.light,
+
+    // snackbar base
+    snackBarTheme: const SnackBarThemeData(behavior: SnackBarBehavior.floating),
+
+    // adaptive density
+    visualDensity: VisualDensity.adaptivePlatformDensity,
   );
 }

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import '../../app/app_routes.dart';
 import 'forgot_password.dart';
+import '../../shared/widgets/social_login_button.dart';
+import '../../shared/widgets/app_snackbar.dart';
+import '../../shared/widgets/app_input_field.dart';
+import '../../shared/widgets/app_buttons.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -24,59 +28,40 @@ class _SignInPageState extends State<SignInPage> {
   void _handleSignIn() {
     // Validasi input kosong
     if (usernameController.text.isEmpty || passwordController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Username dan password tidak boleh kosong'),
-          backgroundColor: Colors.red,
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
+      AppSnackBar.show(
+        context,
+        message: 'Username dan password tidak boleh kosong',
+        type: SnackType.error,
       );
       return;
     }
 
     // Validasi panjang username
     if (usernameController.text.length < 3) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Username minimal 3 karakter'),
-          backgroundColor: Colors.orange,
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
+      AppSnackBar.show(
+        context,
+        message: 'Username minimal 3 karakter',
+        type: SnackType.warning,
       );
       return;
     }
 
     // Validasi panjang password
     if (passwordController.text.length < 6) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Password minimal 6 karakter'),
-          backgroundColor: Colors.orange,
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
+      AppSnackBar.show(
+        context,
+        message: 'Password minimal 6 karakter',
+        type: SnackType.warning,
       );
       return;
     }
 
     // Jika validasi berhasil
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          'Login berhasil! Selamat datang ${usernameController.text}',
-        ),
-        backgroundColor: Colors.green,
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      ),
+    AppSnackBar.show(
+      context,
+      message: 'Login berhasil! Mengalihkan...',
+      type: SnackType.success,
+      iconPath: 'assets/images/icon_success.png',
     );
 
     // Navigate ke profile page setelah delay singkat
@@ -87,40 +72,20 @@ class _SignInPageState extends State<SignInPage> {
   }
 
   void _handleGoogleSignIn() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Row(
-          children: [
-            Image.asset('assets/images/icon_google.png', height: 20, width: 20),
-            SizedBox(width: 12),
-            Text('Login dengan Google sedang diproses...'),
-          ],
-        ),
-        backgroundColor: Color(0xFF4285F4),
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      ),
+    AppSnackBar.show(
+      context,
+      message: 'Login dengan Google sedang diproses...',
+      type: SnackType.info,
+      iconPath: 'assets/images/icon_google.png',
     );
   }
 
   void _handleFacebookSignIn() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Row(
-          children: [
-            Image.asset(
-              'assets/images/icon_facebook.png',
-              height: 20,
-              width: 20,
-            ),
-            SizedBox(width: 12),
-            Text('Login dengan Facebook sedang diproses...'),
-          ],
-        ),
-        backgroundColor: Color(0xFF1877F2),
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      ),
+    AppSnackBar.show(
+      context,
+      message: 'Login dengan Facebook sedang diproses...',
+      type: SnackType.info,
+      iconPath: 'assets/images/icon_facebook.png',
     );
   }
 
@@ -225,66 +190,22 @@ class _SignInPageState extends State<SignInPage> {
                             ),
                             SizedBox(height: 32),
                             // Username Field
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Colors.grey[100],
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                              child: TextField(
-                                controller: usernameController,
-                                decoration: InputDecoration(
-                                  hintText: 'Username',
-                                  hintStyle: TextStyle(
-                                    color: Colors.grey[400],
-                                    fontSize: 16,
-                                  ),
-                                  border: InputBorder.none,
-                                  contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 24,
-                                    vertical: 18,
-                                  ),
-                                ),
-                                onSubmitted: (_) => _handleSignIn(),
-                              ),
+                            InputField(
+                              controller: usernameController,
+                              hint: 'Username',
                             ),
+
                             SizedBox(height: 16),
-                            // Password Field
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Colors.grey[100],
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                              child: TextField(
-                                controller: passwordController,
-                                obscureText: _obscurePassword,
-                                decoration: InputDecoration(
-                                  hintText: 'Password',
-                                  hintStyle: TextStyle(
-                                    color: Colors.grey[400],
-                                    fontSize: 16,
-                                  ),
-                                  border: InputBorder.none,
-                                  contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 24,
-                                    vertical: 18,
-                                  ),
-                                  suffixIcon: IconButton(
-                                    icon: Icon(
-                                      _obscurePassword
-                                          ? Icons.visibility_off
-                                          : Icons.visibility,
-                                      color: Colors.grey[600],
-                                    ),
-                                    onPressed: () {
-                                      setState(() {
-                                        _obscurePassword = !_obscurePassword;
-                                      });
-                                    },
-                                  ),
-                                ),
-                                onSubmitted: (_) => _handleSignIn(),
+                            // Password field
+                            InputField(
+                              controller: passwordController,
+                              hint: 'Password',
+                              obscureText: _obscurePassword,
+                              toggleObscure: () => setState(
+                                () => _obscurePassword = !_obscurePassword,
                               ),
                             ),
+
                             SizedBox(height: 8),
                             // Forgot Password
                             Align(
@@ -310,106 +231,27 @@ class _SignInPageState extends State<SignInPage> {
                             ),
                             SizedBox(height: 24),
                             // Sign In Button
-                            SizedBox(
-                              width: double.infinity,
-                              height: 56,
-                              child: ElevatedButton(
-                                onPressed: _handleSignIn,
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Color(0xFF1A2332),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                  ),
-                                  elevation: 0,
-                                ),
-                                child: Text(
-                                  'Sign In',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ),
+                            PrimaryButton(
+                              text: 'Sign In',
+                              onPressed: _handleSignIn,
                             ),
+
                             SizedBox(height: 24),
                             // Google Sign In Button
-                            SizedBox(
-                              width: double.infinity,
-                              height: 56,
-                              child: OutlinedButton(
-                                onPressed: _handleGoogleSignIn,
-                                style: OutlinedButton.styleFrom(
-                                  side: BorderSide(color: Colors.grey[300]!),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                  ),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Image.asset(
-                                      'assets/images/icon_google.png',
-                                      height: 24,
-                                      width: 24,
-                                    ),
-                                    SizedBox(width: 12),
-                                    Text(
-                                      'Lanjut dengan Google',
-                                      style: TextStyle(
-                                        color: Colors.black87,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    Spacer(),
-                                    Icon(
-                                      Icons.arrow_forward,
-                                      color: Colors.black87,
-                                    ),
-                                  ],
-                                ),
-                              ),
+                            SocialLoginButton(
+                              text: 'Lanjut dengan Google',
+                              iconPath: 'assets/images/icon_google.png',
+                              onPressed: _handleGoogleSignIn,
                             ),
+
                             SizedBox(height: 16),
-                            // Facebook Sign In Button
-                            SizedBox(
-                              width: double.infinity,
-                              height: 56,
-                              child: OutlinedButton(
-                                onPressed: _handleFacebookSignIn,
-                                style: OutlinedButton.styleFrom(
-                                  side: BorderSide(color: Colors.grey[300]!),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                  ),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Image.asset(
-                                      'assets/images/icon_facebook.png',
-                                      height: 24,
-                                      width: 24,
-                                    ),
-                                    SizedBox(width: 12),
-                                    Text(
-                                      'Lanjut dengan Facebook',
-                                      style: TextStyle(
-                                        color: Colors.black87,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    Spacer(),
-                                    Icon(
-                                      Icons.arrow_forward,
-                                      color: Colors.black87,
-                                    ),
-                                  ],
-                                ),
-                              ),
+                            // Facebok Sign In button
+                            SocialLoginButton(
+                              text: 'Lanjut dengan Facebook',
+                              iconPath: 'assets/images/icon_facebook.png',
+                              onPressed: _handleFacebookSignIn,
                             ),
+
                             SizedBox(height: 45), // Bottom Spacing
                           ],
                         ),
