@@ -10,16 +10,15 @@ class HomePage extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Stack(
-          children: [
-            // Main scrollable content
-            SingleChildScrollView(
-              child: Column(
+            clipBehavior: Clip.none,
+            children: [
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Header Section
                   _buildHeader(context),
 
-                  // Space for overlapping card
+                  // Space for overlapping card and character
                   const SizedBox(height: 80),
 
                   // Call to Action Text
@@ -85,8 +84,8 @@ class HomePage extends StatelessWidget {
                     imagePath: 'assets/images/pakaian_adat.png',
                     progress: 5,
                     total: 10,
-                    date: 'hh/bb',
-                    time: 'tttttt',
+                    level: 'level 2',
+                    time: '10:00',
                   ),
 
                   const SizedBox(height: 12),
@@ -97,8 +96,8 @@ class HomePage extends StatelessWidget {
                     imagePath: 'assets/images/rumah_adat.png',
                     progress: 5,
                     total: 10,
-                    date: 'hh/bb',
-                    time: 'tttttt',
+                    level: 'level 3',
+                    time: '7:20',
                   ),
 
                   const SizedBox(height: 12),
@@ -109,33 +108,48 @@ class HomePage extends StatelessWidget {
                     imagePath: 'assets/images/pakaian_adat.png',
                     progress: 5,
                     total: 10,
-                    date: 'hh/bb',
-                    time: 'tttttt',
+                    level: 'level 1',
+                    time: '08:30',
                   ),
 
                   const SizedBox(height: 100), // Extra space for bottom navigation
                 ],
               ),
-            ),
 
-            // Aktivitas Terakhir Card - positioned to overlap header
-            Positioned(
-              top: 180, // Tinggi header (240) - overlap yang diinginkan (30)
-              left: 0,
-              right: 0,
-              child: _buildAktivitasTerakhirCard(),
-            ),
-          ],
+              // Character behind the card - positioned to peek above
+              Positioned(
+                top: 80,
+                right: 20,
+                child: Opacity(
+                  opacity: 0.85,
+                  child: Image.asset(
+                    'assets/images/character_game.png',
+                    height: 200,
+                    fit: BoxFit.contain,
+                    errorBuilder: (context, error, stackTrace) {
+                      return const SizedBox.shrink();
+                    },
+                  ),
+                ),
+              ),
+
+              // Aktivitas Terakhir Card - positioned to overlap header and character
+              Positioned(
+                top: 220, // Header height (240) - overlap (30)
+                left: 0,
+                right: 0,
+                child: _buildAktivitasTerakhirCard(),
+              ),
+            ],
+          ),
         ),
-        )
-        
       ),
     );
   }
 
   Widget _buildHeader(BuildContext context) {
     return Container(
-      height: 240,
+      height: 280,
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(20),
@@ -157,7 +171,7 @@ class HomePage extends StatelessWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Colors.black.withValues(alpha: 0.3),
+              Colors.black.withValues(alpha: 0.4),
               Colors.black.withValues(alpha: 0.1),
             ],
           ),
@@ -453,7 +467,7 @@ class HomePage extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              'hh/bb/tttt',
+                              '21/01/2026',
                               style: TextStyle(
                                 fontSize: 12,
                                 color: Colors.white.withValues(alpha: 0.9),
@@ -532,6 +546,11 @@ class HomePage extends StatelessWidget {
             'Musik Nusantara',
             'assets/images/musik_nusantara.png',
           ),
+          const SizedBox(width: 12),
+          _buildCategoryCard(
+            'Musik Nusantara',
+            'assets/images/makanan_nusantara.png',
+          ),
         ],
       ),
     );
@@ -580,7 +599,7 @@ class HomePage extends StatelessWidget {
     required String imagePath,
     required int progress,
     required int total,
-    required String date,
+    required String level,
     required String time,
   }) {
     return Padding(
@@ -599,13 +618,14 @@ class HomePage extends StatelessWidget {
           ],
         ),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start, // ini Align at the top
           children: [
             // Image
             Container(
-              width: 70,
-              height: 70,
+              width: 75,
+              height: 75,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(50),
                 image: DecorationImage(
                   image: AssetImage(imagePath),
                   fit: BoxFit.cover,
@@ -648,12 +668,12 @@ class HomePage extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 4),
                   // Time info
                   Row(
                     children: [
                       Text(
-                        date,
+                        level,
                         style: TextStyle(fontSize: 10, color: Colors.grey[500]),
                       ),
                       const SizedBox(width: 12),
@@ -663,7 +683,7 @@ class HomePage extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 0),//ini no space
                   // Progress bar
                   Row(
                     children: [

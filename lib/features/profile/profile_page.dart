@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:santarana/features/home/home_page.dart';
+
 // import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -53,40 +53,23 @@ class _ProfilePageState extends State<ProfilePage> {
           SafeArea(
             child: Column(
               children: [
-                // Header with back button and title
+                // Header with title centered
                 Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16.0,
                     vertical: 12,
                   ),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // IconButton(
-                      //   icon: Icon(
-                      //     Icons.arrow_back,
-                      //     color: Colors.white,
-                      //     size: 24,
-                      //   ),
-                      //   onPressed: () {
-                      //     Navigator.pushReplacement(
-                      //       context,
-                      //       MaterialPageRoute(builder: (_) => const HomePage()),
-                      //     );
-                      //   },
-                      //   padding: EdgeInsets.zero,
-                      //   constraints: BoxConstraints(),
-                      // ),
-                      Expanded(
-                        child: Text(
-                          'Profile',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                          ),
+                      Text(
+                        'Profile',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
-                      SizedBox(width: 24), // Balance for back button
                     ],
                   ),
                 ),
