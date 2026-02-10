@@ -86,7 +86,7 @@ class _PasswordRecoverySuccessPageState
 
                 // Description
                 Text(
-                  'Password Anda telah berhasil dipulihkan, kami akan\nmemberi tahu Anda jika ada masalah lebih lanjut\ndengan akun Anda',
+                  'Selamat datang! Anda berhasil Login. Siap uji pengetahuanmu?',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 13,

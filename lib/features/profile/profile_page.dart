@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-// import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
@@ -10,30 +8,24 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  // int _page = 3; // Default ke halaman profile (index 3)
-  // final GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFFFF8E7),
-      extendBody: true, // Penting untuk curved navigation bar
-      body: Stack(
-        children: [
-          // Background Image
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              height: MediaQuery.of(context).size.height * 0.40,
+      backgroundColor: Color(0xfff9f4e4),
+      extendBody: true,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            // Background Image Section
+            Container(
+              height: 200,
+              width: double.infinity,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage('assets/images/bg_profilePage.png'),
                   fit: BoxFit.cover,
                 ),
               ),
-              // Dark overlay
               child: Container(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
@@ -41,129 +33,271 @@ class _ProfilePageState extends State<ProfilePage> {
                     end: Alignment.bottomCenter,
                     colors: [
                       Colors.black.withValues(alpha: 0.3),
-                      Colors.black.withValues(alpha: 0.6),
+                      Colors.black.withValues(alpha: 0.5),
                     ],
                   ),
                 ),
               ),
             ),
-          ),
 
-          // Content
-          SafeArea(
-            child: Column(
-              children: [
-                // Header with title centered
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16.0,
-                    vertical: 12,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Profile',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                SizedBox(height: 8),
-
-                // Profile Avatar and Name Section
-                Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    Column(
-                      children: [
-                        SizedBox(height: 60),
-                        Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: Color(0xFFFFF8E7),
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(30),
-                              topRight: Radius.circular(30),
-                            ),
-                          ),
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: 60,
-                              ), //seberapa tinggi di sebelah lingkaran
-                              // Username
-                              Text(
-                                'John Doe', // Ganti Posisi Username supaya center dengan avatar profile
-                                style: TextStyle(
-                                  color: Colors.black87,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              SizedBox(height: 20),
-                            ],
-                          ),
+            // White Card Section with Avatar Overlap
+            Transform.translate(
+              offset: Offset(0, -60),
+              child: Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  // White Card Background dengan Border Radius
+                  Container(
+                    padding: EdgeInsets.only(
+                      top: 80,
+                      bottom: 32,
+                      left: 24,
+                      right: 24,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Color(0xfff9f4e4),
+                      borderRadius: BorderRadius.circular(30),
+                      // border: Border.all(
+                      //   color: Color(0xFFE0D5C7),
+                      //   width: 2,
+                      // ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color(0xFFD4A574).withValues(alpha: 0.2),
+                          blurRadius: 15,
+                          offset: Offset(0, 5),
                         ),
                       ],
                     ),
-                    // Avatar with edit button - positioned to overlap
-                    Positioned(
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      child: Center(
-                        child: Stack(
-                          clipBehavior: Clip.none,
-                          children: [
-                            Container(
-                              width: 100,
-                              height: 100,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Color(0xFFFFC4D6),
-                                border: Border.all(
-                                  color: Colors.white,
-                                  width: 4,
+                    child: Column(
+                      children: [
+                        // Username
+                        Text(
+                          'Najwa_Miniww',
+                          style: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+
+                        SizedBox(height: 24),
+
+                        // Stats Card
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 20,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(25),
+                            border: Border.all(
+                              color: Color(0xfff8843f).withValues(alpha: 0.3),
+                              width: 2,
+                            ),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              _buildStatItem(
+                                icon: Icons.star,
+                                label: 'POIN',
+                                value: '1200',
+                              ),
+                              Container(
+                                width: 1,
+                                height: 50,
+                                color: Colors.grey[300],
+                              ),
+                              _buildStatItem(
+                                icon: Icons.public,
+                                label: 'RANGKING',
+                                value: '1200',
+                              ),
+                              Container(
+                                width: 1,
+                                height: 50,
+                                color: Colors.grey[300],
+                              ),
+                              _buildStatItem(
+                                icon: Icons.trending_up,
+                                label: 'PRESENTASE',
+                                value: '80%',
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        SizedBox(height: 32),
+
+                        // Pengaturan Akun Section Header
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Pengaturan akun',
+                            style: TextStyle(
+                              fontSize: 13,
+                              color: Colors.grey[400],
+                              fontWeight: FontWeight.w500,
+                              letterSpacing: 0.5,
+                            ),
+                          ),
+                        ),
+
+                        SizedBox(height: 16),
+
+                        // Ganti Nama Button
+                        _buildMenuButton(
+                          title: 'Ganti Nama',
+                          onTap: () {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Fitur Ganti Nama'),
+                                behavior: SnackBarBehavior.floating,
+                              ),
+                            );
+                          },
+                        ),
+
+                        SizedBox(height: 12),
+
+                        // Ganti Sandi Button
+                        _buildMenuButton(
+                          title: 'Ganti Sandi',
+                          onTap: () {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Fitur Ganti Sandi'),
+                                behavior: SnackBarBehavior.floating,
+                              ),
+                            );
+                          },
+                        ),
+
+                        SizedBox(height: 12),
+
+                        // Ganti Email Button
+                        _buildMenuButton(
+                          title: 'Ganti Email',
+                          onTap: () {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Fitur Ganti Email'),
+                                behavior: SnackBarBehavior.floating,
+                              ),
+                            );
+                          },
+                        ),
+
+                        SizedBox(height: 12),
+
+                        // Ajak Teman Button
+                        _buildMenuButton(
+                          title: 'Ajak teman',
+                          onTap: () {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Fitur Ajak Teman'),
+                                behavior: SnackBarBehavior.floating,
+                              ),
+                            );
+                          },
+                        ),
+
+                        SizedBox(height: 12),
+
+                        // Log Out Button
+                        _buildMenuButton(
+                          title: 'Log out',
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
                                 ),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withValues(alpha: 0.15),
-                                    blurRadius: 12,
-                                    offset: Offset(0, 4),
+                                title: Text('Konfirmasi'),
+                                content: Text(
+                                  'Apakah Anda yakin ingin keluar?',
+                                ),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () => Navigator.pop(context),
+                                    child: Text('Batal'),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                      Navigator.pushNamedAndRemoveUntil(
+                                        context,
+                                        '/sign-in',
+                                        (route) => false,
+                                      );
+                                    },
+                                    child: Text(
+                                      'Keluar',
+                                      style: TextStyle(color: Colors.red),
+                                    ),
                                   ),
                                 ],
                               ),
-                              child: Center(
-                                child: Icon(
-                                  Icons.emoji_emotions,
-                                  size: 50,
-                                  color: Color(0xFF8B4789),
-                                ),
+                            );
+                          },
+                        ),
+
+                        SizedBox(height: 40), // Extra space for bottom nav
+                      ],
+                    ),
+                  ),
+
+                  // Avatar positioned to overlap at the top
+                  Positioned(
+                    top: -60,
+                    left: 0,
+                    right: 0,
+                    child: Center(
+                      child: Container(
+                        width: 120,
+                        height: 120,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Color(0xFFFFC4D6),
+                          border: Border.all(color: Colors.white, width: 6),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: 0.15),
+                              blurRadius: 15,
+                              offset: Offset(0, 5),
+                            ),
+                          ],
+                        ),
+                        child: Stack(
+                          children: [
+                            Center(
+                              child: Icon(
+                                Icons.emoji_emotions,
+                                size: 60,
+                                color: Color(0xFF8B4789),
                               ),
                             ),
                             Positioned(
-                              bottom: 2,
-                              right: 2,
+                              bottom: 0,
+                              right: 0,
                               child: Container(
-                                width: 28,
-                                height: 28,
+                                width: 36,
+                                height: 36,
                                 decoration: BoxDecoration(
                                   color: Color(0xFF2C2C2C),
                                   shape: BoxShape.circle,
                                   border: Border.all(
                                     color: Colors.white,
-                                    width: 2.5,
+                                    width: 3,
                                   ),
                                 ),
                                 child: Icon(
                                   Icons.edit,
-                                  size: 14,
+                                  size: 18,
                                   color: Colors.white,
                                 ),
                               ),
@@ -172,179 +306,17 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ),
                     ),
-                  ],
-                ),
-
-                // Stats Card and rest of content
-                Expanded(
-                  child: Container(
-                    color: Color(0xFFFFF8E7),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          // Stats Card
-                          Container(
-                            margin: EdgeInsets.symmetric(horizontal: 24),
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 16,
-                              vertical: 18,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(16),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withValues(alpha: 0.06),
-                                  blurRadius: 8,
-                                  offset: Offset(0, 2),
-                                ),
-                              ],
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                _buildStatItem(
-                                  icon: Icons.star,
-                                  label: 'POIN',
-                                  value: '1200',
-                                ),
-                                Container(
-                                  width: 1,
-                                  height: 45,
-                                  color: Colors.grey[300],
-                                ),
-                                _buildStatItem(
-                                  icon: Icons.public,
-                                  label: 'TOTAL POIN',
-                                  value: '1200',
-                                ),
-                                Container(
-                                  width: 1,
-                                  height: 45,
-                                  color: Colors.grey[300],
-                                ),
-                                _buildStatItem(
-                                  icon: Icons.trending_up,
-                                  label: 'LEVEL',
-                                  value: '2',
-                                ),
-                              ],
-                            ),
-                          ),
-
-                          SizedBox(height: 28),
-
-                          // Top 3 Players Section
-                          Container(
-                            margin: EdgeInsets.symmetric(horizontal: 24),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                _buildTopPlayer(
-                                  rank: 2,
-                                  name: 'adalahpokoknya',
-                                  points: '1450',
-                                  avatarColor: Color(0xFFB8D4A8),
-                                ),
-                                SizedBox(width: 16),
-                                _buildTopPlayer(
-                                  rank: 1,
-                                  name: 'keisya_pfp',
-                                  points: '1500',
-                                  avatarColor: Color(0xFF9ACD32),
-                                  hasCrown: true,
-                                  isWinner: true,
-                                ),
-                                SizedBox(width: 16),
-                                _buildTopPlayer(
-                                  rank: 3,
-                                  name: 'Anda',
-                                  points: '1200',
-                                  avatarColor: Color(0xFFFFC4D6),
-                                ),
-                              ],
-                            ),
-                          ),
-
-                          SizedBox(height: 20),
-
-                          // Leaderboard List
-                          Container(
-                            margin: EdgeInsets.symmetric(horizontal: 24),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                            child: Column(
-                              children: [
-                                _buildLeaderboardItem(1, 'keisya_pfp', '1500'),
-                                _buildLeaderboardItem(
-                                  2,
-                                  'adalahpokoknya',
-                                  '1450',
-                                ),
-                                _buildLeaderboardItem(3, 'Anda', '1200'),
-                                _buildLeaderboardItem(
-                                  4,
-                                  'nimiwisa_laber',
-                                  '100',
-                                ),
-                                _buildLeaderboardItem(
-                                  5,
-                                  'nimiwisa_laber',
-                                  '100',
-                                ),
-                                _buildLeaderboardItem(
-                                  6,
-                                  'nimiwisa_laber',
-                                  '100',
-                                  isLast: true,
-                                ),
-                                _buildLeaderboardItem(
-                                  7,
-                                  'nimiwisa_laber',
-                                  '100',
-                                ),
-                                _buildLeaderboardItem(
-                                  8,
-                                  'nimiwisa_laber',
-                                  '100',
-                                ),
-                                _buildLeaderboardItem(
-                                  9,
-                                  'nimiwisa_laber',
-                                  '100',
-                                ),
-                                _buildLeaderboardItem(
-                                  10,
-                                  'nimiwisa_laber',
-                                  '100',
-                                ),
-                                _buildLeaderboardItem(
-                                  11,
-                                  'nimiwisa_laber',
-                                  '100',
-                                ),
-                              ],
-                            ),
-                          ),
-
-                          SizedBox(height: 100),
-                        ],
-                      ),
-                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
-  //batas
+  // Stats Item Widget
   Widget _buildStatItem({
     required IconData icon,
     required String label,
@@ -353,15 +325,15 @@ class _ProfilePageState extends State<ProfilePage> {
     return Expanded(
       child: Column(
         children: [
-          Icon(icon, size: 22, color: Colors.black87),
-          SizedBox(height: 6),
+          Icon(icon, size: 28, color: Colors.black87),
+          SizedBox(height: 8),
           Text(
             label,
             style: TextStyle(
-              fontSize: 9,
+              fontSize: 10,
               color: Colors.grey[700],
-              fontWeight: FontWeight.w500,
-              letterSpacing: 0.3,
+              fontWeight: FontWeight.w600,
+              letterSpacing: 0.5,
             ),
           ),
           SizedBox(height: 4),
@@ -378,149 +350,46 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Widget _buildTopPlayer({
-    required int rank,
-    required String name,
-    required String points,
-    required Color avatarColor,
-    bool hasCrown = false,
-    bool isWinner = false,
+  // Menu Button Widget
+  Widget _buildMenuButton({
+    required String title,
+    required VoidCallback onTap,
   }) {
-    double avatarSize = isWinner ? 85 : 65;
-
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        if (isWinner)
-          Padding(
-            padding: EdgeInsets.only(bottom: 4),
-            child: Text('👑', style: TextStyle(fontSize: 32)),
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(30),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 18),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(30),
+          border: Border.all(
+            color: Color(0xfff8843f).withValues(alpha: 0.3),
+            width: 2,
           ),
-        Container(
-          width: avatarSize,
-          height: avatarSize,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: avatarColor,
-            border: Border.all(color: Colors.white, width: 3),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.12),
-                blurRadius: 8,
-                offset: Offset(0, 3),
-              ),
-            ],
-          ),
-          child: Center(
-            child: Icon(
-              Icons.person,
-              size: avatarSize * 0.45,
-              color: Colors.black45,
+          boxShadow: [
+            BoxShadow(
+              color: Color(0xFFD4A574).withValues(alpha: 0.2),
+              blurRadius: 8,
+              offset: Offset(0, 4),
             ),
-          ),
+          ],
         ),
-        SizedBox(height: 6),
-        Container(
-          constraints: BoxConstraints(maxWidth: 90),
-          child: Text(
-            name,
-            textAlign: TextAlign.center,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.w600,
-              color: Colors.black87,
-            ),
-          ),
-        ),
-        SizedBox(height: 2),
-        Text(
-          points,
-          style: TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.bold,
-            color: Colors.black87,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildLeaderboardItem(
-    int rank,
-    String name,
-    String points, {
-    bool isLast = false,
-  }) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-      decoration: BoxDecoration(
-        border: isLast
-            ? null
-            : Border(bottom: BorderSide(color: Colors.grey[200]!, width: 1)),
-        borderRadius: isLast
-            ? BorderRadius.only(
-                bottomLeft: Radius.circular(16),
-                bottomRight: Radius.circular(16),
-              )
-            : rank == 1
-            ? BorderRadius.only(
-                topLeft: Radius.circular(16),
-                topRight: Radius.circular(16),
-              )
-            : null,
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 28,
-            height: 28,
-            decoration: BoxDecoration(
-              color: Colors.grey[100],
-              borderRadius: BorderRadius.circular(6),
-            ),
-            child: Center(
+        child: Row(
+          children: [
+            Expanded(
               child: Text(
-                '$rank',
+                title,
                 style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
                   color: Colors.black87,
                 ),
               ),
             ),
-          ),
-          SizedBox(width: 10),
-          Container(
-            width: 28,
-            height: 28,
-            decoration: BoxDecoration(
-              color: Color(0xFFD4B896),
-              shape: BoxShape.circle,
-            ),
-            child: Icon(Icons.person, size: 16, color: Colors.brown[800]),
-          ),
-          SizedBox(width: 10),
-          Expanded(
-            child: Text(
-              name,
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w500,
-                color: Colors.black87,
-              ),
-            ),
-          ),
-          Text(
-            points,
-            style: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.bold,
-              color: Colors.black87,
-            ),
-          ),
-        ],
+            Icon(Icons.play_arrow, color: Colors.black87, size: 28),
+          ],
+        ),
       ),
     );
   }
