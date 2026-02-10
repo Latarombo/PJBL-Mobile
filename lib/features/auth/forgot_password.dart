@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'email_verification.dart';
+import '../../shared/widgets/app_input_field.dart';
+import '../../shared/widgets/app_buttons.dart';
+import '../../shared/widgets/app_snackbar.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({super.key});
@@ -23,32 +26,13 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   }
 
   void _validEmailSubmit() {
-// Validasi input kosong
-    if (emailController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Masukkan email Anda'),
-          backgroundColor: Colors.red,
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
-      );
-      return;
-    }
 
     // Validasi format email
     if (!_isValidEmail(emailController.text)) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Format email tidak valid'),
-          backgroundColor: Colors.orange,
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
+      AppSnackBar.show(
+        context,
+        message: 'Format email tidak valid',
+        type: SnackType.error,
       );
       return;
     }
@@ -168,6 +152,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                             style: TextStyle(
                               fontSize: 28,
                               fontWeight: FontWeight.bold,
+                              color: Color(0xff270f0f), //text primary color
                             ),
                           ),
 
@@ -185,55 +170,19 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                           SizedBox(height: 32),
 
                           // Email Input Field
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(30),
-                              border: Border.all(color: Colors.grey[300]!),
-                            ),
-                            child: TextField(
-                              controller: emailController,
-                              keyboardType: TextInputType.emailAddress,
-                              decoration: InputDecoration(
-                                hintText: 'Email',
-                                hintStyle: TextStyle(
-                                  color: Colors.grey[600],
-                                  fontSize: 16,
-                                ),
-                                border: InputBorder.none,
-                                contentPadding: EdgeInsets.symmetric(
-                                  horizontal: 24,
-                                  vertical: 18,
-                                ),
-                              ),
-                              onSubmitted: (_) => _validEmailSubmit(),
-                            ),
+                          InputField(
+                            controller: emailController,
+                            keyboardType: TextInputType.emailAddress,
+                            hint: 'Email',
+                            onSubmitted: (_) => _validEmailSubmit(),
                           ),
 
                           SizedBox(height: 24),
 
-                          SizedBox(
-                            width: double.infinity,
-                            height: 56,
-                            child: ElevatedButton(
-                              onPressed: _validEmailSubmit,
-
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(0xFF2C2C2C),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                                elevation: 0,
-                              ),
-                              child: Text(
-                                'Konfirmasi Email',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ),
+                          // Submit Button
+                          PrimaryButton(
+                            text: 'Konfirmasi Email',
+                            onPressed: _validEmailSubmit,
                           ),
 
                           SizedBox(height: 40),

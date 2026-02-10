@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:santarana/shared/widgets/app_input_field.dart';
 import '../../app/app_routes.dart';
+import '../../shared/widgets/social_login_button.dart';
+import '../../shared/widgets/app_snackbar.dart';
+import '../../shared/widgets/app_input_field.dart';
+import '../../shared/widgets/app_buttons.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -39,89 +42,60 @@ class _RegisterPageState extends State<RegisterPage> {
         usernameController.text.isEmpty ||
         passwordController.text.isEmpty ||
         confirmPasswordController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Lengkapi semua field'),
-          backgroundColor: Colors.red,
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
+      AppSnackBar.show(
+        context,
+        message: 'Semua field harus diisi',
+        type: SnackType.error,
       );
       return;
     }
 
     // Validasi format email
     if (!_isValidEmail(emailController.text)) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Format email tidak valid'),
-          backgroundColor: Colors.orange,
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
+      AppSnackBar.show(
+        context,
+        message: 'Format email tidak valid',
+        type: SnackType.error,
       );
       return;
     }
 
     // Validasi panjang username
     if (usernameController.text.length < 3) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Username minimal 3 karakter'),
-          backgroundColor: Colors.orange,
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
+      AppSnackBar.show(
+        context,
+        message: 'Username minimal 3 karakter',
+        type: SnackType.warning,
       );
       return;
     }
 
     // Validasi panjang password
     if (passwordController.text.length < 6) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Password minimal 6 karakter'),
-          backgroundColor: Colors.orange,
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
+      AppSnackBar.show(
+        context,
+        message: 'Password minimal 6 karakter',
+        type: SnackType.warning,
       );
       return;
     }
 
     // Validasi password sama
     if (passwordController.text != confirmPasswordController.text) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Password tidak sama'),
-          backgroundColor: Colors.red,
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
+      AppSnackBar.show(
+        context,
+        message: 'Password tidak sesuai! Cek kembali password Anda.',
+        type: SnackType.error,
       );
       return;
     }
 
     // Jika semua validasi berhasil
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          'Registrasi berhasil! Selamat datang ${usernameController.text}',
-        ),
-        backgroundColor: Colors.green,
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      ),
+    AppSnackBar.show(
+      context,
+      message:
+          'Registrasi berhasil! Selamat datang, ${usernameController.text}!',
+      type: SnackType.success,
     );
 
     // Navigate ke home
@@ -132,40 +106,20 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   void _handleGoogleSignIn() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Row(
-          children: [
-            Image.asset('assets/images/icon_google.png', height: 20, width: 20),
-            SizedBox(width: 12),
-            Text('Daftar dengan Google sedang diproses...'),
-          ],
-        ),
-        backgroundColor: Color(0xFF4285F4),
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      ),
+    AppSnackBar.show(
+      context,
+      message: 'Login dengan Google sedang diproses...',
+      type: SnackType.info,
+      iconPath: 'assets/images/icon_google.png',
     );
   }
 
   void _handleFacebookSignIn() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Row(
-          children: [
-            Image.asset(
-              'assets/images/icon_facebook.png',
-              height: 20,
-              width: 20,
-            ),
-            SizedBox(width: 12),
-            Text('Daftar dengan Facebook sedang diproses...'),
-          ],
-        ),
-        backgroundColor: Color(0xFF1877F2),
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      ),
+    AppSnackBar.show(
+      context,
+      message: 'Login dengan Facebook sedang diproses...',
+      type: SnackType.info,
+      iconPath: 'assets/images/icon_facebook.png',
     );
   }
 
@@ -268,53 +222,19 @@ class _RegisterPageState extends State<RegisterPage> {
                             SizedBox(height: 32),
 
                             // Email Field
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Colors.grey[100],
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                              child: TextField(
-                                controller: emailController,
-                                keyboardType: TextInputType.emailAddress,
-                                decoration: InputDecoration(
-                                  hintText: 'Email',
-                                  hintStyle: TextStyle(
-                                    color: Colors.grey[400],
-                                    fontSize: 16,
-                                  ),
-                                  border: InputBorder.none,
-                                  contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 24,
-                                    vertical: 18,
-                                  ),
-                                ),
-                                onSubmitted: (_) => _handleRegister(),
-                              ),
+                            InputField(
+                              controller: emailController,
+                              keyboardType: TextInputType.emailAddress,
+                              hint: 'Email',
+                              onSubmitted: (_) => _handleRegister(),
                             ),
                             SizedBox(height: 16),
 
                             // Username Field
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Colors.grey[100],
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                              child: TextField(
-                                controller: usernameController,
-                                decoration: InputDecoration(
-                                  hintText: 'Username',
-                                  hintStyle: TextStyle(
-                                    color: Colors.grey[400],
-                                    fontSize: 16,
-                                  ),
-                                  border: InputBorder.none,
-                                  contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 24,
-                                    vertical: 18,
-                                  ),
-                                ),
-                                onSubmitted: (_) => _handleRegister(),
-                              ),
+                            InputField(
+                              controller: usernameController,
+                              hint: 'Username',
+                              onSubmitted: (_) => _handleRegister(),
                             ),
                             SizedBox(height: 16),
 
@@ -331,121 +251,37 @@ class _RegisterPageState extends State<RegisterPage> {
 
                             // Confirm Password Field
                             InputField(
-                              
-                              
-                                controller: confirmPasswordController,
-                                obscureText: _obscureConfirmPassword,
-                              
-                                  hint: 'Confirm password',
-                                  toggleObscure: () => setState(
-                                    () => _obscureConfirmPassword =
-                                        !_obscureConfirmPassword,
-                                  ),
+                              controller: confirmPasswordController,
+                              obscureText: _obscureConfirmPassword,
+
+                              hint: 'Confirm password',
+                              toggleObscure: () => setState(
+                                () => _obscureConfirmPassword =
+                                    !_obscureConfirmPassword,
+                              ),
                             ),
                             SizedBox(height: 24),
 
                             // Register Button
-                            SizedBox(
-                              width: double.infinity,
-                              height: 56,
-                              child: ElevatedButton(
-                                onPressed: _handleRegister,
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Color(0xFF1A2332),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                  ),
-                                  elevation: 0,
-                                ),
-                                child: Text(
-                                  'Daftar',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ),
+                            PrimaryButton(
+                              text: 'Daftar',
+                              onPressed: _handleRegister,
                             ),
                             SizedBox(height: 24),
 
                             // Google Sign In Button
-                            SizedBox(
-                              width: double.infinity,
-                              height: 56,
-                              child: OutlinedButton(
-                                onPressed: _handleGoogleSignIn,
-                                style: OutlinedButton.styleFrom(
-                                  side: BorderSide(color: Colors.grey[300]!),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                  ),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Image.asset(
-                                      'assets/images/icon_google.png',
-                                      height: 24,
-                                      width: 24,
-                                    ),
-                                    SizedBox(width: 12),
-                                    Text(
-                                      'Daftar dengan Google',
-                                      style: TextStyle(
-                                        color: Colors.black87,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    Spacer(),
-                                    Icon(
-                                      Icons.arrow_forward,
-                                      color: Colors.black87,
-                                    ),
-                                  ],
-                                ),
-                              ),
+                            SocialLoginButton(
+                              text: 'Lanjut dengan Google',
+                              iconPath: 'assets/images/icon_google.png',
+                              onPressed: _handleGoogleSignIn,
                             ),
-                            SizedBox(height: 16),
 
-                            // Facebook Sign In Button
-                            SizedBox(
-                              width: double.infinity,
-                              height: 56,
-                              child: OutlinedButton(
-                                onPressed: _handleFacebookSignIn,
-                                style: OutlinedButton.styleFrom(
-                                  side: BorderSide(color: Colors.grey[300]!),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                  ),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Image.asset(
-                                      'assets/images/icon_facebook.png',
-                                      height: 24,
-                                      width: 24,
-                                    ),
-                                    SizedBox(width: 12),
-                                    Text(
-                                      'Daftar dengan Facebook',
-                                      style: TextStyle(
-                                        color: Colors.black87,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    Spacer(),
-                                    Icon(
-                                      Icons.arrow_forward,
-                                      color: Colors.black87,
-                                    ),
-                                  ],
-                                ),
-                              ),
+                            SizedBox(height: 16),
+                            // Facebok Sign In button
+                            SocialLoginButton(
+                              text: 'Lanjut dengan Facebook',
+                              iconPath: 'assets/images/icon_facebook.png',
+                              onPressed: _handleFacebookSignIn,
                             ),
                             SizedBox(height: 32),
                           ],

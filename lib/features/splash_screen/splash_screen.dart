@@ -43,7 +43,7 @@ class _SplashScreenState extends State<SplashScreen>
 
     _slideAnimation = Tween<Offset>(
       begin: Offset.zero,
-      end: const Offset(0, -0.15),
+      end: const Offset(0, -0.30),
     ).animate(CurvedAnimation(parent: _slideController, curve: Curves.easeOut));
 
     _textFadeAnimation = CurvedAnimation(
@@ -91,15 +91,15 @@ class _SplashScreenState extends State<SplashScreen>
                   position: _slideAnimation,
                   child: Image.asset(
                     'assets/images/logo_mascot.png',
-                    width: 150,
-                    height: 150,
+                    width: 90,
+                    height: 90,
                   ),
                 ),
               ),
               FadeTransition(
                 opacity: _textFadeAnimation,
                 child: Transform.translate(
-                  offset: const Offset(0, -60),
+                  offset: const Offset(0, -50),
                   child: Image.asset('assets/images/logo_name.png', width: 280),
                 ),
               ),

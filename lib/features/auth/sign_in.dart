@@ -59,7 +59,7 @@ class _SignInPageState extends State<SignInPage> {
     // Jika validasi berhasil
     AppSnackBar.show(
       context,
-      message: 'Login berhasil!...',
+      message: 'Login berhasil! Selamat datang, ${usernameController.text}!',
       type: SnackType.success,
     );
 

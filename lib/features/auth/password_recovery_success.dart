@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import '../../app/app_routes.dart';
+import '../../shared/widgets/app_buttons.dart';
 
 class PasswordRecoverySuccessPage extends StatefulWidget {
   const PasswordRecoverySuccessPage({super.key});
 
   @override
-  State<PasswordRecoverySuccessPage> createState() => _PasswordRecoverySuccessPageState();
+  State<PasswordRecoverySuccessPage> createState() =>
+      _PasswordRecoverySuccessPageState();
 }
 
-class _PasswordRecoverySuccessPageState extends State<PasswordRecoverySuccessPage> {
+class _PasswordRecoverySuccessPageState
+    extends State<PasswordRecoverySuccessPage> {
   int _countdown = 5;
   Timer? _timer;
 
@@ -129,30 +132,12 @@ class _PasswordRecoverySuccessPageState extends State<PasswordRecoverySuccessPag
                 SizedBox(height: 32),
 
                 // Manual navigation button
-                SizedBox(
-                  width: double.infinity,
-                  height: 56,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      _timer?.cancel();
-                      _navigateToHome();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFF2C2C2C),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      elevation: 0,
-                    ),
-                    child: Text(
-                      'Ke Halaman Utama',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
+                PrimaryButton(
+                  text: 'Ke Halaman Utama',
+                  onPressed: () {
+                    _timer?.cancel();
+                    _navigateToHome();
+                  },
                 ),
               ],
             ),
