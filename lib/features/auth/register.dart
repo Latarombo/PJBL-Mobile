@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:santarana/shared/widgets/app_input_field.dart';
 import '../../app/app_routes.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -318,81 +319,28 @@ class _RegisterPageState extends State<RegisterPage> {
                             SizedBox(height: 16),
 
                             // Password Field
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Colors.grey[100],
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                              child: TextField(
-                                controller: passwordController,
-                                obscureText: _obscurePassword,
-                                decoration: InputDecoration(
-                                  hintText: 'Password',
-                                  hintStyle: TextStyle(
-                                    color: Colors.grey[400],
-                                    fontSize: 16,
-                                  ),
-                                  border: InputBorder.none,
-                                  contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 24,
-                                    vertical: 18,
-                                  ),
-                                  suffixIcon: IconButton(
-                                    icon: Icon(
-                                      _obscurePassword
-                                          ? Icons.visibility_off
-                                          : Icons.visibility,
-                                      color: Colors.grey[600],
-                                    ),
-                                    onPressed: () {
-                                      setState(() {
-                                        _obscurePassword = !_obscurePassword;
-                                      });
-                                    },
-                                  ),
-                                ),
-                                onSubmitted: (_) => _handleRegister(),
+                            InputField(
+                              controller: passwordController,
+                              obscureText: _obscurePassword,
+                              hint: 'Password',
+                              toggleObscure: () => setState(
+                                () => _obscurePassword = !_obscurePassword,
                               ),
                             ),
                             SizedBox(height: 8),
 
                             // Confirm Password Field
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Colors.grey[100],
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                              child: TextField(
+                            InputField(
+                              
+                              
                                 controller: confirmPasswordController,
                                 obscureText: _obscureConfirmPassword,
-                                decoration: InputDecoration(
-                                  hintText: 'Confirm password',
-                                  hintStyle: TextStyle(
-                                    color: Colors.grey[400],
-                                    fontSize: 16,
+                              
+                                  hint: 'Confirm password',
+                                  toggleObscure: () => setState(
+                                    () => _obscureConfirmPassword =
+                                        !_obscureConfirmPassword,
                                   ),
-                                  border: InputBorder.none,
-                                  contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 24,
-                                    vertical: 18,
-                                  ),
-                                  suffixIcon: IconButton(
-                                    icon: Icon(
-                                      _obscureConfirmPassword
-                                          ? Icons.visibility_off
-                                          : Icons.visibility,
-                                      color: Colors.grey[600],
-                                    ),
-                                    onPressed: () {
-                                      setState(() {
-                                        _obscureConfirmPassword =
-                                            !_obscureConfirmPassword;
-                                      });
-                                    },
-                                  ),
-                                ),
-                                onSubmitted: (_) => _handleRegister(),
-                              ),
                             ),
                             SizedBox(height: 24),
 

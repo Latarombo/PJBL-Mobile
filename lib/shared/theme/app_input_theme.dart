@@ -17,18 +17,18 @@ class AppInputTheme {
     filled: true,
 
     // Warna dasar input (netral & ramah anak)
-    fillColor: AppColors.surface,
+    fillColor: AppColors.inputBackground,
 
     // Border default (idle state)
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(30),
-      borderSide: BorderSide.none,
+      borderSide: BorderSide(color: AppColors.outline, width: 2),
     ),
 
     // Border saat input aktif
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(30),
-      borderSide: BorderSide.none,
+      borderSide: BorderSide(color: AppColors.accent, width: 2),
       // NOTE:
       // Jika nanti ingin ada highlight focus,
       // tambahkan borderSide di sini
@@ -37,7 +37,7 @@ class AppInputTheme {
     // Border saat input enabled tapi tidak fokus
     enabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(30),
-      borderSide: BorderSide.none,
+      borderSide: BorderSide(color: AppColors.outline, width: 2),
     ),
 
     // Border error
@@ -61,7 +61,7 @@ class AppInputTheme {
 
     // Hint style default
     hintStyle: TextStyle(
-      color: AppColors.textSecondary,
+      color: AppColors.textHint,
       fontSize: 14,
     ),
 

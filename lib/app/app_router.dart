@@ -5,6 +5,7 @@ import 'package:santarana/features/auth/register.dart';
 import '../features/splash_screen/splash_screen.dart';
 import '../features/auth/sign_in.dart';
 import '../features/auth/password_recovery_success.dart';
+import '../features/game/quiz_page.dart';
 import 'app_shell.dart';
 import 'app_routes.dart';
 
@@ -30,6 +31,13 @@ class AppRouter {
 
       case AppRoutes.app:
         return MaterialPageRoute(builder: (_) => const AppShell());
+
+        case AppRoutes.quiz:
+        final args = settings.arguments as Map<String, dynamic>?;
+        final category = args?['category'] as String? ?? 'Tari Tradisional';
+        return MaterialPageRoute(
+          builder: (_) => QuizPage(category: category),
+        );
 
       default:
         return MaterialPageRoute(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../app/app_routes.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -37,7 +38,7 @@ class HomePage extends StatelessWidget {
                   const SizedBox(height: 16),
 
                   // Featured Game Card
-                  _buildFeaturedGameCard(),
+                  _buildFeaturedGameCard(context),
 
                   const SizedBox(height: 24),
 
@@ -57,7 +58,7 @@ class HomePage extends StatelessWidget {
                   const SizedBox(height: 12),
 
                   // Game Categories
-                  _buildGameCategories(),
+                  _buildGameCategories(context),
 
                   const SizedBox(height: 24),
 
@@ -79,6 +80,7 @@ class HomePage extends StatelessWidget {
 
                   // Reminder Cards
                   _buildReminderCard(
+                    context,
                     title: 'Kuis 3',
                     subtitle: 'Pakaian Adat',
                     imagePath: 'assets/images/pakaian_adat.png',
@@ -91,8 +93,9 @@ class HomePage extends StatelessWidget {
                   const SizedBox(height: 12),
 
                   _buildReminderCard(
+                    context,
                     title: 'Kuis 3',
-                    subtitle: 'Pakaian Adat',
+                    subtitle: 'Rumah Adat',
                     imagePath: 'assets/images/rumah_adat.png',
                     progress: 5,
                     total: 10,
@@ -103,8 +106,9 @@ class HomePage extends StatelessWidget {
                   const SizedBox(height: 12),
 
                   _buildReminderCard(
+                    context,
                     title: 'Kuis 3',
-                    subtitle: 'Pakaian Adat',
+                    subtitle: 'Musik Nusantara',
                     imagePath: 'assets/images/pakaian_adat.png',
                     progress: 5,
                     total: 10,
@@ -138,7 +142,7 @@ class HomePage extends StatelessWidget {
                 top: 220, // Header height (240) - overlap (30)
                 left: 0,
                 right: 0,
-                child: _buildAktivitasTerakhirCard(),
+                child: _buildAktivitasTerakhirCard(context),
               ),
             ],
           ),
@@ -289,266 +293,286 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildAktivitasTerakhirCard() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24),
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(15),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.08),
-              blurRadius: 8,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
-        child: Row(
-          children: [
-            // Image
-            Container(
-              width: 80,
-              height: 80,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                image: const DecorationImage(
-                  image: AssetImage('assets/images/pakaian_adat.png'),
-                  fit: BoxFit.cover,
+  Widget _buildAktivitasTerakhirCard(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(
+          context,
+          AppRoutes.quiz,
+          arguments: {'category': 'Pakaian Adat'},
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(15),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.08),
+                blurRadius: 8,
+                offset: const Offset(0, 2),
+              ),
+            ],
+          ),
+          child: Row(
+            children: [
+              // Image
+              Container(
+                width: 80,
+                height: 80,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  image: const DecorationImage(
+                    image: AssetImage('assets/images/pakaian_adat.png'),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(width: 16),
-            // Content
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Aktivitas Terakhir',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black87,
-                        ),
-                      ),
-                      Icon(
-                        Icons.arrow_forward_ios,
-                        size: 16,
-                        color: Colors.grey[600],
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    '15 pertanyaan',
-                    style: TextStyle(fontSize: 12, color: Colors.grey[600]),
-                  ),
-                  const SizedBox(height: 8),
-                  // Progress indicator
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: LinearProgressIndicator(
-                                value: 9 / 15,
-                                backgroundColor: Colors.grey[300],
-                                valueColor: const AlwaysStoppedAnimation<Color>(
-                                  Color(0xFFFFB347),
-                                ),
-                                minHeight: 8,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                          const Text(
-                            '9/15',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black87,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        'progress',
-                        style: TextStyle(fontSize: 10, color: Colors.grey[600]),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildFeaturedGameCard() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24),
-      child: Container(
-        height: 180,
-        decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [Color(0xFF5A8B7E), Color(0xFF4A7A6D)],
-          ),
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.15),
-              blurRadius: 10,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
-        child: Stack(
-          children: [
-            // Background pattern/texture
-            Positioned.fill(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: CustomPaint(painter: GameCardPatternPainter()),
-              ),
-            ),
-            // Content
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Row(
-                children: [
-                  // Text content
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
+              const SizedBox(width: 16),
+              // Content
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          children: [
-                            Container(
-                              width: 35,
-                              height: 35,
-                              decoration: BoxDecoration(
-                                color: Colors.white.withValues(alpha: 0.3),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: const Icon(
-                                Icons.gamepad,
-                                color: Colors.white,
-                                size: 20,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 12),
                         const Text(
-                          'Cobalah\ngame terbaru kami!',
+                          'Aktivitas Terakhir',
                           style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            height: 1.3,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black87,
                           ),
                         ),
-                        const Spacer(),
-                        // Date
-                        Row(
-                          children: [
-                            Text(
-                              '21/01/2026',
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.white.withValues(alpha: 0.9),
-                              ),
-                            ),
-                          ],
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          size: 16,
+                          color: Colors.grey[600],
                         ),
                       ],
                     ),
-                  ),
-                  // Character illustration
-                  Expanded(
-                    child: Container(
-                      alignment: Alignment.centerRight,
-                      child: Image.asset(
-                        'assets/images/character_game.png',
-                        height: 140,
-                        fit: BoxFit.contain,
-                        errorBuilder: (context, error, stackTrace) {
-                          return Container(
-                            width: 100,
-                            height: 140,
-                            decoration: BoxDecoration(
-                              color: Colors.white.withValues(alpha: 0.1),
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Icon(
-                              Icons.image,
-                              color: Colors.white.withValues(alpha: 0.3),
-                              size: 50,
-                            ),
-                          );
-                        },
-                      ),
+                    const SizedBox(height: 4),
+                    Text(
+                      '15 pertanyaan',
+                      style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                     ),
-                  ),
-                ],
-              ),
-            ),
-            // Forward arrow icon
-            Positioned(
-              top: 16,
-              right: 16,
-              child: Container(
-                width: 32,
-                height: 32,
-                decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.3),
-                  shape: BoxShape.circle,
+                    const SizedBox(height: 8),
+                    // Progress indicator
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: LinearProgressIndicator(
+                                  value: 9 / 15,
+                                  backgroundColor: Colors.grey[300],
+                                  valueColor: const AlwaysStoppedAnimation<Color>(
+                                    Color(0xFFFFB347),
+                                  ),
+                                  minHeight: 8,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            const Text(
+                              '9/15',
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black87,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          'progress',
+                          style: TextStyle(fontSize: 10, color: Colors.grey[600]),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-                child: const Icon(
-                  Icons.arrow_forward,
-                  color: Colors.white,
-                  size: 18,
-                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildGameCategories() {
+  Widget _buildFeaturedGameCard(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(
+          context,
+          AppRoutes.quiz,
+          arguments: {'category': 'Tari Tradisional'},
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        child: Container(
+          height: 180,
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [Color(0xFF5A8B7E), Color(0xFF4A7A6D)],
+            ),
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.15),
+                blurRadius: 10,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
+          child: Stack(
+            children: [
+              // Background pattern/texture
+              Positioned.fill(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: CustomPaint(painter: GameCardPatternPainter()),
+                ),
+              ),
+              // Content
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Row(
+                  children: [
+                    // Text content
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                width: 35,
+                                height: 35,
+                                decoration: BoxDecoration(
+                                  color: Colors.white.withValues(alpha: 0.3),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: const Icon(
+                                  Icons.gamepad,
+                                  color: Colors.white,
+                                  size: 20,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 12),
+                          const Text(
+                            'Cobalah\ngame terbaru kami!',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              height: 1.3,
+                            ),
+                          ),
+                          const Spacer(),
+                          // Date
+                          Row(
+                            children: [
+                              Text(
+                                '21/01/2026',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.white.withValues(alpha: 0.9),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    // Character illustration
+                    Expanded(
+                      child: Container(
+                        alignment: Alignment.centerRight,
+                        child: Image.asset(
+                          'assets/images/character_game.png',
+                          height: 140,
+                          fit: BoxFit.contain,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Container(
+                              width: 100,
+                              height: 140,
+                              decoration: BoxDecoration(
+                                color: Colors.white.withValues(alpha: 0.1),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Icon(
+                                Icons.image,
+                                color: Colors.white.withValues(alpha: 0.3),
+                                size: 50,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              // Forward arrow icon
+              Positioned(
+                top: 16,
+                right: 16,
+                child: Container(
+                  width: 32,
+                  height: 32,
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.3),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(
+                    Icons.arrow_forward,
+                    color: Colors.white,
+                    size: 18,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildGameCategories(BuildContext context) {
     return SizedBox(
       height: 100,
       child: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         scrollDirection: Axis.horizontal,
         children: [
-          _buildCategoryCard('Pakaian Adat', 'assets/images/pakaian_adat.png'),
+          _buildCategoryCard(context, 'Pakaian Adat', 'assets/images/pakaian_adat.png'),
           const SizedBox(width: 12),
-          _buildCategoryCard('Rumah Adat', 'assets/images/rumah_adat.png'),
+          _buildCategoryCard(context, 'Rumah Adat', 'assets/images/rumah_adat.png'),
           const SizedBox(width: 12),
           _buildCategoryCard(
+            context,
             'Musik Nusantara',
             'assets/images/musik_nusantara.png',
           ),
           const SizedBox(width: 12),
           _buildCategoryCard(
-            'Musik Nusantara',
+            context,
+            'Makanan Nusantara',
             'assets/images/makanan_nusantara.png',
           ),
         ],
@@ -556,44 +580,54 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildCategoryCard(String title, String imagePath) {
-    return Container(
-      width: 140,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        image: DecorationImage(image: AssetImage(imagePath), fit: BoxFit.cover),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.1),
-            blurRadius: 6,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
+  Widget _buildCategoryCard(BuildContext context, String title, String imagePath) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(
+          context,
+          AppRoutes.quiz,
+          arguments: {'category': title},
+        );
+      },
       child: Container(
+        width: 140,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Colors.transparent, Colors.black.withValues(alpha: 0.5)],
-          ),
+          image: DecorationImage(image: AssetImage(imagePath), fit: BoxFit.cover),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.1),
+              blurRadius: 6,
+              offset: const Offset(0, 2),
+            ),
+          ],
         ),
-        padding: const EdgeInsets.all(12),
-        alignment: Alignment.bottomLeft,
-        child: Text(
-          title,
-          style: const TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Colors.transparent, Colors.black.withValues(alpha: 0.5)],
+            ),
+          ),
+          padding: const EdgeInsets.all(12),
+          alignment: Alignment.bottomLeft,
+          child: Text(
+            title,
+            style: const TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
+            ),
           ),
         ),
       ),
     );
   }
 
-  Widget _buildReminderCard({
+  Widget _buildReminderCard(
+    BuildContext context, {
     required String title,
     required String subtitle,
     required String imagePath,
@@ -618,7 +652,7 @@ class HomePage extends StatelessWidget {
           ],
         ),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start, // ini Align at the top
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Image
             Container(
@@ -683,7 +717,7 @@ class HomePage extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 0),//ini no space
+                  const SizedBox(height: 0),
                   // Progress bar
                   Row(
                     children: [
@@ -715,25 +749,34 @@ class HomePage extends StatelessWidget {
                   // Lanjut button
                   Align(
                     alignment: Alignment.centerRight,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 24,
-                        vertical: 8,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(
-                          color: Colors.grey[300]!,
-                          width: 1.5,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          AppRoutes.quiz,
+                          arguments: {'category': subtitle},
+                        );
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 24,
+                          vertical: 8,
                         ),
-                      ),
-                      child: const Text(
-                        'Lanjut',
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black87,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(
+                            color: Colors.grey[300]!,
+                            width: 1.5,
+                          ),
+                        ),
+                        child: const Text(
+                          'Lanjut',
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black87,
+                          ),
                         ),
                       ),
                     ),

@@ -22,6 +22,10 @@ class AppColors {
   /// Surface putih untuk cards/containers
   static const surfaceWhite = Colors.white;
 
+  /// Background untuk input fields
+  static const inputBackground = Color.fromARGB(255, 247, 247, 247);
+
+
   // ============================================
   // BRAND COLORS
   // ============================================
@@ -36,7 +40,7 @@ class AppColors {
   static const textPrimary = Color(0xff270f0f);
   static const textSecondary = Color(0xffffffff);
   static const textDisabled = Color(0xFF9E9E9E);
-  static const textGrey = Color(0xFF757575);
+  static final textHint = Colors.grey[600]!;
 
   // ============================================
   // NEUTRAL / DARK

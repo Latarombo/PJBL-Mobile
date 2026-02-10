@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class InputField extends StatelessWidget {
   final TextEditingController controller;
   final String hint;
+  
   final bool obscureText;
   final VoidCallback? toggleObscure;
 
