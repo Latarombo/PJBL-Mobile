@@ -116,7 +116,22 @@ class HomePage extends StatelessWidget {
                     time: '08:30',
                   ),
 
-                  const SizedBox(height: 100), // Extra space for bottom navigation
+                  const SizedBox(height: 12),
+
+                  _buildReminderCard(
+                    context,
+                    title: 'Kuis 2',
+                    subtitle: 'Musik Nusantara',
+                    imagePath: 'assets/images/pakaian_adat.png',
+                    progress: 5,
+                    total: 10,
+                    level: 'level 1',
+                    time: '08:30',
+                  ),
+
+                  const SizedBox(
+                    height: 100,
+                  ), // Extra space for bottom navigation
                 ],
               ),
 
@@ -299,7 +314,7 @@ class HomePage extends StatelessWidget {
         Navigator.pushNamed(
           context,
           AppRoutes.quiz,
-          arguments: {'category': 'Pakaian Adat'},
+          arguments: {'category': 'Tarian Tradisonal'},
         );
       },
       child: Padding(
@@ -373,9 +388,10 @@ class HomePage extends StatelessWidget {
                                 child: LinearProgressIndicator(
                                   value: 9 / 15,
                                   backgroundColor: Colors.grey[300],
-                                  valueColor: const AlwaysStoppedAnimation<Color>(
-                                    Color(0xFFFFB347),
-                                  ),
+                                  valueColor:
+                                      const AlwaysStoppedAnimation<Color>(
+                                        Color(0xFFFFB347),
+                                      ),
                                   minHeight: 8,
                                 ),
                               ),
@@ -394,7 +410,10 @@ class HomePage extends StatelessWidget {
                         const SizedBox(height: 4),
                         Text(
                           'progress',
-                          style: TextStyle(fontSize: 10, color: Colors.grey[600]),
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: Colors.grey[600],
+                          ),
                         ),
                       ],
                     ),
@@ -410,13 +429,13 @@ class HomePage extends StatelessWidget {
 
   Widget _buildFeaturedGameCard(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(
-          context,
-          AppRoutes.quiz,
-          arguments: {'category': 'Tari Tradisional'},
-        );
-      },
+      // onTap: () {
+      //   Navigator.pushNamed(
+      //     context,
+      //     AppRoutes.quiz,
+      //     arguments: {'category': 'Tari Tradisional'},
+      //   );
+      // },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Container(
@@ -560,14 +579,28 @@ class HomePage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 24),
         scrollDirection: Axis.horizontal,
         children: [
-          _buildCategoryCard(context, 'Pakaian Adat', 'assets/images/pakaian_adat.png'),
+          _buildCategoryCard(
+            context,
+            'Pakaian Adat',
+            'assets/images/pakaian_adat.png',
+          ),
           const SizedBox(width: 12),
-          _buildCategoryCard(context, 'Rumah Adat', 'assets/images/rumah_adat.png'),
+          _buildCategoryCard(
+            context,
+            'Rumah Adat',
+            'assets/images/rumah_adat.png',
+          ),
           const SizedBox(width: 12),
           _buildCategoryCard(
             context,
             'Musik Nusantara',
             'assets/images/musik_nusantara.png',
+          ),
+          const SizedBox(width: 12),
+          _buildCategoryCard(
+            context,
+            'Tarian Tradisional',
+            'assets/images/makanan_nusantara.png',
           ),
           const SizedBox(width: 12),
           _buildCategoryCard(
@@ -580,7 +613,11 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildCategoryCard(BuildContext context, String title, String imagePath) {
+  Widget _buildCategoryCard(
+    BuildContext context,
+    String title,
+    String imagePath,
+  ) {
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(
@@ -593,7 +630,10 @@ class HomePage extends StatelessWidget {
         width: 140,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          image: DecorationImage(image: AssetImage(imagePath), fit: BoxFit.cover),
+          image: DecorationImage(
+            image: AssetImage(imagePath),
+            fit: BoxFit.cover,
+          ),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withValues(alpha: 0.1),
