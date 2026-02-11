@@ -114,9 +114,9 @@ class LeaderboardPage extends StatelessWidget {
           Positioned(
             left: 0,
             right: 0,
-            bottom: 20, // Slightly lower to overlap with list
+            bottom: 0, // Slightly lower to overlap with list
             child: SizedBox(
-              height: 120,
+              height: 210,
               width: double.infinity,
               child: Image.asset(
                 'assets/images/cloud.png',

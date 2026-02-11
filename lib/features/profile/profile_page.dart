@@ -50,7 +50,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   Container(
                     padding: EdgeInsets.only(
                       top: 80,
-                      bottom: 32,
+                      bottom: 0,
                       left: 24,
                       right: 24,
                     ),
@@ -61,13 +61,13 @@ class _ProfilePageState extends State<ProfilePage> {
                       //   color: Color(0xFFE0D5C7),
                       //   width: 2,
                       // ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color(0xFFD4A574).withValues(alpha: 0.2),
-                          blurRadius: 15,
-                          offset: Offset(0, 5),
-                        ),
-                      ],
+                      // boxShadow: [
+                      //   BoxShadow(
+                      //     color: Color(0xFFD4A574).withValues(alpha: 0.2),
+                      //     blurRadius: 15,
+                      //     offset: Offset(0, 5),
+                      //   ),
+                      // ],
                     ),
                     child: Column(
                       children: [
