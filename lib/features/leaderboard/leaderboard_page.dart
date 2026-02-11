@@ -33,31 +33,31 @@ class LeaderboardPage extends StatelessWidget {
                       children: [
                         const SizedBox(height: 20),
 
-                        // Top 3 Podium
+                        // Top 3 Podium (with cloud integrated)
                         _buildPodium(),
 
-                        const SizedBox(height: 40),
-
-                        // Cloud decoration (transition between podium and list)
-                        _buildCloudDecoration(),
-
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 30),
 
                         // Leaderboard List
                         _buildLeaderboardList(),
 
-                        const SizedBox(height: 20),
-
-                        // Current User Card (sticky at bottom)
-                        _buildCurrentUserCard(),
-
-                        const SizedBox(height: 100), // Space for bottom nav
+                        const SizedBox(
+                          height: 80,
+                        ), // Space for fixed user card and bottom nav
                       ],
                     ),
                   ),
                 ),
               ],
             ),
+          ),
+
+          // Fixed User Card at bottom
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 60, // Space for bottom navigation bar
+            child: _buildCurrentUserCard(),
           ),
         ],
       ),
@@ -66,7 +66,6 @@ class LeaderboardPage extends StatelessWidget {
 
   Widget _buildHeader() {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
@@ -74,7 +73,10 @@ class LeaderboardPage extends StatelessWidget {
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
         ),
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(30),
+          bottomRight: Radius.circular(30),
+        ),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.2),
@@ -104,17 +106,36 @@ class LeaderboardPage extends StatelessWidget {
 
   Widget _buildPodium() {
     return SizedBox(
-      height: 180,
+      height: 340, // Increased to accommodate cloud overlap
       child: Stack(
+        clipBehavior: Clip.none,
         children: [
+          // Cloud decoration - BEHIND everything (drawn first)
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 20, // Slightly lower to overlap with list
+            child: SizedBox(
+              height: 120,
+              width: double.infinity,
+              child: Image.asset(
+                'assets/images/cloud.png',
+                fit: BoxFit.fill, // Use fill to cover full width
+                // errorBuilder: (context, error, stackTrace) {
+                //   return CustomPaint(painter: CloudPainter());
+                // },
+              ),
+            ),
+          ),
+
           // Second Place (Left)
           Positioned(
             left: 20,
-            bottom: 0,
+            bottom: 40,
             child: _buildPodiumItem(
               rank: 2,
               username: 'adalahpokoknya',
-              score: 1500,
+              score: 12500,
               avatarAsset: 'assets/images/character_game.png',
               wingsAsset: 'assets/images/rank_2.png',
               podiumColor: const Color(0xFFC0C0C0),
@@ -125,11 +146,11 @@ class LeaderboardPage extends StatelessWidget {
           Positioned(
             left: 0,
             right: 0,
-            bottom: 60,
+            bottom: 100,
             child: _buildPodiumItem(
               rank: 1,
-              username: 'kelsya_pfp',
-              score: 1500,
+              username: 'keisya_pfp',
+              score: 8450,
               avatarAsset: 'assets/images/character_game.png',
               wingsAsset: 'assets/images/rank_1.png',
               podiumColor: const Color(0xFFFFD700),
@@ -140,11 +161,11 @@ class LeaderboardPage extends StatelessWidget {
           // Third Place (Right)
           Positioned(
             right: 20,
-            bottom: 0,
+            bottom: 40,
             child: _buildPodiumItem(
               rank: 3,
               username: 'Najwa_Miniww',
-              score: 500,
+              score: 6370,
               avatarAsset: 'assets/images/character_game.png',
               wingsAsset: 'assets/images/rank_3.png',
               podiumColor: const Color(0xFFCD7F32),
@@ -164,8 +185,8 @@ class LeaderboardPage extends StatelessWidget {
     required Color podiumColor,
     bool isFirst = false,
   }) {
-    final size = isFirst ? 110.0 : 90.0;
-    final badgeSize = isFirst ? 185.0 : 120.0;
+    final size = isFirst ? 89.0 : 75.0;
+    final badgeSize = isFirst ? 180.0 : 120.0;
 
     return Column(
       children: [
@@ -177,10 +198,10 @@ class LeaderboardPage extends StatelessWidget {
             clipBehavior: Clip.none,
             alignment: Alignment.center,
             children: [
-              // Avatar circle - BEHIND the badge (drawn first)
+              // Avatar circle - BEHIND (drawn first)
               Positioned(
                 left: (badgeSize - size) / 2,
-                top: (badgeSize - size) / 2,
+                top: (badgeSize - size) / 2 - 10,
                 child: Container(
                   width: size,
                   height: size,
@@ -223,28 +244,58 @@ class LeaderboardPage extends StatelessWidget {
                   width: badgeSize,
                   height: badgeSize,
                   fit: BoxFit.contain,
-                  errorBuilder: (context, error, stackTrace) {
-                    return CustomPaint(
-                      size: Size(badgeSize, badgeSize),
-                      painter: WingsPainter(color: podiumColor),
-                    );
-                  },
+                  // errorBuilder: (context, error, stackTrace) {
+                  //   return CustomPaint(
+                  //     size: Size(badgeSize, badgeSize),
+                  //     painter: WingsPainter(color: podiumColor),
+                  //   );
+                  // },
                 ),
               ),
 
-              // Score badge at bottom (on top of everything)
+              // Score badge at bottom
               Positioned(
                 left: 0,
                 right: 0,
-                bottom: 55,
-
-                child: Text(
-                  score.toString(),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: isFirst ? 30 : 16,
-                    fontWeight: FontWeight.bold,
+                bottom: isFirst ? 32 : 32,
+                child: Center(
+                  child: Stack(
+                    children: [
+                      // Stroke/Border text
+                      Text(
+                        score.toString(),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          foreground: Paint()
+                            ..style = PaintingStyle.stroke
+                            ..strokeWidth =
+                                3 // ketebalan border
+                            ..color = rank == 1
+                                ? const Color(
+                                    0xFFB8860B,
+                                  ) // gold dark untuk rank 1
+                                : rank == 2
+                                ? const Color(0xFF808080) // gray untuk rank 2
+                                : const Color(0xfff7d9bc), // brown untuk rank 3
+                          fontSize: isFirst ? 28 : 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      // Fill text
+                      Text(
+                        score.toString(),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: rank == 1
+                              ? const Color(0xfff9eda5)
+                              : rank == 2
+                              ? const Color(0xffe7e7e7)
+                              : const Color(0xffce8946),
+                          fontSize: isFirst ? 28 : 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -252,20 +303,23 @@ class LeaderboardPage extends StatelessWidget {
           ),
         ),
 
-        const SizedBox(height: 0),
+        const SizedBox(height: 10),
 
         // Username
-        SizedBox(
-          width: badgeSize + 20,
-          child: Text(
-            username,
-            textAlign: TextAlign.center,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              fontSize: isFirst ? 14 : 12,
-              fontWeight: FontWeight.w600,
-              color: const Color(0xFF270F0F),
+        Transform.translate(
+          offset: const Offset(0, -25), // geser ke atas 15 pixel
+          child: SizedBox(
+            width: badgeSize + 10,
+            child: Text(
+              username,
+              textAlign: TextAlign.center,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontSize: isFirst ? 14 : 12,
+                fontWeight: FontWeight.w600,
+                color: const Color(0xFF270F0F),
+              ),
             ),
           ),
         ),
@@ -273,35 +327,28 @@ class LeaderboardPage extends StatelessWidget {
     );
   }
 
-  Widget _buildCloudDecoration() {
-    return SizedBox(
-      height: 60,
-      child: Image.asset(
-                'assets/images/cloud.png',
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return const Icon(
-                    Icons.cloud,
-                    size: 24,
-                    color: Color(0xFF8B4789),
-                  );
-                },
-              ),
-    );
-  }
-
   Widget _buildLeaderboardList() {
     final leaderboardData = [
-      LeaderboardEntry(rank: 1, username: 'kelsya_pfp', score: 1500),
-      LeaderboardEntry(rank: 2, username: 'adalahpokoknya', score: 1450),
-      LeaderboardEntry(rank: 3, username: 'Najwa_Miniww', score: 1200),
-      LeaderboardEntry(rank: 4, username: 'nimiwisa_laber', score: 100),
-      LeaderboardEntry(rank: 5, username: 'nimiwisa_laber', score: 100),
-      LeaderboardEntry(rank: 6, username: 'nimiwisa_laber', score: 100),
+      LeaderboardEntry(rank: 1, username: 'keisya_pfp', score: 12500),
+      LeaderboardEntry(rank: 2, username: 'adalahpokoknya', score: 8450),
+      LeaderboardEntry(rank: 3, username: 'Najwa_Miniww', score: 6370),
+      LeaderboardEntry(rank: 4, username: 'nimiwisa_laber', score: 4220),
+      LeaderboardEntry(rank: 5, username: 'nimiwisa_laber', score: 3400),
+      LeaderboardEntry(rank: 6, username: 'nimiwisa_laber', score: 2500),
+      LeaderboardEntry(rank: 7, username: 'nimiwisa_laber', score: 1580),
+      LeaderboardEntry(rank: 8, username: 'nimiwisa_laber', score: 1200),
+      LeaderboardEntry(rank: 9, username: 'nimiwisa_laber', score: 1100),
+      LeaderboardEntry(rank: 10, username: 'nimiwisa_laber', score: 1000),
+      LeaderboardEntry(rank: 11, username: 'nimiwisa_laber', score: 900),
+      LeaderboardEntry(rank: 12, username: 'nimiwisa_laber', score: 800),
+      LeaderboardEntry(rank: 13, username: 'nimiwisa_laber', score: 700),
+      LeaderboardEntry(rank: 14, username: 'nimiwisa_laber', score: 600),
+      LeaderboardEntry(rank: 15, username: 'nimiwisa_laber', score: 500),
+      LeaderboardEntry(rank: 16, username: 'nimiwisa_laber', score: 300),
     ];
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Column(
         children: leaderboardData.map((entry) {
           return _buildLeaderboardCard(entry);
@@ -311,30 +358,48 @@ class LeaderboardPage extends StatelessWidget {
   }
 
   Widget _buildLeaderboardCard(LeaderboardEntry entry) {
-    final isCurrentUser = entry.username == currentUsername;
+    // final isCurrentUser = entry.username == currentUsername;
 
-    // Color based on rank
-    Color cardColor;
+    // Color dan Gradient yang ada di rank
+    Gradient? cardGradient;
+    Color? cardColor;
+
     if (entry.rank == 1) {
-      cardColor = const Color(0xFFFFF9C4); // Gold tint
+      // Gold gradient
+      cardGradient = const LinearGradient(
+        colors: [Color(0xffffe802), Color(0xffffce00)],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      );
     } else if (entry.rank == 2) {
-      cardColor = const Color(0xFFE0E0E0); // Silver tint
+      // Silver gradient
+      cardGradient = const LinearGradient(
+        colors: [Color(0xffebecf0), Color(0xffbec0c2)],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      );
     } else if (entry.rank == 3) {
-      cardColor = const Color(0xFFD7CCC8); // Bronze tint
+      // Bronze gradient
+      cardGradient = const LinearGradient(
+        colors: [Color(0xffc18563), Color(0xff9c7a3c)],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      );
     } else {
+      // Plain white for others
       cardColor = Colors.white;
     }
-
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
       decoration: BoxDecoration(
+        gradient: cardGradient,
         color: cardColor,
-        borderRadius: BorderRadius.circular(25),
+        borderRadius: BorderRadius.circular(18),
         border: Border.all(
           color: entry.rank <= 3
-              ? const Color(0xFFD4A574).withValues(alpha: 0.4)
-              : Colors.grey.shade200,
+              ? const Color.fromARGB(255, 200, 110, 92).withValues(alpha: 0.4)
+              : const Color(0xffffd9cc),
           width: 2,
         ),
         boxShadow: [
@@ -349,18 +414,18 @@ class LeaderboardPage extends StatelessWidget {
         children: [
           // Rank number
           SizedBox(
-            width: 30,
+            width: 20,
             child: Text(
               entry.rank.toString(),
               style: const TextStyle(
-                fontSize: 18,
+                fontSize: 16,
                 fontWeight: FontWeight.bold,
                 color: Color(0xFF270F0F),
               ),
             ),
           ),
 
-          const SizedBox(width: 12),
+          const SizedBox(width: 8),
 
           // Avatar
           Container(
@@ -393,7 +458,7 @@ class LeaderboardPage extends StatelessWidget {
             child: Text(
               entry.username,
               style: const TextStyle(
-                fontSize: 16,
+                fontSize: 14,
                 fontWeight: FontWeight.w600,
                 color: Color(0xFF270F0F),
               ),
@@ -418,22 +483,23 @@ class LeaderboardPage extends StatelessWidget {
   }
 
   Widget _buildCurrentUserCard() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+    return Container(
+      // Background dikosongkan
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         decoration: BoxDecoration(
           gradient: const LinearGradient(
             colors: [Color(0xFF8B3A3A), Color(0xFFB85C52)],
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
           ),
-          borderRadius: BorderRadius.circular(25),
+          borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.2),
-              blurRadius: 12,
-              offset: const Offset(0, 4),
+              color: Colors.black.withValues(alpha: 0.3),
+              blurRadius: 8,
+              offset: const Offset(2, 6),
             ),
           ],
         ),
@@ -447,7 +513,7 @@ class LeaderboardPage extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  color: Color(0xfff7d9bc),
                 ),
               ),
             ),
@@ -494,7 +560,7 @@ class LeaderboardPage extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  color: Color(0xfff7d9bc),
                 ),
               ),
             ),
@@ -503,11 +569,11 @@ class LeaderboardPage extends StatelessWidget {
 
             // Score
             const Text(
-              '1200',
+              '6370',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
+                color: Color(0xfff7d9bc),
               ),
             ),
           ],
@@ -540,8 +606,8 @@ class LeaderboardBackgroundPainter extends CustomPainter {
       end: Alignment.bottomCenter,
       colors: [
         const Color(0xFFF9F4E4),
-        const Color(0xFFFFE8D6).withValues(alpha: 0.3),
-        const Color(0xFFF9F4E4),
+        const Color(0xFFFFE8D6),
+        const Color(0xffd2947b),
       ],
     );
 
@@ -557,14 +623,17 @@ class LeaderboardBackgroundPainter extends CustomPainter {
 
     final random = math.Random(42); // Fixed seed for consistent pattern
 
-    for (int i = 0; i < 30; i++) {
+    for (int i = 0; i < 100; i++) {
       final x = random.nextDouble() * size.width;
       final y = random.nextDouble() * size.height;
       final starSize = 3.0 + random.nextDouble() * 4;
 
       // Random color for sprinkles (white, light pink, light yellow)
       final colors = [
-        Colors.white.withValues(alpha: 0.7),
+        // Colors.white.withValues(alpha: 0.7),
+        // const Color(0xFFFFE0E0).withValues(alpha: 0.5),
+        // const Color(0xFFFFFFCC).withValues(alpha: 0.5),
+        Colors.white,
         const Color(0xFFFFE0E0).withValues(alpha: 0.5),
         const Color(0xFFFFFFCC).withValues(alpha: 0.5),
       ];
@@ -600,89 +669,89 @@ class LeaderboardBackgroundPainter extends CustomPainter {
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
 
-class CloudPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = Colors.white.withValues(alpha: 0.5)
-      ..style = PaintingStyle.fill;
+// class CloudPainter extends CustomPainter {
+//   @override
+//   void paint(Canvas canvas, Size size) {
+//     final paint = Paint()
+//       ..color = Colors.white.withValues(alpha: 0.5)
+//       ..style = PaintingStyle.fill;
 
-    final path = Path();
+//     final path = Path();
 
-    // Create wavy cloud shape
-    path.moveTo(0, size.height * 0.5);
+//     // Create wavy cloud shape
+//     path.moveTo(0, size.height * 0.5);
 
-    for (double i = 0; i <= size.width; i += 30) {
-      final wave = math.sin((i / size.width) * math.pi * 4) * 10;
-      path.lineTo(i, size.height * 0.5 + wave);
-    }
+//     for (double i = 0; i <= size.width; i += 30) {
+//       final wave = math.sin((i / size.width) * math.pi * 4) * 10;
+//       path.lineTo(i, size.height * 0.5 + wave);
+//     }
 
-    path.lineTo(size.width, size.height);
-    path.lineTo(0, size.height);
-    path.close();
+//     path.lineTo(size.width, size.height);
+//     path.lineTo(0, size.height);
+//     path.close();
 
-    canvas.drawPath(path, paint);
+//     canvas.drawPath(path, paint);
 
-    // Add some cloud circles
-    final circlePaint = Paint()
-      ..color = Colors.white.withValues(alpha: 0.3)
-      ..style = PaintingStyle.fill;
+//     // Add some cloud circles
+//     final circlePaint = Paint()
+//       ..color = Colors.white.withValues(alpha: 0.3)
+//       ..style = PaintingStyle.fill;
 
-    for (double i = 0; i < size.width; i += 60) {
-      canvas.drawCircle(Offset(i + 15, size.height * 0.3), 15, circlePaint);
-    }
-  }
+//     for (double i = 0; i < size.width; i += 60) {
+//       canvas.drawCircle(Offset(i + 15, size.height * 0.3), 15, circlePaint);
+//     }
+//   }
 
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}
+//   @override
+//   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+// }
 
-class WingsPainter extends CustomPainter {
-  final Color color;
+// class WingsPainter extends CustomPainter {
+//   final Color color;
 
-  WingsPainter({required this.color});
+//   WingsPainter({required this.color});
 
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = color
-      ..style = PaintingStyle.fill;
+//   @override
+//   void paint(Canvas canvas, Size size) {
+//     final paint = Paint()
+//       ..color = color
+//       ..style = PaintingStyle.fill;
 
-    final path = Path();
+//     final path = Path();
 
-    // Left wing
-    path.moveTo(size.width * 0.3, size.height * 0.5);
-    path.quadraticBezierTo(
-      0,
-      size.height * 0.3,
-      size.width * 0.1,
-      size.height * 0.8,
-    );
-    path.quadraticBezierTo(
-      size.width * 0.2,
-      size.height * 0.6,
-      size.width * 0.3,
-      size.height * 0.5,
-    );
+//     // Left wing
+//     path.moveTo(size.width * 0.3, size.height * 0.5);
+//     path.quadraticBezierTo(
+//       0,
+//       size.height * 0.3,
+//       size.width * 0.1,
+//       size.height * 0.8,
+//     );
+//     path.quadraticBezierTo(
+//       size.width * 0.2,
+//       size.height * 0.6,
+//       size.width * 0.3,
+//       size.height * 0.5,
+//     );
 
-    // Right wing
-    path.moveTo(size.width * 0.7, size.height * 0.5);
-    path.quadraticBezierTo(
-      size.width,
-      size.height * 0.3,
-      size.width * 0.9,
-      size.height * 0.8,
-    );
-    path.quadraticBezierTo(
-      size.width * 0.8,
-      size.height * 0.6,
-      size.width * 0.7,
-      size.height * 0.5,
-    );
+//     // Right wing
+//     path.moveTo(size.width * 0.7, size.height * 0.5);
+//     path.quadraticBezierTo(
+//       size.width,
+//       size.height * 0.3,
+//       size.width * 0.9,
+//       size.height * 0.8,
+//     );
+//     path.quadraticBezierTo(
+//       size.width * 0.8,
+//       size.height * 0.6,
+//       size.width * 0.7,
+//       size.height * 0.5,
+//     );
 
-    canvas.drawPath(path, paint);
-  }
+//     canvas.drawPath(path, paint);
+//   }
 
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}
+//   @override
+//   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+// }
