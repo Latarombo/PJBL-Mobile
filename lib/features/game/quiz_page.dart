@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
 import 'models/quiz_model.dart';
 import 'data/quiz_data.dart';
 import 'widgets/quiz_option_card.dart';
@@ -7,10 +8,7 @@ import '../../shared/theme/app_colors.dart';
 class QuizPage extends StatefulWidget {
   final String category;
 
-  const QuizPage({
-    super.key,
-    this.category = 'Tari Tradisional',
-  });
+  const QuizPage({super.key, this.category = 'Tari Tradisional'});
 
   @override
   State<QuizPage> createState() => _QuizPageState();
@@ -22,12 +20,22 @@ class _QuizPageState extends State<QuizPage> {
   int currentQuestionIndex = 0;
   int? selectedAnswerIndex;
   bool isAnswered = false;
-  int score = 0;
+  int correctAnswers = 0;
+  int totalPoints = 0;
+  int streak = 0; // combo benar berturut-turut
+
+  Timer? _autoAdvanceTimer;
 
   @override
   void initState() {
     super.initState();
     quizSession = QuizData.getQuizByCategory(widget.category);
+  }
+
+  @override
+  void dispose() {
+    _autoAdvanceTimer?.cancel();
+    super.dispose();
   }
 
   QuizQuestion get currentQuestion =>
@@ -42,32 +50,48 @@ class _QuizPageState extends State<QuizPage> {
     }
   }
 
-  // Method untuk submit jawaban
-  void submitAnswer() {
-    if (selectedAnswerIndex == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text('Silakan pilih jawaban terlebih dahulu'),
-          backgroundColor: AppColors.warning,
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
+  // Method untuk handle tombol Lanjut (sekarang jadi submit dan auto-advance)
+void handleNext() {
+  if (selectedAnswerIndex == null) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: const Text('Silakan pilih jawaban terlebih dahulu'),
+        backgroundColor: AppColors.warning,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
         ),
-      );
-      return;
-    }
-
-    setState(() {
-      isAnswered = true;
-      if (selectedAnswerIndex == currentQuestion.correctAnswerIndex) {
-        score++;
-      }
-    });
+      ),
+    );
+    return;
   }
 
+  setState(() {
+    isAnswered = true;
+
+    if (selectedAnswerIndex == currentQuestion.correctAnswerIndex) {
+      correctAnswers++;
+      streak++;
+
+      int basePoint = 10;
+      int bonus = streak >= 3 ? 5 : 0; // bonus jika benar 3x berturut
+      totalPoints += basePoint + bonus;
+
+    } else {
+      streak = 0; // reset combo jika salah
+    }
+  });
+
+  _autoAdvanceTimer = Timer(const Duration(seconds: 3), () {
+    if (mounted) {
+      _nextQuestion();
+    }
+  });
+}
+
+
   // Method untuk lanjut ke pertanyaan berikutnya
-  void nextQuestion() {
+  void _nextQuestion() {
     if (currentQuestionIndex < quizSession.questions.length - 1) {
       setState(() {
         currentQuestionIndex++;
@@ -79,21 +103,12 @@ class _QuizPageState extends State<QuizPage> {
     }
   }
 
-  // Method untuk handle tombol Lanjut
-  void handleNext() {
-    if (isAnswered) {
-      nextQuestion();
-    } else {
-      submitAnswer();
-    }
-  }
-
   // Dialog hasil quiz
   void _showResultDialog() {
     final result = QuizResult(
-      correctAnswers: score,
+      correctAnswers: correctAnswers,
       totalQuestions: quizSession.totalQuestions,
-      pointsEarned: score * 10,
+      pointsEarned: totalPoints,
       completedAt: DateTime.now(),
     );
 
@@ -101,9 +116,7 @@ class _QuizPageState extends State<QuizPage> {
       context: context,
       barrierDismissible: false,
       builder: (context) => Dialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         child: Padding(
           padding: const EdgeInsets.all(24),
           child: Column(
@@ -160,8 +173,10 @@ class _QuizPageState extends State<QuizPage> {
 
               // Points
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
                 decoration: BoxDecoration(
                   color: AppColors.accent.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(20),
@@ -244,12 +259,58 @@ class _QuizPageState extends State<QuizPage> {
 
   // Reset quiz
   void _resetQuiz() {
+    _autoAdvanceTimer?.cancel();
+
     setState(() {
       currentQuestionIndex = 0;
       selectedAnswerIndex = null;
       isAnswered = false;
-      score = 0;
+      correctAnswers = 0;
+      totalPoints = 0;
+      streak = 0;
     });
+  }
+
+  // Dialog konfirmasi restart
+  void _showRestartDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        title: const Text(
+          'Ulang Quiz?',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: AppColors.textPrimary,
+          ),
+        ),
+        content: const Text(
+          'Semua progress akan hilang. Apakah Anda yakin ingin mengulang quiz dari awal?',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Batal', style: TextStyle(color: Colors.grey)),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+              _resetQuiz();
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.dark,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            child: const Text(
+              'Ya, Ulang',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -273,14 +334,48 @@ class _QuizPageState extends State<QuizPage> {
         ),
         centerTitle: true,
         actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 16),
-            child: Center(
-              child: Text(
-                'menu',
-                style: TextStyle(color: Colors.grey[600], fontSize: 14),
-              ),
+          PopupMenuButton<String>(
+            icon: const Icon(Icons.more_vert, color: AppColors.textPrimary),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
             ),
+            offset: const Offset(0, 50),
+            onSelected: (value) {
+              switch (value) {
+                case 'restart':
+                  _showRestartDialog();
+                  break;
+                case 'exit':
+                  Navigator.pop(context);
+                  break;
+              }
+            },
+            itemBuilder: (BuildContext context) => [
+              const PopupMenuItem<String>(
+                value: 'restart',
+                child: Row(
+                  children: [
+                    Icon(Icons.refresh, size: 20, color: AppColors.textPrimary),
+                    SizedBox(width: 12),
+                    Text('Ulang Quiz'),
+                  ],
+                ),
+              ),
+              const PopupMenuItem<String>(
+                value: 'exit',
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.exit_to_app,
+                      size: 20,
+                      color: AppColors.textPrimary,
+                    ),
+                    SizedBox(width: 12),
+                    Text('Keluar'),
+                  ],
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -305,7 +400,8 @@ class _QuizPageState extends State<QuizPage> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: LinearProgressIndicator(
-                        value: (currentQuestionIndex + 1) /
+                        value:
+                            (currentQuestionIndex + 1) /
                             quizSession.totalQuestions,
                         backgroundColor: Colors.grey[300],
                         valueColor: const AlwaysStoppedAnimation<Color>(
@@ -319,12 +415,14 @@ class _QuizPageState extends State<QuizPage> {
               ),
             ),
 
-            // Main Content
+            // Main Content - Scrollable
             Expanded(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   children: [
+                    const SizedBox(height: 20),
+
                     // ✅ CONDITIONAL IMAGE - Hanya tampil jika soal punya gambar
                     if (currentQuestion.hasImage) ...[
                       Container(
@@ -397,9 +495,11 @@ class _QuizPageState extends State<QuizPage> {
                       (index) => QuizOptionCard(
                         optionText: currentQuestion.options[index],
                         isSelected: selectedAnswerIndex == index,
-                        isCorrect: isAnswered &&
+                        isCorrect:
+                            isAnswered &&
                             index == currentQuestion.correctAnswerIndex,
-                        isWrong: isAnswered &&
+                        isWrong:
+                            isAnswered &&
                             selectedAnswerIndex == index &&
                             index != currentQuestion.correctAnswerIndex,
                         isAnswered: isAnswered,
@@ -407,38 +507,51 @@ class _QuizPageState extends State<QuizPage> {
                       ),
                     ),
 
-                    const SizedBox(height: 20),
-
-                    // Button Lanjut
-                    SizedBox(
-                      width: double.infinity,
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: handleNext,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: selectedAnswerIndex != null
-                              ? AppColors.dark
-                              : AppColors.disabled,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                          elevation: 0,
-                        ),
-                        child: Text(
-                          isAnswered ? 'Lanjut' : 'Konfirmasi',
-                          style: TextStyle(
-                            color: selectedAnswerIndex != null
-                                ? Colors.white
-                                : AppColors.onDisabled,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                    ),
-
-                    const SizedBox(height: 20),
+                    // Extra space untuk scroll agar konten tidak tertutup tombol
+                    const SizedBox(height: 80),
                   ],
+                ),
+              ),
+            ),
+
+            // Button Lanjut - Fixed di bottom
+            Container(
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: AppColors.background,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.05),
+                    blurRadius: 10,
+                    offset: const Offset(0, -2),
+                  ),
+                ],
+              ),
+              child: SizedBox(
+                width: double.infinity,
+                height: 50,
+                child: ElevatedButton(
+                  onPressed: isAnswered ? null : handleNext,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: selectedAnswerIndex != null
+                        ? AppColors.dark
+                        : AppColors.disabled,
+                    disabledBackgroundColor: AppColors.disabled,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    elevation: 0,
+                  ),
+                  child: Text(
+                    'Lanjut',
+                    style: TextStyle(
+                      color: selectedAnswerIndex != null && !isAnswered
+                          ? Colors.white
+                          : AppColors.onDisabled,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
               ),
             ),

@@ -41,16 +41,20 @@ class AppColors {
   static const textSecondary = Color(0xffffffff);
   static const textDisabled = Color(0xFF9E9E9E);
   static final textHint = Colors.grey[600]!;
-
+  static final textDialog = Colors.grey[700];
+  
   // ============================================
   // NEUTRAL / DARK
   // ============================================
   
-  /// Warna tombol utama
+  /// Warna primary button
   static const dark = Color(0xFF1A2332);
-  
-  /// Warna teks pada tombol utama
+  /// Warna teks on primary button
   static const onDark = Colors.white;
+  // Warna tombol Secondary
+  static const light =Color(0xFFFFDDB3);
+  // Warna text on secondary button
+  static const onLight = Color(0xff270f0f);
 
   // ============================================
   // ACCENT COLORS

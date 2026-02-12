@@ -28,8 +28,9 @@ class HomePage extends StatelessWidget {
                     child: Text(
                       'Ayo! selesaikan kuis terbaru kami dapatkan poin tambahan dari kuis ini',
                       style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[700],
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff714f4c),
                         height: 1.4,
                       ),
                     ),
@@ -66,12 +67,11 @@ class HomePage extends StatelessWidget {
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 24),
                     child: Text(
-                      'REMINDER',
+                      'Pengingat',
                       style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black87,
-                        letterSpacing: 0.5,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xff714f4c),
                       ),
                     ),
                   ),
@@ -209,7 +209,7 @@ class HomePage extends StatelessWidget {
                     Text(
                       'Hello,',
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 24,
                         color: Colors.white,
                         fontWeight: FontWeight.w400,
                       ),
@@ -341,7 +341,7 @@ class HomePage extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
                   image: const DecorationImage(
-                    image: AssetImage('assets/images/pakaian_adat.png'),
+                    image: AssetImage('assets/images/pakaian_adat1.png'),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -441,11 +441,6 @@ class HomePage extends StatelessWidget {
         child: Container(
           height: 180,
           decoration: BoxDecoration(
-            gradient: const LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [Color(0xFF5A8B7E), Color(0xFF4A7A6D)],
-            ),
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
@@ -455,117 +450,115 @@ class HomePage extends StatelessWidget {
               ),
             ],
           ),
-          child: Stack(
-            children: [
-              // Background pattern/texture
-              Positioned.fill(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: CustomPaint(painter: GameCardPatternPainter()),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Stack(
+              children: [
+                // Background Image PNG
+                Positioned.fill(
+                  child: Image.asset(
+                    'assets/images/promo_game.png',
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [Color(0xFF5A8B7E), Color(0xFF4A7A6D)],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                 ),
-              ),
-              // Content
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: Row(
-                  children: [
-                    // Text content
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Row(
-                            children: [
-                              Container(
-                                width: 35,
-                                height: 35,
-                                decoration: BoxDecoration(
-                                  color: Colors.white.withValues(alpha: 0.3),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: const Icon(
-                                  Icons.gamepad,
-                                  color: Colors.white,
-                                  size: 20,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 12),
-                          const Text(
-                            'Cobalah\ngame terbaru kami!',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              height: 1.3,
-                            ),
-                          ),
-                          const Spacer(),
-                          // Date
-                          Row(
-                            children: [
-                              Text(
-                                '21/01/2026',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.white.withValues(alpha: 0.9),
-                                ),
-                              ),
-                            ],
-                          ),
+
+                // Overlay gradient
+                Positioned.fill(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Colors.black.withValues(alpha: 0.4),
+                          Colors.black.withValues(alpha: 0.2),
                         ],
                       ),
                     ),
-                    // Character illustration
-                    Expanded(
-                      child: Container(
-                        alignment: Alignment.centerRight,
-                        child: Image.asset(
-                          'assets/images/character_game.png',
-                          height: 140,
-                          fit: BoxFit.contain,
-                          errorBuilder: (context, error, stackTrace) {
-                            return Container(
-                              width: 100,
-                              height: 140,
-                              decoration: BoxDecoration(
-                                color: Colors.white.withValues(alpha: 0.1),
-                                borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+
+                // Content
+                Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // Image dan Text dalam Row
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            'assets/images/logo_mascot2.png',
+                            width: 35,
+                            height: 35,
+                            fit: BoxFit.contain,
+                            errorBuilder: (context, error, stackTrace) {
+                              return const Icon(
+                                Icons.gamepad,
+                                color: Colors.white,
+                                size: 35,
+                              );
+                            },
+                          ),
+                          const SizedBox(width: 12),
+                          const Expanded(
+                            child: Text(
+                              'Cobalah game terbaru kami!',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                                height: 1.3,
                               ),
-                              child: Icon(
-                                Icons.image,
-                                color: Colors.white.withValues(alpha: 0.3),
-                                size: 50,
-                              ),
-                            );
-                          },
+                            ),
+                          ),
+                        ],
+                      ),
+                      const Spacer(),
+                      // Date
+                      Text(
+                        '21/01/2026',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.white.withValues(alpha: 0.9),
                         ),
                       ),
+                    ],
+                  ),
+                ),
+                // Forward arrow icon
+                Positioned(
+                  top: 16,
+                  right: 16,
+                  child: Container(
+                    width: 32,
+                    height: 32,
+                    decoration: BoxDecoration(
+                      color: Colors.white.withValues(alpha: 0.3),
+                      shape: BoxShape.circle,
                     ),
-                  ],
-                ),
-              ),
-              // Forward arrow icon
-              Positioned(
-                top: 16,
-                right: 16,
-                child: Container(
-                  width: 32,
-                  height: 32,
-                  decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.3),
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(
-                    Icons.arrow_forward,
-                    color: Colors.white,
-                    size: 18,
+                    child: const Icon(
+                      Icons.arrow_forward,
+                      color: Colors.white,
+                      size: 18,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -581,32 +574,38 @@ class HomePage extends StatelessWidget {
         children: [
           _buildCategoryCard(
             context,
-            'Pakaian Adat',
-            'assets/images/pakaian_adat.png',
-          ),
-          const SizedBox(width: 12),
-          _buildCategoryCard(
-            context,
-            'Rumah Adat',
-            'assets/images/rumah_adat.png',
-          ),
-          const SizedBox(width: 12),
-          _buildCategoryCard(
-            context,
-            'Musik Nusantara',
-            'assets/images/musik_nusantara.png',
-          ),
-          const SizedBox(width: 12),
-          _buildCategoryCard(
-            context,
             'Tarian Tradisional',
-            'assets/images/makanan_nusantara.png',
+            'assets/images/tarian_adat.png',
           ),
           const SizedBox(width: 12),
           _buildCategoryCard(
             context,
             'Makanan Nusantara',
             'assets/images/makanan_nusantara.png',
+          ),
+          const SizedBox(width: 12),
+          _buildCategoryCard(
+            context,
+            'Pakaian Adat Nusantara',
+            'assets/images/pakaian_adat1.png',
+          ),
+          const SizedBox(width: 12),
+          _buildCategoryCard(
+            context,
+            'Musik Tradisional Nusantara',
+            'assets/images/musik_nusantara.png',
+          ),
+          const SizedBox(width: 12),
+          _buildCategoryCard(
+            context,
+            'Rumah Adat Nusantara',
+            'assets/images/rumah_adat.png',
+          ),
+          const SizedBox(width: 12),
+          _buildCategoryCard(
+            context,
+            'Senjata Tradisional',
+            'assets/images/senjata_tradisional.png',
           ),
         ],
       ),

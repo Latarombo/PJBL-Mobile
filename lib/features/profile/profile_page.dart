@@ -73,7 +73,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       children: [
                         // Username
                         Text(
-                          'Najwa_Miniww',
+                          'Jhon Doe',
                           style: TextStyle(
                             color: Colors.black87,
                             fontSize: 22,
@@ -219,12 +219,18 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                                 title: Text('Konfirmasi'),
                                 content: Text(
-                                  'Apakah Anda yakin ingin keluar?',
+                                  'Apakah Anda yakin ingin keluar Akun?',
+                                  style: TextStyle(color: Colors.grey[700]),
                                 ),
                                 actions: [
                                   TextButton(
                                     onPressed: () => Navigator.pop(context),
-                                    child: Text('Batal'),
+                                    child: Text(
+                                      'Batal',
+                                      style: TextStyle(
+                                        color: Color(0xFF9E9E9E),
+                                      ),
+                                    ),
                                   ),
                                   TextButton(
                                     onPressed: () {
@@ -262,7 +268,10 @@ class _ProfilePageState extends State<ProfilePage> {
                         height: 120,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Color(0xFFFFC4D6),
+                          image: const DecorationImage(
+                            image: AssetImage('assets/images/user.png'),
+                            fit: BoxFit.cover,
+                          ),
                           border: Border.all(color: Colors.white, width: 6),
                           boxShadow: [
                             BoxShadow(
@@ -274,13 +283,6 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         child: Stack(
                           children: [
-                            Center(
-                              child: Icon(
-                                Icons.emoji_emotions,
-                                size: 60,
-                                color: Color(0xFF8B4789),
-                              ),
-                            ),
                             Positioned(
                               bottom: 0,
                               right: 0,
