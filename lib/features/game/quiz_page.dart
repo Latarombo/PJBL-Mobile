@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'models/quiz_model.dart';
 import 'data/quiz_data.dart';
 import 'widgets/quiz_option_card.dart';
-import '../../../shared/theme/app_colors.dart';
+import '../../shared/theme/app_colors.dart';
 
 class QuizPage extends StatefulWidget {
   final String category;
@@ -42,7 +42,7 @@ class _QuizPageState extends State<QuizPage> {
     }
   }
 
-  // Method untuk submit jawaban (saat tombol Lanjut pertama kali ditekan)
+  // Method untuk submit jawaban
   void submitAnswer() {
     if (selectedAnswerIndex == null) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -60,7 +60,6 @@ class _QuizPageState extends State<QuizPage> {
 
     setState(() {
       isAnswered = true;
-      // Cek apakah jawaban benar
       if (selectedAnswerIndex == currentQuestion.correctAnswerIndex) {
         score++;
       }
@@ -76,7 +75,6 @@ class _QuizPageState extends State<QuizPage> {
         isAnswered = false;
       });
     } else {
-      // Quiz selesai, tampilkan hasil
       _showResultDialog();
     }
   }
@@ -122,9 +120,7 @@ class _QuizPageState extends State<QuizPage> {
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
-                  result.percentage >= 70
-                      ? Icons.emoji_events
-                      : Icons.refresh,
+                  result.percentage >= 70 ? Icons.emoji_events : Icons.refresh,
                   size: 40,
                   color: result.percentage >= 70
                       ? AppColors.success
@@ -149,10 +145,7 @@ class _QuizPageState extends State<QuizPage> {
               // Score
               Text(
                 'Skor: ${result.correctAnswers}/${result.totalQuestions}',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.grey[700],
-                ),
+                style: TextStyle(fontSize: 18, color: Colors.grey[700]),
               ),
 
               const SizedBox(height: 8),
@@ -160,20 +153,15 @@ class _QuizPageState extends State<QuizPage> {
               // Percentage
               Text(
                 'Persentase: ${result.percentage.toStringAsFixed(1)}%',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey[600],
-                ),
+                style: TextStyle(fontSize: 16, color: Colors.grey[600]),
               ),
 
               const SizedBox(height: 8),
 
               // Points
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 8,
-                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 decoration: BoxDecoration(
                   color: AppColors.accent.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(20),
@@ -203,7 +191,7 @@ class _QuizPageState extends State<QuizPage> {
                   Expanded(
                     child: OutlinedButton(
                       onPressed: () {
-                        Navigator.pop(context); // Close dialog
+                        Navigator.pop(context);
                         _resetQuiz();
                       },
                       style: OutlinedButton.styleFrom(
@@ -226,8 +214,8 @@ class _QuizPageState extends State<QuizPage> {
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.pop(context); // Close dialog
-                        Navigator.pop(context); // Back to home
+                        Navigator.pop(context);
+                        Navigator.pop(context);
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.dark,
@@ -290,10 +278,7 @@ class _QuizPageState extends State<QuizPage> {
             child: Center(
               child: Text(
                 'menu',
-                style: TextStyle(
-                  color: Colors.grey[600],
-                  fontSize: 14,
-                ),
+                style: TextStyle(color: Colors.grey[600], fontSize: 14),
               ),
             ),
           ),
@@ -340,44 +325,42 @@ class _QuizPageState extends State<QuizPage> {
                 padding: const EdgeInsets.all(20),
                 child: Column(
                   children: [
-                    // Image (placeholder dengan decorasi)
-                    Container(
-                      height: 300,
-                      decoration: BoxDecoration(
-                        color: AppColors.accentGreen,
-                        borderRadius: BorderRadius.circular(20),
-                        image: DecorationImage(
-                          image: AssetImage(
-                            quizSession.imagePath ??
-                                'assets/images/pakaian_adat.png',
-                          ),
-                          fit: BoxFit.cover,
-                          onError: (exception, stackTrace) {},
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.15),
-                            blurRadius: 10,
-                            offset: const Offset(0, 4),
-                          ),
-                        ],
-                      ),
-                      child: Container(
+                    // ✅ CONDITIONAL IMAGE - Hanya tampil jika soal punya gambar
+                    if (currentQuestion.hasImage) ...[
+                      Container(
+                        height: 300,
                         decoration: BoxDecoration(
+                          color: AppColors.accentGreen,
                           borderRadius: BorderRadius.circular(20),
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                              Colors.black.withValues(alpha: 0.1),
-                              Colors.black.withValues(alpha: 0.3),
-                            ],
+                          image: DecorationImage(
+                            image: AssetImage(currentQuestion.imageUrl!),
+                            fit: BoxFit.cover,
+                            onError: (exception, stackTrace) {},
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: 0.15),
+                              blurRadius: 10,
+                              offset: const Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Colors.black.withValues(alpha: 0.1),
+                                Colors.black.withValues(alpha: 0.3),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-
-                    const SizedBox(height: 24),
+                      const SizedBox(height: 24),
+                    ],
 
                     // Question Card
                     Container(
@@ -408,7 +391,7 @@ class _QuizPageState extends State<QuizPage> {
 
                     const SizedBox(height: 24),
 
-                    // Options - Reusable QuizOptionCard
+                    // Options
                     ...List.generate(
                       currentQuestion.options.length,
                       (index) => QuizOptionCard(

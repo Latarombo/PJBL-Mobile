@@ -16,49 +16,54 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFFFF8E7),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Header Section with Image Background - Full Width & Top
-            Container(
-              width: double.infinity,
-              height: 200,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/bg_profilePage.png'),
-                  fit: BoxFit.cover,
+      body: SafeArea(
+        bottom: false,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              // Header Section with Image Background - Full Width & Top
+              Container(
+                width: double.infinity,
+                height: MediaQuery.of(context).size.height * 0.25,
+                constraints: BoxConstraints(
+                  minHeight: 150,
+                  maxHeight: 220,
                 ),
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(30),
-                  bottomRight: Radius.circular(30),
-                ),
-              ),
-              child: Container(
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Colors.black.withValues(alpha: 0.4),
-                      Colors.black.withValues(alpha: 0.2),
-                    ],
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/bg_profilePage.png'),
+                    fit: BoxFit.cover,
                   ),
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(30),
                     bottomRight: Radius.circular(30),
                   ),
                 ),
-                child: SafeArea(
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.black.withValues(alpha: 0.4),
+                        Colors.black.withValues(alpha: 0.2),
+                      ],
+                    ),
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(30),
+                      bottomRight: Radius.circular(30),
+                    ),
+                  ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SizedBox(height: 20),
                         Text(
                           'Welcome to',
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 16,
                             color: Colors.white.withValues(alpha: 0.9),
                             fontWeight: FontWeight.w400,
                           ),
@@ -67,7 +72,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         Text(
                           'Pengaturan',
                           style: TextStyle(
-                            fontSize: 40,
+                            fontSize: 36,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                             height: 1.2,
@@ -78,143 +83,143 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                 ),
               ),
-            ),
-            // Settings Content
-            Padding(
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 8),
+              // Settings Content
+              Padding(
+                padding: const EdgeInsets.all(24),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 8),
 
-                  // Volume Suara Toggle
-                  _buildToggleCard(
-                    icon: Icons.volume_up,
-                    title: 'Volume suara',
-                    value: _volumeSuara,
-                    onChanged: (value) {
-                      setState(() => _volumeSuara = value);
-                    },
-                  ),
+                    // Volume Suara Toggle
+                    _buildToggleCard(
+                      icon: Icons.volume_up,
+                      title: 'Volume suara',
+                      value: _volumeSuara,
+                      onChanged: (value) {
+                        setState(() => _volumeSuara = value);
+                      },
+                    ),
 
-                  SizedBox(height: 12),
+                    SizedBox(height: 12),
 
-                  // Dering Ponsel Toggle
-                  _buildToggleCard(
-                    icon: Icons.phone_android,
-                    title: 'Dering ponsel',
-                    value: _deringPonsel,
-                    onChanged: (value) {
-                      setState(() => _deringPonsel = value);
-                    },
-                  ),
+                    // Dering Ponsel Toggle
+                    _buildToggleCard(
+                      icon: Icons.phone_android,
+                      title: 'Dering ponsel',
+                      value: _deringPonsel,
+                      onChanged: (value) {
+                        setState(() => _deringPonsel = value);
+                      },
+                    ),
 
-                  SizedBox(height: 12),
+                    SizedBox(height: 12),
 
-                  // Notifikasi Toggle
-                  _buildToggleCard(
-                    icon: Icons.notifications,
-                    title: 'Notifikasi',
-                    value: _notifikasi,
-                    onChanged: (value) {
-                      setState(() => _notifikasi = value);
-                    },
-                  ),
+                    // Notifikasi Toggle
+                    _buildToggleCard(
+                      icon: Icons.notifications,
+                      title: 'Notifikasi',
+                      value: _notifikasi,
+                      onChanged: (value) {
+                        setState(() => _notifikasi = value);
+                      },
+                    ),
 
-                  SizedBox(height: 12),
+                    SizedBox(height: 12),
 
-                  // Buku Panduan Navigation
-                  _buildNavigationCard(
-                    icon: Icons.menu_book,
-                    title: 'Buku panduan',
-                    onTap: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Buku panduan akan segera hadir'),
-                          behavior: SnackBarBehavior.floating,
+                    // Buku Panduan Navigation
+                    _buildNavigationCard(
+                      icon: Icons.menu_book,
+                      title: 'Buku panduan',
+                      onTap: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Buku panduan akan segera hadir'),
+                            behavior: SnackBarBehavior.floating,
+                          ),
+                        );
+                      },
+                    ),
+
+                    SizedBox(height: 24),
+
+                    // Lainnya Section Header
+                    Padding(
+                      padding: const EdgeInsets.only(left: 4, bottom: 12),
+                      child: Text(
+                        'Lainnya',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey[400],
+                          fontWeight: FontWeight.w500,
                         ),
-                      );
-                    },
-                  ),
-
-                  SizedBox(height: 24),
-
-                  // Lainnya Section Header
-                  Padding(
-                    padding: const EdgeInsets.only(left: 4, bottom: 12),
-                    child: Text(
-                      'Lainnya',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey[400],
-                        fontWeight: FontWeight.w500,
                       ),
                     ),
-                  ),
 
-                  // Tentang Kami Navigation
-                  _buildNavigationCard(
-                    title: 'Tentang Kami',
-                    onTap: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Halaman Tentang Kami'),
-                          behavior: SnackBarBehavior.floating,
-                        ),
-                      );
-                    },
-                  ),
+                    // Tentang Kami Navigation
+                    _buildNavigationCard(
+                      title: 'Tentang Kami',
+                      onTap: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Halaman Tentang Kami'),
+                            behavior: SnackBarBehavior.floating,
+                          ),
+                        );
+                      },
+                    ),
 
-                  SizedBox(height: 12),
+                    SizedBox(height: 12),
 
-                  // Kontak Kami Navigation
-                  _buildNavigationCard(
-                    title: 'Kontak Kami',
-                    onTap: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Halaman Kontak Kami'),
-                          behavior: SnackBarBehavior.floating,
-                        ),
-                      );
-                    },
-                  ),
+                    // Kontak Kami Navigation
+                    _buildNavigationCard(
+                      title: 'Kontak Kami',
+                      onTap: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Halaman Kontak Kami'),
+                            behavior: SnackBarBehavior.floating,
+                          ),
+                        );
+                      },
+                    ),
 
-                  SizedBox(height: 12),
+                    SizedBox(height: 12),
 
-                  // Email Kami Navigation
-                  _buildNavigationCard(
-                    title: 'Email Kami',
-                    onTap: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Halaman Email Kami'),
-                          behavior: SnackBarBehavior.floating,
-                        ),
-                      );
-                    },
-                  ),
+                    // Email Kami Navigation
+                    _buildNavigationCard(
+                      title: 'Email Kami',
+                      onTap: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Halaman Email Kami'),
+                            behavior: SnackBarBehavior.floating,
+                          ),
+                        );
+                      },
+                    ),
 
-                  SizedBox(height: 12),
+                    SizedBox(height: 12),
 
-                  // Bantuan & Dukungan Navigation
-                  _buildNavigationCard(
-                    title: 'Bantuan & Dukungan',
-                    onTap: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Halaman Bantuan & Dukungan'),
-                          behavior: SnackBarBehavior.floating,
-                        ),
-                      );
-                    },
-                  ),
+                    // Bantuan & Dukungan Navigation
+                    _buildNavigationCard(
+                      title: 'Bantuan & Dukungan',
+                      onTap: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Halaman Bantuan & Dukungan'),
+                            behavior: SnackBarBehavior.floating,
+                          ),
+                        );
+                      },
+                    ),
 
-                  SizedBox(height: 100), // Extra space for bottom nav
-                ],
+                    SizedBox(height: MediaQuery.of(context).padding.bottom + 80),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -4,17 +4,20 @@ class QuizQuestion {
   final String question;
   final List<String> options;
   final int correctAnswerIndex;
-  final String? imageUrl;
-  final String category; // Pakaian Adat, Rumah Adat, dll
+  final String? imageUrl; // Optional - bisa null jika tidak ada gambar
+  final String category;
 
   QuizQuestion({
     required this.id,
     required this.question,
     required this.options,
     required this.correctAnswerIndex,
-    this.imageUrl,
+    this.imageUrl, // Optional parameter
     required this.category,
   });
+
+  // Helper getter untuk cek apakah pertanyaan punya gambar
+  bool get hasImage => imageUrl != null && imageUrl!.isNotEmpty;
 
   factory QuizQuestion.fromJson(Map<String, dynamic> json) {
     return QuizQuestion(

@@ -2,11 +2,13 @@ import '../models/quiz_model.dart';
 
 /// QuizData - Data Provider untuk Quiz
 /// Mengikuti prinsip Parameterized
+/// Support MIX soal dengan gambar dan tanpa gambar
 class QuizData {
   /// Get quiz berdasarkan kategori
   static QuizSession getQuizByCategory(String category) {
     switch (category.toLowerCase()) {
       case 'tari tradisional':
+      case 'tarian tradisional':
         return _getTariQuiz();
       case 'pakaian adat':
         return _getPakaianAdatQuiz();
@@ -19,7 +21,7 @@ class QuizData {
     }
   }
 
-  /// Quiz Tari Tradisional
+  /// Quiz Tari Tradisional - MIX soal dengan & tanpa gambar
   static QuizSession _getTariQuiz() {
     return QuizSession(
       id: 'tari_001',
@@ -28,18 +30,22 @@ class QuizData {
       totalQuestions: 10,
       imagePath: 'assets/images/pakaian_adat.png',
       questions: [
+        // ✅ Soal 1: DENGAN GAMBAR
         QuizQuestion(
           id: 'tari_q1',
-          question: 'Tarian tradisional apa yang ditarikan oleh wanita digambar tersebut?',
+          question: 'Tarian tradisional apa yang ditarikan oleh wanita di gambar tersebut?',
           options: [
             'a. Tari Piring',
             'b. Tari Topeng',
             'c. Tari Payung',
-            'd. Tari Tarian',
+            'd. Tari Gambyong',
           ],
           correctAnswerIndex: 1,
           category: 'Tari Tradisional',
+          imageUrl: 'assets/images/pakaian_adat.png', // ADA GAMBAR
         ),
+
+        // ❌ Soal 2: TANPA GAMBAR (text only)
         QuizQuestion(
           id: 'tari_q2',
           question: 'Dari mana asal tari Pendet?',
@@ -51,10 +57,13 @@ class QuizData {
           ],
           correctAnswerIndex: 1,
           category: 'Tari Tradisional',
+          // imageUrl: null, // TIDAK ADA GAMBAR (dihilangkan atau null)
         ),
+
+        // ❌ Soal 3: TANPA GAMBAR (text only)
         QuizQuestion(
           id: 'tari_q3',
-          question: 'Tari Saman berasal dari daerah?',
+          question: 'Tari Saman berasal dari daerah mana?',
           options: [
             'a. Aceh',
             'b. Bali',
@@ -63,10 +72,13 @@ class QuizData {
           ],
           correctAnswerIndex: 0,
           category: 'Tari Tradisional',
+          // TIDAK ADA imageUrl
         ),
+
+        // ✅ Soal 4: DENGAN GAMBAR
         QuizQuestion(
           id: 'tari_q4',
-          question: 'Tari Kecak biasanya ditarikan oleh berapa orang?',
+          question: 'Tarian pada gambar biasanya ditarikan oleh berapa orang?',
           options: [
             'a. 10-20 orang',
             'b. 50-100 orang',
@@ -75,7 +87,10 @@ class QuizData {
           ],
           correctAnswerIndex: 1,
           category: 'Tari Tradisional',
+          imageUrl: 'assets/images/rumah_adat.png', // ADA GAMBAR
         ),
+
+        // ❌ Soal 5: TANPA GAMBAR
         QuizQuestion(
           id: 'tari_q5',
           question: 'Properti yang digunakan dalam Tari Piring adalah?',
@@ -88,6 +103,8 @@ class QuizData {
           correctAnswerIndex: 1,
           category: 'Tari Tradisional',
         ),
+
+        // ❌ Soal 6: TANPA GAMBAR
         QuizQuestion(
           id: 'tari_q6',
           question: 'Tari Jaipong berasal dari provinsi?',
@@ -100,6 +117,8 @@ class QuizData {
           correctAnswerIndex: 1,
           category: 'Tari Tradisional',
         ),
+
+        // ❌ Soal 7: TANPA GAMBAR
         QuizQuestion(
           id: 'tari_q7',
           question: 'Gerakan tari yang paling khas dari Tari Saman adalah?',
@@ -112,9 +131,11 @@ class QuizData {
           correctAnswerIndex: 2,
           category: 'Tari Tradisional',
         ),
+
+        // ✅ Soal 8: DENGAN GAMBAR
         QuizQuestion(
           id: 'tari_q8',
-          question: 'Tari Reog berasal dari kota?',
+          question: 'Tarian pada gambar berasal dari kota?',
           options: [
             'a. Ponorogo',
             'b. Surabaya',
@@ -123,7 +144,10 @@ class QuizData {
           ],
           correctAnswerIndex: 0,
           category: 'Tari Tradisional',
+          imageUrl: 'assets/images/musik_nusantara.png', // ADA GAMBAR
         ),
+
+        // ❌ Soal 9: TANPA GAMBAR
         QuizQuestion(
           id: 'tari_q9',
           question: 'Musik pengiring Tari Pendet biasanya menggunakan?',
@@ -136,6 +160,8 @@ class QuizData {
           correctAnswerIndex: 1,
           category: 'Tari Tradisional',
         ),
+
+        // ❌ Soal 10: TANPA GAMBAR
         QuizQuestion(
           id: 'tari_q10',
           question: 'Tari Serimpi berasal dari daerah?',
@@ -152,7 +178,7 @@ class QuizData {
     );
   }
 
-  /// Quiz Pakaian Adat
+  /// Quiz Pakaian Adat - MIX soal
   static QuizSession _getPakaianAdatQuiz() {
     return QuizSession(
       id: 'pakaian_001',
@@ -161,9 +187,10 @@ class QuizData {
       totalQuestions: 10,
       imagePath: 'assets/images/pakaian_adat.png',
       questions: [
+        // DENGAN GAMBAR
         QuizQuestion(
           id: 'pakaian_q1',
-          question: 'Pakaian adat Kebaya berasal dari daerah?',
+          question: 'Pakaian adat pada gambar berasal dari daerah?',
           options: [
             'a. Jawa',
             'b. Sumatera',
@@ -172,7 +199,10 @@ class QuizData {
           ],
           correctAnswerIndex: 0,
           category: 'Pakaian Adat',
+          imageUrl: 'assets/images/pakaian_adat.png',
         ),
+
+        // TANPA GAMBAR
         QuizQuestion(
           id: 'pakaian_q2',
           question: 'Ulos adalah pakaian adat dari?',
@@ -185,12 +215,56 @@ class QuizData {
           correctAnswerIndex: 1,
           category: 'Pakaian Adat',
         ),
-        // Tambahkan 8 pertanyaan lagi...
+
+        // TANPA GAMBAR
+        QuizQuestion(
+          id: 'pakaian_q3',
+          question: 'Songket adalah kain tradisional dari?',
+          options: [
+            'a. Palembang',
+            'b. Jakarta',
+            'c. Bali',
+            'd. Makassar',
+          ],
+          correctAnswerIndex: 0,
+          category: 'Pakaian Adat',
+        ),
+
+        // DENGAN GAMBAR
+        QuizQuestion(
+          id: 'pakaian_q4',
+          question: 'Nama pakaian adat pada gambar adalah?',
+          options: [
+            'a. Baju Bodo',
+            'b. Kebaya',
+            'c. Ulos',
+            'd. Koteka',
+          ],
+          correctAnswerIndex: 1,
+          category: 'Pakaian Adat',
+          imageUrl: 'assets/images/pakaian_adat.png',
+        ),
+
+        // TANPA GAMBAR
+        QuizQuestion(
+          id: 'pakaian_q5',
+          question: 'Baju Kurung berasal dari daerah?',
+          options: [
+            'a. Riau',
+            'b. Jawa Tengah',
+            'c. Bali',
+            'd. NTT',
+          ],
+          correctAnswerIndex: 0,
+          category: 'Pakaian Adat',
+        ),
+
+        // Tambahkan 5 soal lagi sesuai kebutuhan...
       ],
     );
   }
 
-  /// Quiz Rumah Adat
+  /// Quiz Rumah Adat - MIX soal
   static QuizSession _getRumahAdatQuiz() {
     return QuizSession(
       id: 'rumah_001',
@@ -199,9 +273,10 @@ class QuizData {
       totalQuestions: 10,
       imagePath: 'assets/images/rumah_adat.png',
       questions: [
+        // DENGAN GAMBAR
         QuizQuestion(
           id: 'rumah_q1',
-          question: 'Rumah Gadang berasal dari provinsi?',
+          question: 'Rumah adat pada gambar berasal dari provinsi?',
           options: [
             'a. Jawa Barat',
             'b. Sumatera Barat',
@@ -210,13 +285,29 @@ class QuizData {
           ],
           correctAnswerIndex: 1,
           category: 'Rumah Adat',
+          imageUrl: 'assets/images/rumah_adat.png',
         ),
-        // Tambahkan pertanyaan lainnya...
+
+        // TANPA GAMBAR
+        QuizQuestion(
+          id: 'rumah_q2',
+          question: 'Rumah Tongkonan berasal dari?',
+          options: [
+            'a. Papua',
+            'b. Sulawesi Selatan',
+            'c. Kalimantan',
+            'd. Maluku',
+          ],
+          correctAnswerIndex: 1,
+          category: 'Rumah Adat',
+        ),
+
+        // Tambahkan soal lainnya...
       ],
     );
   }
 
-  /// Quiz Musik Nusantara
+  /// Quiz Musik Nusantara - MIX soal
   static QuizSession _getMusikNusantaraQuiz() {
     return QuizSession(
       id: 'musik_001',
@@ -225,6 +316,7 @@ class QuizData {
       totalQuestions: 10,
       imagePath: 'assets/images/musik_nusantara.png',
       questions: [
+        // TANPA GAMBAR
         QuizQuestion(
           id: 'musik_q1',
           question: 'Angklung berasal dari daerah?',
@@ -237,6 +329,22 @@ class QuizData {
           correctAnswerIndex: 1,
           category: 'Musik Nusantara',
         ),
+
+        // DENGAN GAMBAR
+        QuizQuestion(
+          id: 'musik_q2',
+          question: 'Alat musik pada gambar bernama?',
+          options: [
+            'a. Gamelan',
+            'b. Angklung',
+            'c. Sasando',
+            'd. Kolintang',
+          ],
+          correctAnswerIndex: 0,
+          category: 'Musik Nusantara',
+          imageUrl: 'assets/images/musik_nusantara.png',
+        ),
+
         // Tambahkan pertanyaan lainnya...
       ],
     );
