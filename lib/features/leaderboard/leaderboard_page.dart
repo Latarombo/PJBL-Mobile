@@ -136,7 +136,7 @@ class LeaderboardPage extends StatelessWidget {
               rank: 2,
               username: 'adalahpokoknya',
               score: 12500,
-              avatarAsset: 'assets/images/character_game.png',
+              avatarAsset: 'assets/images/avatar4.png',
               wingsAsset: 'assets/images/rank_2.png',
               podiumColor: const Color(0xFFC0C0C0),
             ),
@@ -151,7 +151,7 @@ class LeaderboardPage extends StatelessWidget {
               rank: 1,
               username: 'keisya_pfp',
               score: 8450,
-              avatarAsset: 'assets/images/character_game.png',
+              avatarAsset: 'assets/images/avatar3.png',
               wingsAsset: 'assets/images/rank_1.png',
               podiumColor: const Color(0xFFFFD700),
               isFirst: true,
@@ -166,7 +166,7 @@ class LeaderboardPage extends StatelessWidget {
               rank: 3,
               username: 'Najwa_Miniww',
               score: 6370,
-              avatarAsset: 'assets/images/character_game.png',
+              avatarAsset: 'assets/images/user.png',
               wingsAsset: 'assets/images/rank_3.png',
               podiumColor: const Color(0xFFCD7F32),
             ),
@@ -329,22 +329,22 @@ class LeaderboardPage extends StatelessWidget {
 
   Widget _buildLeaderboardList() {
     final leaderboardData = [
-      LeaderboardEntry(rank: 1, username: 'keisya_pfp', score: 12500),
-      LeaderboardEntry(rank: 2, username: 'adalahpokoknya', score: 8450),
-      LeaderboardEntry(rank: 3, username: 'Najwa_Miniww', score: 6370),
-      LeaderboardEntry(rank: 4, username: 'nimiwisa_laber', score: 4220),
-      LeaderboardEntry(rank: 5, username: 'nimiwisa_laber', score: 3400),
-      LeaderboardEntry(rank: 6, username: 'nimiwisa_laber', score: 2500),
-      LeaderboardEntry(rank: 7, username: 'nimiwisa_laber', score: 1580),
-      LeaderboardEntry(rank: 8, username: 'nimiwisa_laber', score: 1200),
-      LeaderboardEntry(rank: 9, username: 'nimiwisa_laber', score: 1100),
-      LeaderboardEntry(rank: 10, username: 'nimiwisa_laber', score: 1000),
-      LeaderboardEntry(rank: 11, username: 'nimiwisa_laber', score: 900),
-      LeaderboardEntry(rank: 12, username: 'nimiwisa_laber', score: 800),
-      LeaderboardEntry(rank: 13, username: 'nimiwisa_laber', score: 700),
-      LeaderboardEntry(rank: 14, username: 'nimiwisa_laber', score: 600),
-      LeaderboardEntry(rank: 15, username: 'nimiwisa_laber', score: 500),
-      LeaderboardEntry(rank: 16, username: 'nimiwisa_laber', score: 300),
+      LeaderboardEntry(rank: 1, username: 'keisya_pfp', score: 12500, avatarAsset: 'assets/images/avatar3.png'),
+      LeaderboardEntry(rank: 2, username: 'adalahpokoknya', score: 8450, avatarAsset: 'assets/images/avatar4.png'),
+      LeaderboardEntry(rank: 3, username: 'Najwa_Miniww', score: 6370, avatarAsset: 'assets/images/user.png'),
+      LeaderboardEntry(rank: 4, username: 'nimiwisa_laber', score: 4220, avatarAsset: 'assets/images/avatar1.png'),
+      LeaderboardEntry(rank: 5, username: 'nimiwisa_laber', score: 3400, avatarAsset: 'assets/images/avatar2.png'),
+      LeaderboardEntry(rank: 6, username: 'nimiwisa_laber', score: 2500, avatarAsset: 'assets/images/avatar3.png'),
+      LeaderboardEntry(rank: 7, username: 'nimiwisa_laber', score: 1580, avatarAsset: 'assets/images/avatar4.png'),
+      LeaderboardEntry(rank: 8, username: 'nimiwisa_laber', score: 1200, avatarAsset: 'assets/images/avatar1.png'),
+      LeaderboardEntry(rank: 9, username: 'nimiwisa_laber', score: 1100, avatarAsset: 'assets/images/avatar2.png'),
+      LeaderboardEntry(rank: 10, username: 'nimiwisa_laber', score: 1000, avatarAsset: 'assets/images/avatar3.png'),
+      LeaderboardEntry(rank: 11, username: 'nimiwisa_laber', score: 900, avatarAsset: 'assets/images/avatar4.png'),
+      LeaderboardEntry(rank: 12, username: 'nimiwisa_laber', score: 800, avatarAsset: 'assets/images/avatar1.png'),
+      LeaderboardEntry(rank: 13, username: 'nimiwisa_laber', score: 700, avatarAsset: 'assets/images/avatar2.png'),
+      LeaderboardEntry(rank: 14, username: 'nimiwisa_laber', score: 600, avatarAsset: 'assets/images/avatar3.png'),
+      LeaderboardEntry(rank: 15, username: 'nimiwisa_laber', score: 500, avatarAsset: 'assets/images/avatar4.png'),
+      LeaderboardEntry(rank: 16, username: 'nimiwisa_laber', score: 300, avatarAsset: 'assets/images/avatar1.png'),
     ];
 
     return Padding(
@@ -358,8 +358,6 @@ class LeaderboardPage extends StatelessWidget {
   }
 
   Widget _buildLeaderboardCard(LeaderboardEntry entry) {
-    // final isCurrentUser = entry.username == currentUsername;
-
     // Color dan Gradient yang ada di rank
     Gradient? cardGradient;
     Color? cardColor;
@@ -389,6 +387,7 @@ class LeaderboardPage extends StatelessWidget {
       // Plain white for others
       cardColor = Colors.white;
     }
+    
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
@@ -427,7 +426,7 @@ class LeaderboardPage extends StatelessWidget {
 
           const SizedBox(width: 8),
 
-          // Avatar
+          // Avatar - GUNAKAN entry.avatarAsset
           Container(
             width: 40,
             height: 40,
@@ -438,7 +437,7 @@ class LeaderboardPage extends StatelessWidget {
             ),
             child: ClipOval(
               child: Image.asset(
-                'assets/images/character_game.png',
+                entry.avatarAsset, // UBAH DI SINI - gunakan dari entry
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) {
                   return const Icon(
@@ -538,7 +537,7 @@ class LeaderboardPage extends StatelessWidget {
               ),
               child: ClipOval(
                 child: Image.asset(
-                  'assets/images/character_game.png',
+                  'assets/images/user.png',
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) {
                     return const Icon(
@@ -588,11 +587,13 @@ class LeaderboardEntry {
   final int rank;
   final String username;
   final int score;
+  final String avatarAsset;
 
   LeaderboardEntry({
     required this.rank,
     required this.username,
     required this.score,
+    required this.avatarAsset,
   });
 }
 
@@ -630,9 +631,6 @@ class LeaderboardBackgroundPainter extends CustomPainter {
 
       // Random color for sprinkles (white, light pink, light yellow)
       final colors = [
-        // Colors.white.withValues(alpha: 0.7),
-        // const Color(0xFFFFE0E0).withValues(alpha: 0.5),
-        // const Color(0xFFFFFFCC).withValues(alpha: 0.5),
         Colors.white,
         const Color(0xFFFFE0E0).withValues(alpha: 0.5),
         const Color(0xFFFFFFCC).withValues(alpha: 0.5),
@@ -668,90 +666,3 @@ class LeaderboardBackgroundPainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
-
-// class CloudPainter extends CustomPainter {
-//   @override
-//   void paint(Canvas canvas, Size size) {
-//     final paint = Paint()
-//       ..color = Colors.white.withValues(alpha: 0.5)
-//       ..style = PaintingStyle.fill;
-
-//     final path = Path();
-
-//     // Create wavy cloud shape
-//     path.moveTo(0, size.height * 0.5);
-
-//     for (double i = 0; i <= size.width; i += 30) {
-//       final wave = math.sin((i / size.width) * math.pi * 4) * 10;
-//       path.lineTo(i, size.height * 0.5 + wave);
-//     }
-
-//     path.lineTo(size.width, size.height);
-//     path.lineTo(0, size.height);
-//     path.close();
-
-//     canvas.drawPath(path, paint);
-
-//     // Add some cloud circles
-//     final circlePaint = Paint()
-//       ..color = Colors.white.withValues(alpha: 0.3)
-//       ..style = PaintingStyle.fill;
-
-//     for (double i = 0; i < size.width; i += 60) {
-//       canvas.drawCircle(Offset(i + 15, size.height * 0.3), 15, circlePaint);
-//     }
-//   }
-
-//   @override
-//   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-// }
-
-// class WingsPainter extends CustomPainter {
-//   final Color color;
-
-//   WingsPainter({required this.color});
-
-//   @override
-//   void paint(Canvas canvas, Size size) {
-//     final paint = Paint()
-//       ..color = color
-//       ..style = PaintingStyle.fill;
-
-//     final path = Path();
-
-//     // Left wing
-//     path.moveTo(size.width * 0.3, size.height * 0.5);
-//     path.quadraticBezierTo(
-//       0,
-//       size.height * 0.3,
-//       size.width * 0.1,
-//       size.height * 0.8,
-//     );
-//     path.quadraticBezierTo(
-//       size.width * 0.2,
-//       size.height * 0.6,
-//       size.width * 0.3,
-//       size.height * 0.5,
-//     );
-
-//     // Right wing
-//     path.moveTo(size.width * 0.7, size.height * 0.5);
-//     path.quadraticBezierTo(
-//       size.width,
-//       size.height * 0.3,
-//       size.width * 0.9,
-//       size.height * 0.8,
-//     );
-//     path.quadraticBezierTo(
-//       size.width * 0.8,
-//       size.height * 0.6,
-//       size.width * 0.7,
-//       size.height * 0.5,
-//     );
-
-//     canvas.drawPath(path, paint);
-//   }
-
-//   @override
-//   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-// }

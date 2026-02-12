@@ -51,44 +51,42 @@ class _QuizPageState extends State<QuizPage> {
   }
 
   // Method untuk handle tombol Lanjut (sekarang jadi submit dan auto-advance)
-void handleNext() {
-  if (selectedAnswerIndex == null) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: const Text('Silakan pilih jawaban terlebih dahulu'),
-        backgroundColor: AppColors.warning,
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+  void handleNext() {
+    if (selectedAnswerIndex == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text('Silakan pilih jawaban terlebih dahulu'),
+          backgroundColor: AppColors.warning,
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
         ),
-      ),
-    );
-    return;
+      );
+      return;
+    }
+
+    setState(() {
+      isAnswered = true;
+
+      if (selectedAnswerIndex == currentQuestion.correctAnswerIndex) {
+        correctAnswers++;
+        streak++;
+
+        int basePoint = 10;
+        int bonus = streak >= 3 ? 5 : 0; // bonus jika benar 3x berturut
+        totalPoints += basePoint + bonus;
+      } else {
+        streak = 0; // reset combo jika salah
+      }
+    });
+
+    _autoAdvanceTimer = Timer(const Duration(seconds: 1), () {
+      if (mounted) {
+        _nextQuestion();
+      }
+    });
   }
-
-  setState(() {
-    isAnswered = true;
-
-    if (selectedAnswerIndex == currentQuestion.correctAnswerIndex) {
-      correctAnswers++;
-      streak++;
-
-      int basePoint = 10;
-      int bonus = streak >= 3 ? 5 : 0; // bonus jika benar 3x berturut
-      totalPoints += basePoint + bonus;
-
-    } else {
-      streak = 0; // reset combo jika salah
-    }
-  });
-
-  _autoAdvanceTimer = Timer(const Duration(seconds: 3), () {
-    if (mounted) {
-      _nextQuestion();
-    }
-  });
-}
-
 
   // Method untuk lanjut ke pertanyaan berikutnya
   void _nextQuestion() {
@@ -284,8 +282,9 @@ void handleNext() {
             color: AppColors.textPrimary,
           ),
         ),
-        content: const Text(
+        content: Text(
           'Semua progress akan hilang. Apakah Anda yakin ingin mengulang quiz dari awal?',
+          style: TextStyle(color: Colors.grey[700]),
         ),
         actions: [
           TextButton(

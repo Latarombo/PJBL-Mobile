@@ -81,13 +81,13 @@ class HomePage extends StatelessWidget {
                   // Reminder Cards
                   _buildReminderCard(
                     context,
-                    title: 'Kuis 3',
+                    title: 'Kuis 1',
                     subtitle: 'Pakaian Adat',
-                    imagePath: 'assets/images/pakaian_adat.png',
-                    progress: 5,
-                    total: 10,
+                    imagePath: 'assets/images/pakaian_adat1.png',
+                    progress: 9,
+                    total: 15,
                     level: 'level 2',
-                    time: '10:00',
+                    // time: '10:00',
                   ),
 
                   const SizedBox(height: 12),
@@ -95,38 +95,38 @@ class HomePage extends StatelessWidget {
                   _buildReminderCard(
                     context,
                     title: 'Kuis 3',
-                    subtitle: 'Rumah Adat',
+                    subtitle: 'Rumah Adat Nusantara',
                     imagePath: 'assets/images/rumah_adat.png',
                     progress: 5,
-                    total: 10,
+                    total: 15,
                     level: 'level 3',
-                    time: '7:20',
+                    // time: '7:20',
                   ),
 
                   const SizedBox(height: 12),
 
                   _buildReminderCard(
                     context,
-                    title: 'Kuis 3',
-                    subtitle: 'Musik Nusantara',
-                    imagePath: 'assets/images/pakaian_adat.png',
+                    title: 'Kuis 5',
+                    subtitle: 'Senjata Tradisional',
+                    imagePath: 'assets/images/senjata_adat_tradisional.png',
                     progress: 5,
-                    total: 10,
+                    total: 15,
                     level: 'level 1',
-                    time: '08:30',
+                    // time: '08:30',
                   ),
 
                   const SizedBox(height: 12),
 
                   _buildReminderCard(
                     context,
-                    title: 'Kuis 2',
-                    subtitle: 'Musik Nusantara',
-                    imagePath: 'assets/images/pakaian_adat.png',
+                    title: 'Kuis 4',
+                    subtitle: 'Makanan Nusantara',
+                    imagePath: 'assets/images/makanan_nusantara.png',
                     progress: 5,
-                    total: 10,
+                    total: 15,
                     level: 'level 1',
-                    time: '08:30',
+                    // time: '08:30',
                   ),
 
                   const SizedBox(
@@ -137,13 +137,13 @@ class HomePage extends StatelessWidget {
 
               // Character behind the card - positioned to peek above
               Positioned(
-                top: 80,
-                right: 20,
+                top: 88,
+                right: 40,
                 child: Opacity(
                   opacity: 0.85,
                   child: Image.asset(
                     'assets/images/character_game.png',
-                    height: 200,
+                    height: 180,
                     fit: BoxFit.contain,
                     errorBuilder: (context, error, stackTrace) {
                       return const SizedBox.shrink();
@@ -190,8 +190,8 @@ class HomePage extends StatelessWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
+              Colors.black.withValues(alpha: 0.2),
               Colors.black.withValues(alpha: 0.4),
-              Colors.black.withValues(alpha: 0.1),
             ],
           ),
         ),
@@ -202,105 +202,175 @@ class HomePage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // Greeting text
-                const Column(
+                // Greeting text with border
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Hello,',
-                      style: TextStyle(
-                        fontSize: 24,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w400,
-                      ),
+                    Stack(
+                      children: [
+                        // Border/Stroke text
+                        Text(
+                          'Halo,',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w600,
+                            foreground: Paint()
+                              ..style = PaintingStyle.stroke
+                              ..strokeWidth = 2
+                              ..color = const Color(0xFFC4986A),
+                          ),
+                        ),
+                        // Fill text
+                        const Text(
+                          'Halo,',
+                          style: TextStyle(
+                            fontSize: 24,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
                     ),
-                    Text(
-                      'Najwa Miniww',
-                      style: TextStyle(
-                        fontSize: 24,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    Stack(
+                      children: [
+                        // Border/Stroke text
+                        Text(
+                          'Jhon Doe',
+                          style: TextStyle(
+                            fontSize: 26,
+                            fontWeight: FontWeight.bold,
+                            foreground: Paint()
+                              ..style = PaintingStyle.stroke
+                              ..strokeWidth = 2
+                              ..color = const Color(0xFFC4986A),
+                          ),
+                        ),
+                        // Fill text
+                        const Text(
+                          'Jhon Doe',
+                          style: TextStyle(
+                            fontSize: 26,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-                // Icons
-                Row(
-                  children: [
-                    // Notification Icon
-                    Container(
-                      width: 40,
-                      height: 40,
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                      ),
-                      child: const Icon(
-                        Icons.notifications_outlined,
-                        color: Colors.black87,
-                        size: 22,
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    // Profile Avatar
-                    Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFFFC4D6),
-                        shape: BoxShape.circle,
-                        border: Border.all(color: Colors.white, width: 2),
-                      ),
-                      child: ClipOval(
-                        child: Image.asset(
-                          'assets/images/character_game.png',
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) {
-                            return const Icon(
-                              Icons.person,
-                              color: Color(0xFF8B4789),
-                              size: 22,
-                            );
-                          },
+                // Icons (notifikasi + avatar dalam satu container putih)
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 6,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      // Notification Icon
+                      Container(
+                        width: 32,
+                        height: 32,
+                        decoration: const BoxDecoration(
+                          color: Colors.transparent,
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Icon(
+                          Icons.notifications_outlined,
+                          color: Colors.black87,
+                          size: 32,
                         ),
                       ),
-                    ),
-                  ],
+                      const SizedBox(width: 4),
+                      // Profile Avatar
+                      Container(
+                        width: 32,
+                        height: 32,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                          border: Border.all(color: Colors.black87, width: 2),
+                        ),
+                        child: ClipOval(
+                          child: Image.asset(
+                            'assets/images/user.png',
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return const Icon(
+                                Icons.person,
+                                color: Color(0xFF8B4789),
+                                size: 18,
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
 
-            const SizedBox(height: 12),
+            const SizedBox(height: 21),
 
-            // Total Poin Card inside header
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(30),
-              ),
-              child: const Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    'Total Poin',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.black87,
-                      fontWeight: FontWeight.w600,
+            // Total Poin - Label di atas, nilai di container bawah (with border)
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Stack(
+                  children: [
+                    // Border/Stroke text
+                    Text(
+                      'Total Poin',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        foreground: Paint()
+                          ..style = PaintingStyle.stroke
+                          ..strokeWidth = 2
+                          ..color = const Color(0xFFC4986A),
+                      ),
+                    ),
+                    // Fill text
+                    const Text(
+                      'Total Poin',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                // Value in white container
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 45,
+                    vertical: 6,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(30),
+                    border: Border.all(
+                      color: const Color(0xFFC4986A).withValues(alpha: 0.73),
+                      width: 3,
                     ),
                   ),
-                  SizedBox(width: 8),
-                  Text(
-                    '1200',
+                  child: const Text(
+                    '6370',
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                       color: Colors.black87,
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ],
         ),
@@ -372,10 +442,15 @@ class HomePage extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     Text(
+                      'Kuis 3',
+                      style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                    ),
+                    const SizedBox(height: 0),
+                    Text(
                       '15 pertanyaan',
                       style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 6),
                     // Progress indicator
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -406,14 +481,6 @@ class HomePage extends StatelessWidget {
                               ),
                             ),
                           ],
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          'progress',
-                          style: TextStyle(
-                            fontSize: 10,
-                            color: Colors.grey[600],
-                          ),
                         ),
                       ],
                     ),
@@ -592,12 +659,6 @@ class HomePage extends StatelessWidget {
           const SizedBox(width: 12),
           _buildCategoryCard(
             context,
-            'Musik Tradisional Nusantara',
-            'assets/images/musik_nusantara.png',
-          ),
-          const SizedBox(width: 12),
-          _buildCategoryCard(
-            context,
             'Rumah Adat Nusantara',
             'assets/images/rumah_adat.png',
           ),
@@ -605,7 +666,13 @@ class HomePage extends StatelessWidget {
           _buildCategoryCard(
             context,
             'Senjata Tradisional',
-            'assets/images/senjata_tradisional.png',
+            'assets/images/senjata_adat_tradisional.png',
+          ),
+          const SizedBox(width: 12),
+          _buildCategoryCard(
+            context,
+            'Musik Tradisional Nusantara',
+            'assets/images/musik_nusantara.png',
           ),
         ],
       ),
@@ -673,7 +740,7 @@ class HomePage extends StatelessWidget {
     required int progress,
     required int total,
     required String level,
-    required String time,
+    // required String time,
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -750,10 +817,10 @@ class HomePage extends StatelessWidget {
                         style: TextStyle(fontSize: 10, color: Colors.grey[500]),
                       ),
                       const SizedBox(width: 12),
-                      Text(
-                        time,
-                        style: TextStyle(fontSize: 10, color: Colors.grey[500]),
-                      ),
+                      // Text(
+                      // time,
+                      //   style: TextStyle(fontSize: 10, color: Colors.grey[500]),
+                      // ),
                     ],
                   ),
                   const SizedBox(height: 0),

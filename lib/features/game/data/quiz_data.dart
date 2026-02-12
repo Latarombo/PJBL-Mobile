@@ -31,7 +31,7 @@ class QuizData {
       title: 'Tarian Tradisional Nusantara',
       category: 'Tari Tradisional',
       totalQuestions: 15,
-      imagePath: 'assets/images',
+      imagePath: 'assets/quiz_category_images/tari_tradisional/',
       questions: [
         QuizQuestion(
           id: 'tari_q1',
@@ -60,7 +60,7 @@ class QuizData {
           options: ['A. Sumatera Barat', 'B. Bali', 'C. Papua', 'D. Riau'],
           correctAnswerIndex: 0,
           category: 'Tari Tradisional',
-          imageUrl: 'assets/images/tari_piring.png',
+          imageUrl: 'assets/quiz_category_images/tari_tradisional/tari_piring.png',
         ),
 
         QuizQuestion(
@@ -108,7 +108,7 @@ class QuizData {
           ],
           correctAnswerIndex: 3,
           category: 'Tari Tradisional',
-          imageUrl: 'assets/images/tari_serimpi.png',
+          imageUrl: 'assets/quiz_category_images/tari_tradisional/tari_serimpi.png',
         ),
 
         QuizQuestion(
@@ -139,7 +139,7 @@ class QuizData {
           ],
           correctAnswerIndex: 1,
           category: 'Tari Tradisional',
-          imageUrl: 'assets/images/tari_kecak.png',
+          imageUrl: 'assets/quiz_category_images/tari_tradisional/tari_kecak.png',
         ),
 
         QuizQuestion(
@@ -174,7 +174,7 @@ class QuizData {
           ],
           correctAnswerIndex: 0,
           category: 'Tari Tradisional',
-          imageUrl: 'assets/images/tari_payung.png',
+          imageUrl: 'assets/quiz_category_images/tari_tradisional/tari_payung.png',
         ),
 
         QuizQuestion(
@@ -208,7 +208,7 @@ class QuizData {
       title: 'Pakaian Adat Nusantara',
       category: 'Pakaian Adat',
       totalQuestions: 15,
-      imagePath: 'assets/images/pakaian_adat.png',
+      imagePath: 'assets/quiz_category_images/pakaian_adat/',
       questions: [
         QuizQuestion(
           id: 'pakaian_q1',
@@ -216,7 +216,7 @@ class QuizData {
           options: ['A. Jawa', 'B. Sumatera', 'C. Bali', 'D. Papua'],
           correctAnswerIndex: 0,
           category: 'Pakaian Adat',
-          imageUrl: 'assets/images/pakaian_jawa.png',
+          imageUrl: 'assets/quiz_category_images/pakaian_adat/pakaian_adat_jawa.png',
         ),
 
         QuizQuestion(
@@ -246,7 +246,7 @@ class QuizData {
           options: ['A. Baju Bodo', 'B. Kebaya', 'C. Ulos', 'D. Koteka'],
           correctAnswerIndex: 1,
           category: 'Pakaian Adat',
-          imageUrl: 'assets/images/kebaya.png',
+          imageUrl: 'assets/quiz_category_images/pakaian_adat/kebaya.png',
         ),
 
         QuizQuestion(
@@ -276,7 +276,7 @@ class QuizData {
           options: ['A. Bali', 'B. Aceh', 'C. Kalimantan', 'D. Papua'],
           correctAnswerIndex: 3,
           category: 'Pakaian Adat',
-          imageUrl: 'assets/images/koteka.png',
+          imageUrl: 'assets/quiz_category_images/pakaian_adat/pakaian_adat_papua.png',
         ),
 
         QuizQuestion(
@@ -301,7 +301,7 @@ class QuizData {
           options: ['A. Ulos', 'B. Baju Bodo', 'C. Payas Agung', 'D. Beskap'],
           correctAnswerIndex: 2,
           category: 'Pakaian Adat',
-          imageUrl: 'assets/images/payas_agung.png',
+          imageUrl: 'assets/quiz_category_images/pakaian_adat/payas_agung.png',
         ),
 
         QuizQuestion(
@@ -326,7 +326,7 @@ class QuizData {
           options: ['A. Sumatera Barat', 'B. Jawa Barat', 'C. Bali', 'D. NTB'],
           correctAnswerIndex: 0,
           category: 'Pakaian Adat',
-          imageUrl: 'assets/images/bundo_kanduang.png',
+          imageUrl: 'assets/quiz_category_images/pakaian_adat/bundo_kanduang.png',
         ),
 
         QuizQuestion(
@@ -360,7 +360,7 @@ class QuizData {
       title: 'Rumah Adat Nusantara',
       category: 'Rumah Adat',
       totalQuestions: 15,
-      imagePath: 'assets/images/quiz_category/rumah_adat',
+      imagePath: 'assets/quiz_category_images/rumah_adat/',
       questions: [
         QuizQuestion(
           id: 'rumah_q1',
@@ -381,7 +381,7 @@ class QuizData {
           options: ['A. Sumatera Barat', 'B. Aceh', 'C. Riau', 'D. Lampung'],
           correctAnswerIndex: 0,
           category: 'Rumah Adat',
-          imageUrl: 'assets/images/rumah_gadang.png',
+          imageUrl: 'assets/quiz_category_images/rumah_adat/rumah_gadang.png',
         ),
 
         QuizQuestion(
@@ -404,7 +404,7 @@ class QuizData {
           options: ['A. Perahu terbalik', 'B. Gunung', 'C. Limas', 'D. Kubah'],
           correctAnswerIndex: 0,
           category: 'Rumah Adat',
-          imageUrl: 'assets/images/tongkonan.png',
+          imageUrl: 'assets/quiz_category_images/rumah_adat/rumah_tongkonan.png',
         ),
 
         QuizQuestion(
@@ -440,7 +440,7 @@ class QuizData {
           ],
           correctAnswerIndex: 2,
           category: 'Rumah Adat',
-          imageUrl: 'assets/images/honai.png',
+          imageUrl: 'assets/quiz_category_images/rumah_adat/rumah_honai.png',
         ),
 
         QuizQuestion(
@@ -475,7 +475,7 @@ class QuizData {
           ],
           correctAnswerIndex: 0,
           category: 'Rumah Adat',
-          imageUrl: 'assets/images/joglo.png',
+          imageUrl: 'assets/quiz_category_images/rumah_adat/rumah_joglo.png',
         ),
 
         QuizQuestion(
@@ -507,7 +507,7 @@ class QuizData {
           options: ['A. Dayak', 'B. Batak', 'C. Bugis', 'D. Betawi'],
           correctAnswerIndex: 0,
           category: 'Rumah Adat',
-          imageUrl: 'assets/images/lamin.png',
+          imageUrl: 'assets/quiz_category_images/rumah_adat/rumah_lamin.png',
         ),
 
         QuizQuestion(
@@ -542,7 +542,7 @@ class QuizData {
       title: 'Musik Tradisional Nusantara',
       category: 'Musik Tradisional Nusantara',
       totalQuestions: 15,
-      imagePath: 'assets/images/musik_nusantara.png',
+      imagePath: 'assets/quiz_category_images/musik_nusantara/',
       questions: [
         QuizQuestion(
           id: 'musik_q1',
@@ -558,7 +558,7 @@ class QuizData {
           options: ['A. Gamelan', 'B. Angklung', 'C. Sasando', 'D. Kolintang'],
           correctAnswerIndex: 2,
           category: 'Musik Nusantara',
-          imageUrl: 'assets/images/sasando.png',
+          imageUrl: 'assets/quiz_category_images/musik_nusantara/sasando.png',
         ),
 
         QuizQuestion(
@@ -597,7 +597,7 @@ class QuizData {
           options: ['A. Kolintang', 'B. Sasando', 'C. Tifa', 'D. Angklung'],
           correctAnswerIndex: 3,
           category: 'Musik Nusantara',
-          imageUrl: 'assets/images/angklung.png',
+          imageUrl: 'assets/quiz_category_images/musik_nusantara/angklung.png',
         ),
 
         QuizQuestion(
@@ -615,7 +615,7 @@ class QuizData {
           options: ['A. Sasando', 'B. Angklung', 'C. Rebab', 'D. Tifa'],
           correctAnswerIndex: 2,
           category: 'Musik Nusantara',
-          imageUrl: 'assets/images/rebab.png',
+          imageUrl: 'assets/quiz_category_images/musik_nusantara/rebab.png',
         ),
 
         QuizQuestion(
@@ -661,7 +661,7 @@ class QuizData {
           options: ['A. Tifa', 'B. Kolintang', 'C. Rebab', 'D. Angklung'],
           correctAnswerIndex: 0,
           category: 'Musik Nusantara',
-          imageUrl: 'assets/images/tifa.png',
+          imageUrl: 'assets/quiz_category_images/musik_nusantara/tifa.png',
         ),
 
         QuizQuestion(
@@ -700,7 +700,7 @@ class QuizData {
       title: 'Senjata Tradisional',
       category: 'Senjata Tradisional',
       totalQuestions: 15,
-      imagePath: 'assets/images/senjata_tradisional.png',
+      imagePath: 'assets/quiz_category_images/senjata_tradisional/',
       questions: [
         QuizQuestion(
           id: 'senjata_q1',
@@ -716,7 +716,7 @@ class QuizData {
           options: ['A. Mandau', 'B. Rencong', 'C. Keris', 'D. Badik'],
           correctAnswerIndex: 2,
           category: 'Senjata Tradisional',
-          imageUrl: 'assets/images/keris.png',
+          imageUrl: 'assets/quiz_category_images/senjata_tradisional/keris.png',
         ),
 
         QuizQuestion(
@@ -741,7 +741,7 @@ class QuizData {
           options: ['A. Keris', 'B. Mandau', 'C. Rencong', 'D. Kujang'],
           correctAnswerIndex: 1,
           category: 'Senjata Tradisional',
-          imageUrl: 'assets/images/mandau.png',
+          imageUrl: 'assets/quiz_category_images/senjata_tradisional/mandau.png',
         ),
 
         QuizQuestion(
@@ -771,7 +771,7 @@ class QuizData {
           options: ['A. Rencong', 'B. Kujang', 'C. Badik', 'D. Mandau'],
           correctAnswerIndex: 0,
           category: 'Senjata Tradisional',
-          imageUrl: 'assets/images/rencong.png',
+          imageUrl: 'assets/quiz_category_images/senjata_tradisional/rencong.png',
         ),
 
         QuizQuestion(
@@ -794,7 +794,7 @@ class QuizData {
           options: ['A. Kujang', 'B. Mandau', 'C. Keris', 'D. Rencong'],
           correctAnswerIndex: 0,
           category: 'Senjata Tradisional',
-          imageUrl: 'assets/images/kujang.png',
+          imageUrl: 'assets/quiz_category_images/senjata_tradisional/kujang.png',
         ),
 
         QuizQuestion(
@@ -819,7 +819,7 @@ class QuizData {
           options: ['A. Kujang', 'B. Rencong', 'C. Keris', 'D. Badik'],
           correctAnswerIndex: 2,
           category: 'Senjata Tradisional',
-          imageUrl: 'assets/images/keris_2.png',
+          imageUrl: 'assets/quiz_category_images/senjata_tradisional/keris2.png',
         ),
 
         QuizQuestion(
@@ -854,7 +854,7 @@ class QuizData {
       title: 'Makanan Nusantara',
       category: 'Makanan Tradisional',
       totalQuestions: 15,
-      imagePath: 'assets/images/makanan_tradisional.png',
+      imagePath: 'assets/quiz_category_images/makanan_tradisional/',
       questions: [
         QuizQuestion(
           id: 'makanan_q1',
@@ -877,7 +877,7 @@ class QuizData {
           options: ['A. Otak-otak', 'B. Pempek', 'C. Tekwan', 'D. Siomay'],
           correctAnswerIndex: 1,
           category: 'Makanan Tradisional',
-          imageUrl: 'assets/images/pempek.png',
+          imageUrl: 'assets/quiz_category_images/makanan_tradisional/pempek.png',
         ),
 
         QuizQuestion(
@@ -919,7 +919,7 @@ class QuizData {
           options: ['A. Gulai', 'B. Rendang', 'C. Semur', 'D. Soto'],
           correctAnswerIndex: 1,
           category: 'Makanan Tradisional',
-          imageUrl: 'assets/images/rendang.png',
+          imageUrl: 'assets/quiz_category_images/makanan_tradisional/rendang.png',
         ),
 
         QuizQuestion(
@@ -952,7 +952,7 @@ class QuizData {
           options: ['A. Lontong', 'B. Papeda', 'C. Lemper', 'D. Ketupat'],
           correctAnswerIndex: 1,
           category: 'Makanan Tradisional',
-          imageUrl: 'assets/images/papeda.png',
+          imageUrl: 'assets/quiz_category_images/makanan_tradisional/papeda.png',
         ),
 
         QuizQuestion(
@@ -980,7 +980,7 @@ class QuizData {
           options: ['A. Kolak', 'B. Gudeg', 'C. Dodol', 'D. Wajik'],
           correctAnswerIndex: 1,
           category: 'Makanan Tradisional',
-          imageUrl: 'assets/images/gudeg.png',
+          imageUrl: 'assets/quiz_category_images/makanan_tradisional/gudeg.png',
         ),
 
         QuizQuestion(

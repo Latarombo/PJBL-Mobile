@@ -59,7 +59,7 @@ class _SignInPageState extends State<SignInPage> {
     // Jika validasi berhasil
     AppSnackBar.show(
       context,
-      message: 'Login berhasil! Selamat datang, ${usernameController.text}!',
+      message: 'Selamat datang, ${usernameController.text}! Siap menjelajahi keindahan budaya Nusantara?',
       type: SnackType.success,
     );
 
@@ -164,7 +164,7 @@ class _SignInPageState extends State<SignInPage> {
                           children: [
                             // Title
                             Text(
-                              'Sign In',
+                              'Masuk',
                               style: TextStyle(
                                 fontSize: 32,
                                 fontWeight: FontWeight.bold,
@@ -174,7 +174,7 @@ class _SignInPageState extends State<SignInPage> {
                             SizedBox(height: 8),
                             // Subtitle
                             Text(
-                              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed to tempor',
+                              'Silahkan masuk ke akunmu untuk melanjutkan petualangan di SantaraNa!',
                               style: TextStyle(
                                 fontSize: 14,
                                 color: Colors.grey[600],
@@ -225,7 +225,7 @@ class _SignInPageState extends State<SignInPage> {
                             SizedBox(height: 24),
                             // Sign In Button
                             PrimaryButton(
-                              text: 'Sign In',
+                              text: 'Masuk',
                               onPressed: _handleSignIn,
                             ),
 

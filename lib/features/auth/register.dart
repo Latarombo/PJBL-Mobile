@@ -212,7 +212,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
                             // Subtitle
                             Text(
-                              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed to tempor',
+                              'Silahkan isi data diri anda untuk bergabung dengan SantaraNa dan mulai pertualanganmu!',
                               style: TextStyle(
                                 fontSize: 14,
                                 color: Colors.grey[600],

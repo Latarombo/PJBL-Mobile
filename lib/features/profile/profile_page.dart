@@ -103,7 +103,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               _buildStatItem(
                                 icon: Icons.star,
                                 label: 'POIN',
-                                value: '1200',
+                                value: '6370',
                               ),
                               Container(
                                 width: 1,
@@ -112,8 +112,8 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               _buildStatItem(
                                 icon: Icons.public,
-                                label: 'RANGKING',
-                                value: '1200',
+                                label: 'PERINGKAT',
+                                value: '3',
                               ),
                               Container(
                                 width: 1,
@@ -123,7 +123,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               _buildStatItem(
                                 icon: Icons.trending_up,
                                 label: 'PRESENTASE',
-                                value: '80%',
+                                value: '87%',
                               ),
                             ],
                           ),
